@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-person-skill-heading"
+        data-cy="PersonSkillCreateUpdateHeading"
+        jhiTranslate="growthpathApp.personSkill.home.createOrEditLabel"
+      >
+        Create or edit a Person Skill
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="growthpathApp.personSkill.comments" for="field_comments">Comments</label>
+          <textarea class="form-control" name="comments" id="field_comments" data-cy="comments" formControlName="comments"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="growthpathApp.personSkill.level" for="field_level">Level</label>
+          <select class="form-control" name="level" formControlName="level" id="field_level" data-cy="level">
+            <option [ngValue]="null">{{ 'growthpathApp.SkillLevel.null' | translate }}</option>
+            <option value="HIGHER">{{ 'growthpathApp.SkillLevel.HIGHER' | translate }}</option>
+            <option value="HIGH">{{ 'growthpathApp.SkillLevel.HIGH' | translate }}</option>
+            <option value="MEDIUM">{{ 'growthpathApp.SkillLevel.MEDIUM' | translate }}</option>
+            <option value="LOW">{{ 'growthpathApp.SkillLevel.LOW' | translate }}</option>
+            <option value="LOWER">{{ 'growthpathApp.SkillLevel.LOWER' | translate }}</option>
+          </select>
+          <div *ngIf="editForm.get('level')!.invalid && (editForm.get('level')!.dirty || editForm.get('level')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('level')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="growthpathApp.personSkill.person" for="field_person">Person</label>
+          <select class="form-control" id="field_person" data-cy="person" name="person" formControlName="person">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="personOption.id === editForm.get('person')!.value?.id ? editForm.get('person')!.value : personOption"
+              *ngFor="let personOption of peopleSharedCollection; trackBy: trackPersonById"
+            >
+              {{ personOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="growthpathApp.personSkill.skill" for="field_skill">Skill</label>
+          <select class="form-control" id="field_skill" data-cy="skill" name="skill" formControlName="skill">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="skillOption.id === editForm.get('skill')!.value?.id ? editForm.get('skill')!.value : skillOption"
+              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
+            >
+              {{ skillOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

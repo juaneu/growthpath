@@ -1,0 +1,30 @@
+{
+  "growthpathApp": {
+    "person": {
+      "home": {
+        "title": "People",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Person",
+        "createOrEditLabel": "Create or edit a Person",
+        "notFound": "No People found"
+      },
+      "created": "A new Person is created with identifier {{ param }}",
+      "updated": "A Person is updated with identifier {{ param }}",
+      "deleted": "A Person is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Person {{ id }}?"
+      },
+      "detail": {
+        "title": "Person"
+      },
+      "name": "Name",
+      "jobDescription": "Job Description",
+      "email": "Email",
+      "acronym": "Acronym",
+      "birthDate": "Birth Date",
+      "image": "Image",
+      "user": "User",
+      "area": "Area"
+    }
+  }
+}

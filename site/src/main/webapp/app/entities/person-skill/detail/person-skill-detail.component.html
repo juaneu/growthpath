@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="personSkill">
+      <h2 data-cy="personSkillDetailsHeading"><span jhiTranslate="growthpathApp.personSkill.detail.title">Person Skill</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ personSkill.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.personSkill.comments">Comments</span></dt>
+        <dd>
+          <span>{{ personSkill.comments }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.personSkill.level">Level</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'growthpathApp.SkillLevel.' + personSkill.level }}">{{ personSkill.level }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.personSkill.person">Person</span></dt>
+        <dd>
+          <div *ngIf="personSkill.person">
+            <a [routerLink]="['/person', personSkill.person?.id, 'view']">{{ personSkill.person?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.personSkill.skill">Skill</span></dt>
+        <dd>
+          <div *ngIf="personSkill.skill">
+            <a [routerLink]="['/skill', personSkill.skill?.id, 'view']">{{ personSkill.skill?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/person-skill', personSkill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+id;comments;level
+1;../fake-data/blob/hipster.txt;MEDIUM
+2;../fake-data/blob/hipster.txt;HIGH
+3;../fake-data/blob/hipster.txt;HIGHER
+4;../fake-data/blob/hipster.txt;MEDIUM
+5;../fake-data/blob/hipster.txt;HIGHER
+6;../fake-data/blob/hipster.txt;HIGH
+7;../fake-data/blob/hipster.txt;LOW
+8;../fake-data/blob/hipster.txt;LOW
+9;../fake-data/blob/hipster.txt;HIGHER
+10;../fake-data/blob/hipster.txt;MEDIUM

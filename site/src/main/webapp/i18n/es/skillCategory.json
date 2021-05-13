@@ -1,0 +1,26 @@
+{
+  "growthpathApp": {
+    "skillCategory": {
+      "home": {
+        "title": "Skill Categories",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Skill Category",
+        "createOrEditLabel": "Crear o editar Skill Category",
+        "notFound": "Ningún Skill Categories encontrado"
+      },
+      "created": "Un nuevo Skill Category ha sido creado con el identificador {{ param }}",
+      "updated": "Un Skill Category ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Skill Category ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Skill Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Skill Category"
+      },
+      "id": "ID",
+      "name": "Name",
+      "skills": "Skills",
+      "unit": "Unit"
+    }
+  }
+}

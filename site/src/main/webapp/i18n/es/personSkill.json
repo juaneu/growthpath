@@ -1,0 +1,27 @@
+{
+  "growthpathApp": {
+    "personSkill": {
+      "home": {
+        "title": "Person Skills",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Person Skill",
+        "createOrEditLabel": "Crear o editar Person Skill",
+        "notFound": "Ningún Person Skills encontrado"
+      },
+      "created": "Un nuevo Person Skill ha sido creado con el identificador {{ param }}",
+      "updated": "Un Person Skill ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Person Skill ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Person Skill {{ id }}?"
+      },
+      "detail": {
+        "title": "Person Skill"
+      },
+      "id": "ID",
+      "comments": "Comments",
+      "level": "Level",
+      "person": "Person",
+      "skill": "Skill"
+    }
+  }
+}

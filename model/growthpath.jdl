@@ -1,0 +1,77 @@
+
+entity Organization {
+	name String required maxlength(250)
+    logo Blob
+}
+
+relationship OneToOne {
+	Organization{responsable(login)} to User
+}
+
+entity Person {
+	name String required maxlength(250)
+    jobDescription String required maxlength(250)
+    email String required maxlength(100)
+    acronym String required minlength(2) maxlength(3)
+    birthDate LocalDate
+    image Blob
+}
+
+relationship OneToOne {
+	Person{user(login)} to User with jpaDerivedIdentifier
+}
+
+entity Unit {
+	name String required maxlength(100)
+    acronym String required minlength(2) maxlength(3)
+    color String required
+}
+
+relationship ManyToOne {
+	Unit{organization(name)} to Organization
+}
+
+relationship ManyToOne {
+	Person {area(name)} to Unit
+}
+
+relationship OneToOne {
+	Unit {responsable(name)} to Person
+}
+
+entity SkillCategory {
+	name String required maxlength(100)
+}
+
+relationship ManyToOne {
+	SkillCategory {unit(name)} to Unit
+}
+
+entity Skill {
+	name String required maxlength(100)
+}
+
+relationship OneToMany {
+	SkillCategory {skills(name)} to Skill {skillCategory(name)}
+}
+
+entity PersonSkill {
+	comments TextBlob
+    level SkillLevel required
+}
+
+enum SkillLevel {
+	HIGHER, HIGH, MEDIUM, LOW, LOWER
+}
+
+relationship ManyToOne {
+    PersonSkill {person(name)} to Person
+    PersonSkill {skill(name)} to Skill
+}
+
+
+
+dto * with mapstruct
+service all with serviceImpl
+paginate all with infinite-scroll
+filter all

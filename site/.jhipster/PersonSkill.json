@@ -1,0 +1,42 @@
+{
+  "name": "PersonSkill",
+  "fields": [
+    {
+      "fieldName": "comments",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "SkillLevel",
+      "fieldValues": "HIGHER,HIGH,MEDIUM,LOW,LOWER",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "personSkill",
+      "relationshipName": "person",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "skill",
+      "otherEntityRelationshipName": "personSkill",
+      "relationshipName": "skill",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "person_skill",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210513112737"
+}

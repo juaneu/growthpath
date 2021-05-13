@@ -1,0 +1,30 @@
+{
+  "name": "Skill",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "skillCategory",
+      "otherEntityRelationshipName": "skills",
+      "relationshipName": "skillCategory",
+      "otherEntityField": "name"
+    }
+  ],
+  "entityTableName": "skill",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210513112736"
+}

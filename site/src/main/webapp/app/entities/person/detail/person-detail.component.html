@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading"><span jhiTranslate="growthpathApp.person.detail.title">Person</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="growthpathApp.person.name">Name</span></dt>
+        <dd>
+          <span>{{ person.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.jobDescription">Job Description</span></dt>
+        <dd>
+          <span>{{ person.jobDescription }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.email">Email</span></dt>
+        <dd>
+          <span>{{ person.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.acronym">Acronym</span></dt>
+        <dd>
+          <span>{{ person.acronym }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ person.birthDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.image">Image</span></dt>
+        <dd>
+          <div *ngIf="person.image">
+            <a (click)="openFile(person.image, person.imageContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ person.imageContentType }}, {{ byteSize(person.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.user">User</span></dt>
+        <dd>
+          <span>{{ person.user?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.person.area">Area</span></dt>
+        <dd>
+          <div *ngIf="person.area">
+            <a [routerLink]="['/unit', person.area?.id, 'view']">{{ person.area?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

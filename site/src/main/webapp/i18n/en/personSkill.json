@@ -1,0 +1,27 @@
+{
+  "growthpathApp": {
+    "personSkill": {
+      "home": {
+        "title": "Person Skills",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Person Skill",
+        "createOrEditLabel": "Create or edit a Person Skill",
+        "notFound": "No Person Skills found"
+      },
+      "created": "A new Person Skill is created with identifier {{ param }}",
+      "updated": "A Person Skill is updated with identifier {{ param }}",
+      "deleted": "A Person Skill is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Person Skill {{ id }}?"
+      },
+      "detail": {
+        "title": "Person Skill"
+      },
+      "id": "ID",
+      "comments": "Comments",
+      "level": "Level",
+      "person": "Person",
+      "skill": "Skill"
+    }
+  }
+}

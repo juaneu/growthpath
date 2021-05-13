@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="unit">
+      <h2 data-cy="unitDetailsHeading"><span jhiTranslate="growthpathApp.unit.detail.title">Unit</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ unit.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.unit.name">Name</span></dt>
+        <dd>
+          <span>{{ unit.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.unit.acronym">Acronym</span></dt>
+        <dd>
+          <span>{{ unit.acronym }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.unit.color">Color</span></dt>
+        <dd>
+          <span>{{ unit.color }}</span>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.unit.responsable">Responsable</span></dt>
+        <dd>
+          <div *ngIf="unit.responsable">
+            <a [routerLink]="['/person', unit.responsable?.id, 'view']">{{ unit.responsable?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="growthpathApp.unit.organization">Organization</span></dt>
+        <dd>
+          <div *ngIf="unit.organization">
+            <a [routerLink]="['/organization', unit.organization?.id, 'view']">{{ unit.organization?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
