@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { IOrganization } from '../organization.model';
 
@@ -9,6 +10,8 @@ import { OrganizationService } from '../service/organization.service';
 import { OrganizationDeleteDialogComponent } from '../delete/organization-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { OrganizationFilter } from './organization.filter';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-organization',
@@ -22,12 +25,18 @@ export class OrganizationComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  filters: OrganizationFilter = new OrganizationFilter();
+  filterForm = this.fb.group({
+    filterName: [],
+  });
 
   constructor(
+    protected fb: FormBuilder,
     protected organizationService: OrganizationService,
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
+    protected parseLinks: ParseLinks,
+    private primengConfig: PrimeNGConfig
   ) {
     this.organizations = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -35,8 +44,13 @@ export class OrganizationComponent implements OnInit {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'name';
     this.ascending = true;
+  }
+
+  filter(): void {
+    this.createFilterForm();
+    this.reset();
   }
 
   loadAll(): void {
@@ -44,6 +58,7 @@ export class OrganizationComponent implements OnInit {
 
     this.organizationService
       .query({
+        filter: this.filters.toMap(),
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -72,6 +87,7 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAll();
+    this.primengConfig.ripple = true;
   }
 
   trackId(index: number, item: IOrganization): number {
@@ -95,6 +111,10 @@ export class OrganizationComponent implements OnInit {
         this.reset();
       }
     });
+  }
+
+  createFilterForm(): void {
+    this.filters.name = this.filterForm.get(['filterName'])!.value;
   }
 
   protected sort(): string[] {
