@@ -50,7 +50,6 @@ export class UnitComponent implements OnInit {
 
   filter(): void {
     this.createFilterFromForm();
-    this.addEntityFilter();
     this.reset();
   }
 
