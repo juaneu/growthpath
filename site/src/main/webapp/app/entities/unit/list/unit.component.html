@@ -34,16 +34,6 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.unit.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="acronym">
-            <span jhiTranslate="growthpathApp.unit.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="color"><span jhiTranslate="growthpathApp.unit.color">Color</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="responsable.name">
-            <span jhiTranslate="growthpathApp.unit.responsable">Responsable</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="organization.name">
-            <span jhiTranslate="growthpathApp.unit.organization">Organization</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,18 +43,6 @@
             <a [routerLink]="['/unit', unit.id, 'view']">{{ unit.id }}</a>
           </td>
           <td>{{ unit.name }}</td>
-          <td>{{ unit.acronym }}</td>
-          <td>{{ unit.color }}</td>
-          <td>
-            <div *ngIf="unit.responsable">
-              <a [routerLink]="['/person', unit.responsable?.id, 'view']">{{ unit.responsable?.name }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="unit.organization">
-              <a [routerLink]="['/organization', unit.organization?.id, 'view']">{{ unit.organization?.name }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/unit', unit.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
