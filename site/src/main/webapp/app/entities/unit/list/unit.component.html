@@ -23,6 +23,27 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
+  <div class="container-filter">
+    <form
+      name="filterForm"
+      role="form"
+      novalidate
+      (ngSubmit)="filter()"
+      [formGroup]="filterForm"
+      class="row row-cols-lg-auto g-3 align-items-center mb-4"
+    >
+      <div class="col-2">
+        <label for="filterName" class="d-none">Nombre</label>
+        <input type="text" class="form-control" id="filterName" formControlName="filterName" placeholder="Nombre" />
+      </div>
+      <div class="button-group">
+        <button type="button" (click)="resetFormulario()" class="btn btn-secondary">
+          <fa-icon icon="filter"></fa-icon>&nbsp;<span>Reset</span>
+        </button>
+        <button type="submit" class="btn btn-dark"><fa-icon icon="filter"></fa-icon>&nbsp;<span>Filtrar</span></button>
+      </div>
+    </form>
+  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="units?.length === 0">
     <span jhiTranslate="growthpathApp.unit.home.notFound">No units found</span>
