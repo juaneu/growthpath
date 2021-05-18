@@ -8,97 +8,110 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+        <div class="row">
+          <div class="form-group col-2" [hidden]="editForm.get('id')!.value == null">
+            <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.unit.name" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 100 }"
-            >
-              This field cannot be longer than 100 characters.
-            </small>
+          <div class="form-group col-4">
+            <label class="form-control-label" jhiTranslate="growthpathApp.unit.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+            <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('name')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 100 }"
+              >
+                This field cannot be longer than 100 characters.
+              </small>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.unit.acronym" for="field_acronym">Acronym</label>
-          <input type="text" class="form-control" name="acronym" id="field_acronym" data-cy="acronym" formControlName="acronym" />
-          <div *ngIf="editForm.get('acronym')!.invalid && (editForm.get('acronym')!.dirty || editForm.get('acronym')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('acronym')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('acronym')?.errors?.minlength"
-              jhiTranslate="entity.validation.minlength"
-              [translateValues]="{ min: 2 }"
-            >
-              This field is required to be at least 2 characters.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('acronym')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 3 }"
-            >
-              This field cannot be longer than 3 characters.
-            </small>
+        <div class="row">
+          <div class="form-group col-4">
+            <label class="form-control-label" jhiTranslate="growthpathApp.unit.acronym" for="field_acronym">Acronym</label>
+            <input type="text" class="form-control" name="acronym" id="field_acronym" data-cy="acronym" formControlName="acronym" />
+            <div *ngIf="editForm.get('acronym')!.invalid && (editForm.get('acronym')!.dirty || editForm.get('acronym')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('acronym')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('acronym')?.errors?.minlength"
+                jhiTranslate="entity.validation.minlength"
+                [translateValues]="{ min: 2 }"
+              >
+                This field is required to be at least 2 characters.
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('acronym')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 3 }"
+              >
+                This field cannot be longer than 3 characters.
+              </small>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.unit.color" for="field_color">Color</label>
+        <div class="row">
+          <div class="form-group col-3">
+            <label class="form-control-label" jhiTranslate="growthpathApp.unit.color" for="field_color">Color</label>
+            <p-colorPicker formControlName="color" [(ngModel)]="color" (onChange)="updateColor()"></p-colorPicker>
+            <input type="text" class="form-control" formControlName="color" [(ngModel)]="color" />
 
-          <p-colorPicker formControlName="color" (onChange)="updateColor()"></p-colorPicker>
-          <input type="text" formControlName="color" [(ngModel)]="color" />
+            <div *ngIf="editForm.get('color')!.invalid && (editForm.get('color')!.dirty || editForm.get('color')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('color')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+            </div>
+          </div>
 
-          <div *ngIf="editForm.get('color')!.invalid && (editForm.get('color')!.dirty || editForm.get('color')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('color')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
+          <div class="form-group col-3">
+            <label class="form-control-label" jhiTranslate="growthpathApp.unit.responsable" for="field_responsable">Responsable</label>
+            <p-autoComplete
+              [(ngModel)]="searchResponsable"
+              [ngModelOptions]="{ standalone: true }"
+              [suggestions]="responsablesCollection"
+              (completeMethod)="loadRelationshipsOptions()"
+              field="name"
+              >test</p-autoComplete
+            >
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.unit.responsable" for="field_responsable">Responsable</label>
-          <p-autoComplete
-            [(ngModel)]="searchResponsable"
-            [ngModelOptions]="{ standalone: true }"
-            [suggestions]="responsablesCollection"
-            (completeMethod)="loadRelationshipsOptions()"
-            field="name"
-            >test</p-autoComplete
-          >
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.unit.organization" for="field_organization">Organization</label>
-          <select class="form-control" id="field_organization" data-cy="organization" name="organization" formControlName="organization">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                organizationOption.id === editForm.get('organization')!.value?.id ? editForm.get('organization')!.value : organizationOption
-              "
-              *ngFor="let organizationOption of organizationsSharedCollection; trackBy: trackOrganizationById"
-            >
-              {{ organizationOption.name }}
-            </option>
-          </select>
+        <div class="row">
+          <div class="form-group col-4">
+            <label class="form-control-label" jhiTranslate="growthpathApp.unit.organization" for="field_organization">Organization</label>
+            <select class="form-control" id="field_organization" data-cy="organization" name="organization" formControlName="organization">
+              <option [ngValue]="null"></option>
+              <option
+                [ngValue]="
+                  organizationOption.id === editForm.get('organization')!.value?.id
+                    ? editForm.get('organization')!.value
+                    : organizationOption
+                "
+                *ngFor="let organizationOption of organizationsSharedCollection; trackBy: trackOrganizationById"
+              >
+                {{ organizationOption.name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 

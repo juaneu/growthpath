@@ -45,16 +45,13 @@ export class UnitUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ unit }) => {
       this.updateForm(unit);
-
+      this.color = this.editForm.get(['color'])!.value;
       this.loadRelationshipsOptions();
     });
   }
 
   updateColor(): void {
     this.color = this.editForm.get(['color'])!.value;
-
-    /* eslint-disable no-console */
-    console.log(this.editForm.get(['color'])!.value);
   }
 
   previousState(): void {
