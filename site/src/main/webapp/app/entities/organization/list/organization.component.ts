@@ -53,6 +53,12 @@ export class OrganizationComponent implements OnInit {
     this.reset();
   }
 
+  cleanFilter(): void {
+    this.filters.name = '';
+    this.filterForm.reset();
+    this.reset();
+  }
+
   loadAll(): void {
     this.isLoading = true;
 
