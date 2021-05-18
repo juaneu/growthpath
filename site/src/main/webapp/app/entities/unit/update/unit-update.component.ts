@@ -23,6 +23,8 @@ export class UnitUpdateComponent implements OnInit {
   organizationsSharedCollection: IOrganization[] = [];
   searchResponsable?: IPerson;
 
+  color = '';
+
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(100)]],
@@ -46,6 +48,13 @@ export class UnitUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+
+  updateColor(): void {
+    this.color = this.editForm.get(['color'])!.value;
+
+    /* eslint-disable no-console */
+    console.log(this.editForm.get(['color'])!.value);
   }
 
   previousState(): void {
