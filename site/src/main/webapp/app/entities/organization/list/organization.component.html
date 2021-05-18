@@ -28,6 +28,17 @@
     <span jhiTranslate="growthpathApp.organization.home.notFound">No organizations found</span>
   </div>
 
+  <div class="col-md-4">
+    <form name="filterForm" role="form" (ngSubmit)="filter()" novalidate [formGroup]="filterForm">
+      <div class="form-group">
+        <div class="form-control-label" for="filterName">Nombre</div>
+        <input type="text" class="form-control" id="filterName" formControlName="filterName" />
+        <button pButton class="p-button p-button-secondary" type="submit">Filtrar</button>
+        <button pButton type="button" (click)="cleanFilter()" class="p-button p-button-danger">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
   <div class="table-responsive" id="entities" *ngIf="organizations && organizations.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
@@ -36,58 +47,42 @@
           <th scope="col" jhiSortBy="name">
             <span jhiTranslate="growthpathApp.organization.name">Name</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="logo">
-            <span jhiTranslate="growthpathApp.organization.logo">Logo</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col">
+            <span>Acciones</span>
           </th>
-          <th scope="col" jhiSortBy="responsable.login">
-            <span jhiTranslate="growthpathApp.organization.responsable">Responsable</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
         <tr *ngFor="let organization of organizations; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/organization', organization.id, 'view']">{{ organization.id }}</a>
+            <a [routerLink]="['/organization', organization.id, 'edit']">{{ organization.id }}</a>
           </td>
           <td>{{ organization.name }}</td>
-          <td>
-            <a
-              *ngIf="organization.logo"
-              (click)="openFile(organization.logo, organization.logoContentType)"
-              jhiTranslate="entity.action.open"
-              >open</a
-            >
-            <span *ngIf="organization.logo">{{ organization.logoContentType }}, {{ byteSize(organization.logo) }}</span>
-          </td>
-          <td>
-            {{ organization.responsable?.login }}
-          </td>
           <td class="text-right">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/organization', organization.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              <button pRipple pButton type="submit" class="p-button p-button-rounded p-button-secondary" data-cy="entityEditButton">
+                <i class="pi pi-sitemap"></i>
               </button>
-
               <button
+                pRipple
+                pButton
                 type="submit"
                 [routerLink]="['/organization', organization.id, 'edit']"
-                class="btn btn-primary btn-sm"
+                class="p-button p-button-rounded"
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(organization)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                pButton
+                pRipple
+                type="submit"
+                (click)="delete(organization)"
+                class="p-button p-button-danger p-button-rounded"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
