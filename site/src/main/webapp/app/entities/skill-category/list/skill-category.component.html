@@ -82,14 +82,14 @@
           </td>
           <td class="text-right">
             <div class="btn-group">
+              <!-- Skills de una categoría -->
               <button
                 type="submit"
-                [routerLink]="['/skill-category', skillCategory.id, 'view']"
+                [routerLink]="['/skill-category', skillCategory.id, 'skill']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span>Skills</span>
               </button>
 
               <button
@@ -99,12 +99,10 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(skillCategory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

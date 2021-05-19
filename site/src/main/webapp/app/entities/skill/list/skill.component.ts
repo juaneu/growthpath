@@ -8,6 +8,8 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { SkillService } from '../service/skill.service';
 import { SkillDeleteDialogComponent } from '../delete/skill-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { ISkillCategory } from '../../skill-category/skill-category.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'jhi-skill',
@@ -22,22 +24,36 @@ export class SkillComponent implements OnInit {
   predicate: string;
   ascending: boolean;
 
-  constructor(protected skillService: SkillService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
+  skillCategory?: ISkillCategory;
+
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected skillService: SkillService,
+    protected modalService: NgbModal,
+    protected parseLinks: ParseLinks
+  ) {
     this.skills = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'name';
     this.ascending = true;
   }
 
   loadAll(): void {
     this.isLoading = true;
 
+    const filters: Map<string, any> = new Map();
+
+    if (this.activatedRoute.snapshot.params.id) {
+      filters.set('skillCategoryId.equals', this.skillCategory!.id);
+    }
+
     this.skillService
       .query({
+        filter: filters,
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -65,7 +81,10 @@ export class SkillComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAll();
+    this.activatedRoute.data.subscribe(({ skillCategory }) => {
+      this.skillCategory = skillCategory;
+      this.loadAll();
+    });
   }
 
   trackId(index: number, item: ISkill): number {
