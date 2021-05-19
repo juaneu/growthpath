@@ -42,7 +42,7 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "withAdminUi": true,
-    "entities": ["Organization", "Person", "Unit", "SkillCategory", "Skill", "PersonSkill"],
-    "lastLiquibaseTimestamp": 1620905226000
+    "entities": ["Organization", "Person", "Unit", "SkillCategory", "Skill", "PersonSkill", "DocumentType", "Document"],
+    "lastLiquibaseTimestamp": 1621419317000
   }
 }

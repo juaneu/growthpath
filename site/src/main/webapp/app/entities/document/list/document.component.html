@@ -1,0 +1,101 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentHeading">
+    <span jhiTranslate="growthpathApp.document.home.title">Documents</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="growthpathApp.document.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-document"
+        [routerLink]="['/document/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="growthpathApp.document.home.createLabel"> Create a new Document </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="documents?.length === 0">
+    <span jhiTranslate="growthpathApp.document.home.notFound">No documents found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="documents && documents.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="file"><span jhiTranslate="growthpathApp.document.file">File</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="comments">
+            <span jhiTranslate="growthpathApp.document.comments">Comments</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="type.id">
+            <span jhiTranslate="growthpathApp.document.type">Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="person.name">
+            <span jhiTranslate="growthpathApp.document.person">Person</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let document of documents; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/document', document.id, 'view']">{{ document.id }}</a>
+          </td>
+          <td>
+            <a *ngIf="document.file" (click)="openFile(document.file, document.fileContentType)" jhiTranslate="entity.action.open">open</a>
+            <span *ngIf="document.file">{{ document.fileContentType }}, {{ byteSize(document.file) }}</span>
+          </td>
+          <td>{{ document.comments }}</td>
+          <td>
+            <div *ngIf="document.type">
+              <a [routerLink]="['/document-type', document.type?.id, 'view']">{{ document.type?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="document.person">
+              <a [routerLink]="['/person', document.person?.id, 'view']">{{ document.person?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/document', document.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/document', document.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(document)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

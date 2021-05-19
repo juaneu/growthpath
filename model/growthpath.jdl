@@ -21,6 +21,20 @@ relationship OneToOne {
 	Person{user(login)} to User with jpaDerivedIdentifier
 }
 
+entity DocumentType {
+	name String required maxlength(250)
+}
+
+entity Document {
+	file Blob required
+    comments TextBlob
+}
+
+relationship ManyToOne{
+	Document{type} to DocumentType
+    Document{person(name)} to Person
+}
+
 entity Unit {
 	name String required maxlength(100)
     acronym String required minlength(2) maxlength(3)

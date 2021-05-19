@@ -37,7 +37,7 @@
     "serviceDiscoveryType": false,
     "enableHibernateCache": true,
     "reactive": false,
-    "entities": ["Organization", "Person", "Unit", "SkillCategory", "Skill", "PersonSkill"],
-    "lastLiquibaseTimestamp": 1620905257000
+    "entities": ["Organization", "Person", "Unit", "SkillCategory", "Skill", "PersonSkill", "DocumentType", "Document"],
+    "lastLiquibaseTimestamp": 1621419229000
   }
 }

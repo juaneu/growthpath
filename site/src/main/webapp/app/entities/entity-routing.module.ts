@@ -34,6 +34,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'growthpathApp.personSkill.home.title' },
         loadChildren: () => import('./person-skill/person-skill.module').then(m => m.PersonSkillModule),
       },
+      {
+        path: 'document-type',
+        data: { pageTitle: 'growthpathApp.documentType.home.title' },
+        loadChildren: () => import('./document-type/document-type.module').then(m => m.DocumentTypeModule),
+      },
+      {
+        path: 'document',
+        data: { pageTitle: 'growthpathApp.document.home.title' },
+        loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

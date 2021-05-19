@@ -1,0 +1,27 @@
+{
+  "growthpathApp": {
+    "document": {
+      "home": {
+        "title": "Documents",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Document",
+        "createOrEditLabel": "Crear o editar Document",
+        "notFound": "Ningún Documents encontrado"
+      },
+      "created": "Un nuevo Document ha sido creado con el identificador {{ param }}",
+      "updated": "Un Document ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Document ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Document {{ id }}?"
+      },
+      "detail": {
+        "title": "Document"
+      },
+      "id": "ID",
+      "file": "File",
+      "comments": "Comments",
+      "type": "Type",
+      "person": "Person"
+    }
+  }
+}
