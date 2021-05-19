@@ -9,6 +9,8 @@ import { DocumentService } from '../service/document.service';
 import { DocumentDeleteDialogComponent } from '../delete/document-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { ActivatedRoute } from '@angular/router';
+import { IPerson } from 'app/entities/person/person.model';
 
 @Component({
   selector: 'jhi-document',
@@ -23,11 +25,14 @@ export class DocumentComponent implements OnInit {
   predicate: string;
   ascending: boolean;
 
+  person?: IPerson;
+
   constructor(
     protected documentService: DocumentService,
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
+    protected parseLinks: ParseLinks,
+    protected activatedRoute: ActivatedRoute
   ) {
     this.documents = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -35,15 +40,22 @@ export class DocumentComponent implements OnInit {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'person.name';
     this.ascending = true;
   }
 
   loadAll(): void {
     this.isLoading = true;
 
+    const filters: Map<string, any> = new Map();
+
+    if (this.activatedRoute.snapshot.params.id) {
+      filters.set('personId.equals', this.person!.id);
+    }
+
     this.documentService
       .query({
+        filter: filters,
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -71,7 +83,10 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAll();
+    this.activatedRoute.data.subscribe(({ person }) => {
+      this.person = person;
+      this.loadAll();
+    });
   }
 
   trackId(index: number, item: IDocument): number {
