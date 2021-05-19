@@ -60,7 +60,14 @@
           <td>{{ organization.name }}</td>
           <td class="text-right">
             <div class="btn-group">
-              <button pRipple pButton type="submit" class="p-button p-button-rounded p-button-secondary" data-cy="entityEditButton">
+              <button
+                pRipple
+                pButton
+                type="submit"
+                [routerLink]="['/organization', organization.id, 'unit']"
+                class="p-button p-button-rounded p-button-secondary"
+                data-cy="entityEditButton"
+              >
                 <i class="pi pi-sitemap"></i>
               </button>
               <button
