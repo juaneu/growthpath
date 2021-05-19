@@ -23,8 +23,6 @@ export class OrganizationUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
 
-  // searchResponsable?: IPerson;
-
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(250)]],
@@ -86,11 +84,8 @@ export class OrganizationUpdateComponent implements OnInit {
   }
 
   loadRelationshipsOptions(): void {
-    // const filters: Map<string, any> = new Map();
-    // filters.set('name.contains', this.searchResponsable);
-
     this.userService
-      .query()
+      .queryResponsable()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('responsable')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
