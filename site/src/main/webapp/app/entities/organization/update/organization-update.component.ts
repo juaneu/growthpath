@@ -12,6 +12,7 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
+// import { IPerson } from 'app/entities/person/person.model';
 
 @Component({
   selector: 'jhi-organization-update',
@@ -21,6 +22,8 @@ export class OrganizationUpdateComponent implements OnInit {
   isSaving = false;
 
   usersSharedCollection: IUser[] = [];
+
+  // searchResponsable?: IPerson;
 
   editForm = this.fb.group({
     id: [],
@@ -82,6 +85,17 @@ export class OrganizationUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  loadRelationshipsOptions(): void {
+    // const filters: Map<string, any> = new Map();
+    // filters.set('name.contains', this.searchResponsable);
+
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('responsable')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrganization>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -111,14 +125,6 @@ export class OrganizationUpdateComponent implements OnInit {
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, organization.responsable);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.userService
-      .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('responsable')!.value)))
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 
   protected createFromForm(): IOrganization {
