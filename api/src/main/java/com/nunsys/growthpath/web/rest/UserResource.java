@@ -7,6 +7,7 @@ import com.nunsys.growthpath.security.AuthoritiesConstants;
 import com.nunsys.growthpath.service.MailService;
 import com.nunsys.growthpath.service.UserService;
 import com.nunsys.growthpath.service.dto.AdminUserDTO;
+import com.nunsys.growthpath.service.dto.UserDTO;
 import com.nunsys.growthpath.web.rest.errors.BadRequestAlertException;
 import com.nunsys.growthpath.web.rest.errors.EmailAlreadyUsedException;
 import com.nunsys.growthpath.web.rest.errors.LoginAlreadyUsedException;
@@ -164,6 +165,12 @@ public class UserResource {
 
     private boolean onlyContainsAllowedProperties(Pageable pageable) {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
+    }
+
+    @GetMapping("/users-responsable")
+    public ResponseEntity<List<UserDTO>> getAllResponsableUsers() {
+        List<UserDTO> responsables = userService.getAllResponsableUsers();
+        return new ResponseEntity<>(responsables, null, HttpStatus.OK);
     }
 
     /**
