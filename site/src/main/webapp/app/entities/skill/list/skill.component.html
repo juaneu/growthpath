@@ -28,49 +28,121 @@
     <span jhiTranslate="growthpathApp.skill.home.notFound">No skills found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.skill.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="skillCategory.name">
-            <span jhiTranslate="growthpathApp.skill.skillCategory">Skill Category</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
+  <!--Edit Row PrimeNG-->
+  <div class="card">
+    <p-table [value]="skills" dataKey="id" editMode="row">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Skill Category</th>
+          <th style="width: 8rem"></th>
         </tr>
-      </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-        <tr *ngFor="let skill of skills; trackBy: trackId" data-cy="entityTable">
+      </ng-template>
+      <ng-template pTemplate="body" let-skill let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="skill">
           <td>
-            <a [routerLink]="['/skill', skill.id, 'view']">{{ skill.id }}</a>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input [readonly]="true" pInputText type="text" [(ngModel)]="skill.id" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ skill.id }}
+              </ng-template>
+            </p-cellEditor>
           </td>
-          <td>{{ skill.name }}</td>
           <td>
-            <div *ngIf="skill.skillCategory">
-              <a [routerLink]="['/skill-category', skill.skillCategory?.id, 'view']">{{ skill.skillCategory?.name }}</a>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="skill.name" required />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ skill.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="name"
+                  [(ngModel)]="skill.skillCategory"
+                  id="option"
+                  [showTransitionOptions]="'300ms'"
+                  [hideTransitionOptions]="'300ms'"
+                  [options]="skillCategorySharedCollection"
+                  optionLabel="name"
+                  [style]="{ width: '100%' }"
+                >
+                </p-dropdown>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{ skill.skillCategory?.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td style="text-align: center">
+            <div class="row">
+              <button
+                *ngIf="!editing && skill.id == undefined"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                (click)="onRowEditInit(skill)"
+                class="p-button p-button-rounded p-button-text"
+              >
+                <i class="pi pi-plus"></i>
+              </button>
+              <button
+                *ngIf="!editing && skill.id !== undefined"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                (click)="onRowEditInit(skill)"
+                class="p-button p-button-rounded p-button-text"
+              >
+                <i class="pi pi-pencil"></i>
+              </button>
+              <button
+                *ngIf="!editing && skill.id !== undefined"
+                pButton
+                pRipple
+                type="button"
+                (click)="onRowDelete(skill)"
+                class="p-button p-button-rounded p-button-text p-button-danger"
+              >
+                <i class="pi pi-trash"></i>
+              </button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                (click)="onRowEditSave(skill)"
+                class="p-button p-button-rounded p-button-text p-button-success p-mr-2"
+              >
+                <i class="pi pi-check"></i>
+              </button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                (click)="onRowEditCancel(skill, ri)"
+                class="p-button p-button-rounded p-button-text p-button-danger"
+              >
+                <i class="pi pi-times"></i>
+              </button>
             </div>
           </td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/skill', skill.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/skill', skill.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(skill)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
         </tr>
-      </tbody>
-    </table>
+      </ng-template>
+    </p-table>
   </div>
 </div>

@@ -10,7 +10,6 @@ export class SkillCategoryFilter {
     if (this.name != null && this.name !== '') {
       map.set('name.contains', this.name);
     }
-
     // UNIT
     if (this.unit != null && this.unit !== '') {
       map.set('unitId.equals', this.unit);

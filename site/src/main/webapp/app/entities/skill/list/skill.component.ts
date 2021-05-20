@@ -10,6 +10,10 @@ import { SkillDeleteDialogComponent } from '../delete/skill-delete-dialog.compon
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ISkillCategory } from '../../skill-category/skill-category.model';
 import { ActivatedRoute } from '@angular/router';
+import { SkillCategoryService } from '../../skill-category/service/skill-category.service';
+import { finalize, map } from 'rxjs/operators';
+import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'jhi-skill',
@@ -24,13 +28,26 @@ export class SkillComponent implements OnInit {
   predicate: string;
   ascending: boolean;
 
+  editForm = this.fb.group({
+    id: [],
+    name: [],
+    editSkillCategory: [],
+  });
+
   skillCategory?: ISkillCategory;
+  isSaving = false;
+  skillCategorySharedCollection: ISkillCategory[] = [];
+  statuses: ISkillCategory[] = [];
+
+  skillNew: ISkill = {};
 
   constructor(
+    protected fb: FormBuilder,
     protected activatedRoute: ActivatedRoute,
     protected skillService: SkillService,
     protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
+    protected parseLinks: ParseLinks,
+    protected skillCategoryService: SkillCategoryService
   ) {
     this.skills = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -40,6 +57,39 @@ export class SkillComponent implements OnInit {
     };
     this.predicate = 'name';
     this.ascending = true;
+  }
+
+  onRowEditInit(skill: ISkill): void {
+    this.skillService.find(skill.id!);
+  }
+
+  onRowEditSave(skill: ISkill): void {
+    this.save(skill);
+  }
+
+  onRowEditCancel(skill: ISkill, index: number): void {
+    // Load previous information
+  }
+
+  onRowDelete(skill: ISkill): void {
+    const modalRef = this.modalService.open(SkillDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.skill = skill;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        this.reset();
+      }
+    });
+  }
+
+  save(skill: ISkill): void {
+    this.isSaving = true;
+    if (skill.id !== undefined) {
+      this.subscribeToSaveResponse(this.skillService.update(skill));
+    } else {
+      this.skillService.create(skill).subscribe(() => this.reset());
+    }
+    this.skillNew = {};
   }
 
   loadAll(): void {
@@ -84,6 +134,7 @@ export class SkillComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ skillCategory }) => {
       this.skillCategory = skillCategory;
       this.loadAll();
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -91,15 +142,20 @@ export class SkillComponent implements OnInit {
     return item.id!;
   }
 
-  delete(skill: ISkill): void {
-    const modalRef = this.modalService.open(SkillDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.skill = skill;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.reset();
-      }
-    });
+  trackSkillCategoryById(index: number, item: ISkillCategory): number {
+    return item.id!;
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ISkill>>): void {
+    result.pipe(finalize(() => this.onSaveFinalize())).subscribe(() => this.onSaveError());
+  }
+
+  protected onSaveError(): void {
+    // Api for inheritance.
+  }
+
+  protected onSaveFinalize(): void {
+    this.isSaving = false;
   }
 
   protected sort(): string[] {
@@ -113,9 +169,24 @@ export class SkillComponent implements OnInit {
   protected paginateSkills(data: ISkill[] | null, headers: HttpHeaders): void {
     this.links = this.parseLinks.parse(headers.get('link') ?? '');
     if (data) {
+      this.skills.push(this.skillNew);
       for (const d of data) {
         this.skills.push(d);
       }
     }
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.skillCategoryService
+      .query()
+      .pipe(map((res: HttpResponse<ISkillCategory[]>) => res.body ?? []))
+      .pipe(
+        map((skillsC: ISkillCategory[]) =>
+          this.skillCategoryService.addSkillCategoryToCollectionIfMissing(skillsC, this.editForm.get('editSkillCategory')!.value)
+        )
+      )
+      .subscribe((skillsC: ISkillCategory[]) => (this.skillCategorySharedCollection = skillsC));
+
+    this.statuses = this.skillCategorySharedCollection;
   }
 }
