@@ -11,9 +11,13 @@ import { FormatMediumDatePipe } from './date/format-medium-date.pipe';
 import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
-  imports: [SharedLibsModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -40,6 +44,10 @@ import { ItemCountComponent } from './pagination/item-count.component';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    AutoCompleteModule,
+    ColorPickerModule,
+    TableModule,
+    DropdownModule,
   ],
 })
 export class SharedModule {}

@@ -8,6 +8,11 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { SkillCategoryService } from '../service/skill-category.service';
 import { SkillCategoryDeleteDialogComponent } from '../delete/skill-category-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { SkillCategoryFilter } from './skill-category.filter';
+import { FormBuilder } from '@angular/forms';
+import { IUnit } from 'app/entities/unit/unit.model';
+import { UnitService } from 'app/entities/unit/service/unit.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-skill-category',
@@ -21,8 +26,20 @@ export class SkillCategoryComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  unitsSharedCollection: IUnit[] = [];
+  filterForm = this.fb.group({
+    filterName: [],
+    filterUnit: [],
+  });
+  filters: SkillCategoryFilter = new SkillCategoryFilter();
 
-  constructor(protected skillCategoryService: SkillCategoryService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
+  constructor(
+    protected fb: FormBuilder,
+    protected skillCategoryService: SkillCategoryService,
+    protected unitService: UnitService,
+    protected modalService: NgbModal,
+    protected parseLinks: ParseLinks
+  ) {
     this.skillCategories = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -33,11 +50,16 @@ export class SkillCategoryComponent implements OnInit {
     this.ascending = true;
   }
 
+  filter(): void {
+    this.createFilterFromForm();
+    this.reset();
+  }
   loadAll(): void {
     this.isLoading = true;
 
     this.skillCategoryService
       .query({
+        filter: this.filters.myMap(),
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -59,6 +81,13 @@ export class SkillCategoryComponent implements OnInit {
     this.loadAll();
   }
 
+  cleanFilter(): void {
+    this.filters.name = '';
+    this.filters.unit = undefined;
+    this.filterForm.reset();
+    this.reset();
+  }
+
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
@@ -66,12 +95,15 @@ export class SkillCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAll();
+    this.loadRelationshipsOptions();
   }
 
   trackId(index: number, item: ISkillCategory): number {
     return item.id!;
   }
-
+  trackUnitById(index: number, item: IUnit): number {
+    return item.id!;
+  }
   delete(skillCategory: ISkillCategory): void {
     const modalRef = this.modalService.open(SkillCategoryDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.skillCategory = skillCategory;
@@ -83,6 +115,11 @@ export class SkillCategoryComponent implements OnInit {
     });
   }
 
+  createFilterFromForm(): void {
+    this.filters.name = this.filterForm.get(['filterName'])!.value;
+    this.filters.unit = this.filterForm.get(['filterUnit'])!.value?.id;
+  }
+
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
@@ -90,7 +127,13 @@ export class SkillCategoryComponent implements OnInit {
     }
     return result;
   }
-
+  protected loadRelationshipsOptions(): void {
+    this.unitService
+      .query()
+      .pipe(map((res: HttpResponse<IUnit[]>) => res.body ?? []))
+      .pipe(map((units: IUnit[]) => this.unitService.addUnitToCollectionIfMissing(units, this.filterForm.get('filterUnit')!.value)))
+      .subscribe((units: IUnit[]) => (this.unitsSharedCollection = units));
+  }
   protected paginateSkillCategories(data: ISkillCategory[] | null, headers: HttpHeaders): void {
     this.links = this.parseLinks.parse(headers.get('link') ?? '');
     if (data) {
