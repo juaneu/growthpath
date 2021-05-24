@@ -7,16 +7,6 @@
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="growthpathApp.skill.home.refreshListLabel">Refresh List</span>
       </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-skill"
-        [routerLink]="['/skill/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="growthpathApp.skill.home.createLabel"> Create a new Skill </span>
-      </button>
     </div>
   </h2>
 
@@ -65,6 +55,8 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <p-dropdown
+                  [required]="true"
+                  placeholder="Please, select one"
                   [filter]="true"
                   filterBy="name"
                   [(ngModel)]="skill.skillCategory"
@@ -118,7 +110,7 @@
                 <i class="pi pi-trash"></i>
               </button>
               <button
-                *ngIf="editing"
+                *ngIf="editing && skill.skillCategory !== undefined && skill.name !== undefined"
                 pButton
                 pRipple
                 type="button"
@@ -134,7 +126,7 @@
                 pRipple
                 type="button"
                 pCancelEditableRow
-                (click)="onRowEditCancel(skill, ri)"
+                (click)="onRowEditCancel(skill)"
                 class="p-button p-button-rounded p-button-text p-button-danger"
               >
                 <i class="pi pi-times"></i>
