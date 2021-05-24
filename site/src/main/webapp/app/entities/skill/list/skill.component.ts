@@ -67,8 +67,14 @@ export class SkillComponent implements OnInit {
     this.save(skill);
   }
 
-  onRowEditCancel(skill: ISkill, index: number): void {
-    // Load previous information
+  onRowEditCancel(skill: ISkill): void {
+    if (!skill.id) {
+      skill.id = undefined;
+      skill.name = undefined;
+      skill.skillCategory = undefined;
+    } else {
+      this.reset();
+    }
   }
 
   onRowDelete(skill: ISkill): void {
