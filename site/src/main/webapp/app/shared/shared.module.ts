@@ -15,9 +15,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @NgModule({
-  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule, AvatarGroupModule, AvatarModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -48,6 +50,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ColorPickerModule,
     TableModule,
     DropdownModule,
+    AvatarModule,
+    AvatarGroupModule,
   ],
 })
 export class SharedModule {}

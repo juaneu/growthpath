@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -12,7 +12,7 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
+  title?: string;
 
   constructor(
     private loginService: LoginService,
@@ -39,6 +40,11 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
+
+    this.title = this.router.url;
+
+    /*eslint-disable no-console*/
+    console.log(this.router.url);
   }
 
   changeLanguage(languageKey: string): void {
