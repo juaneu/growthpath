@@ -23,59 +23,186 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
-  <div class="container-filter">
-    <form
-      name="filterForm"
-      role="form"
-      novalidate
-      (ngSubmit)="filter()"
-      [formGroup]="filterForm"
-      class="row row-cols-lg-auto g-3 align-items-center mb-4"
-    >
-      <div class="col-2">
-        <label for="filterName" class="d-none">Nombre</label>
-        <input type="text" class="form-control" id="filterName" formControlName="filterName" placeholder="Nombre" />
-      </div>
-      <div class="button-group">
-        <button type="button" (click)="resetFormulario()" class="btn btn-secondary">
-          <fa-icon icon="filter"></fa-icon>&nbsp;<span>Reset</span>
-        </button>
-        <button type="submit" class="btn btn-dark"><fa-icon icon="filter"></fa-icon>&nbsp;<span>Filtrar</span></button>
-      </div>
-    </form>
-  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="units?.length === 0">
     <span jhiTranslate="growthpathApp.unit.home.notFound">No units found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.unit.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-        <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/unit', unit.id, 'edit']">{{ unit.id }}</a>
-          </td>
-          <td>{{ unit.name }}</td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-              </button>
-              <button type="submit" (click)="delete(unit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-              </button>
+  <div class="row-component">
+    <!-- Filtros -->
+    <div class="col-filter">
+      <form
+        name="filterForm"
+        role="form"
+        novalidate
+        (ngSubmit)="filter()"
+        [formGroup]="filterForm"
+        class="row row-cols-lg-auto g-3 align-items-center mb-4"
+      >
+        <div class="grid-header">
+          <h5>Filtros</h5>
+          <div class="button-group-filter">
+            <button type="button" (click)="resetFormulario()" id="clean-filter-button">
+              <fa-icon icon="filter"></fa-icon><span>Quitar filtros</span>
+            </button>
+            <button type="submit" class="filter-button"><fa-icon icon="filter"></fa-icon><span>Filtrar</span></button>
+          </div>
+        </div>
+
+        <div class="row-filter-group">
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+              <label for="filterName">Nombre</label>
+            </span>
+          </div>
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="inputtext-left" pInputText />
+              <label for="inputtext-left">Nombre</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-filter-group">
+          <div>
+            <h6>Grupo de filtros</h6>
+          </div>
+
+          <div class="row-filter">
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+                <label for="filterName">Nombre</label>
+              </span>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="inputtext-left" pInputText />
+                <label for="inputtext-left">Nombre</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="row-filter">
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+                <label for="filterName">Nombre</label>
+              </span>
+            </div>
+
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="inputtext-left" pInputText />
+                <label for="inputtext-left">Nombre</label>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-filter-group hola">
+          <div>
+            <h6>Grupo de filtros</h6>
+          </div>
+
+          <div class="row-filter">
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+                <label for="filterName">Nombre</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="row-filter">
+            <div class="col-filter-field">
+              <span class="p-input-icon-right p-float-label">
+                <i class="pi pi-filter"></i>
+                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+                <label for="filterName">Nombre</label>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row-filter">
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+              <label for="filterName">Nombre</label>
+            </span>
+          </div>
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="inputtext-left" pInputText />
+              <label for="inputtext-left">Nombre</label>
+            </span>
+          </div>
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
+              <label for="filterName">Nombre</label>
+            </span>
+          </div>
+          <div class="col-filter-field">
+            <span class="p-input-icon-right p-float-label">
+              <i class="pi pi-filter"></i>
+              <input type="text" class="form-control" id="inputtext-left" pInputText />
+              <label for="inputtext-left">Nombre</label>
+            </span>
+          </div>
+        </div> -->
+      </form>
+    </div>
+
+    <div class="col-list">
+      <!-- Tabla -->
+      <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+              <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.unit.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody
+            infinite-scroll
+            (scrolled)="loadPage(page + 1)"
+            [infiniteScrollDisabled]="page >= links['last']"
+            [infiniteScrollDistance]="0"
+          >
+            <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/unit', unit.id, 'edit']">{{ unit.id }}</a>
+              </td>
+              <td>{{ unit.name }}</td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button type="submit" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                  </button>
+                  <button type="submit" (click)="delete(unit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+  <!-- Fin tabla -->
 </div>
