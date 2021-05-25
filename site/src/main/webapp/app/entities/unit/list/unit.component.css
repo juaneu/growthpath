@@ -3,20 +3,20 @@
   flex-direction: row;
   width: 100%;
 }
-.col-filter {
+.filter {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 30%;
   padding: 0 40px;
   border: 1px solid #00000029;
 }
-.col-list {
+.table-list-col {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  width: 75%;
+  width: 70%;
 }
-.grid-header {
+.filter-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -26,17 +26,20 @@
   justify-content: space-between;
   box-shadow: 0px 1px #00000029;
 }
-.button-group-filter {
+.filter-button-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 45%;
+  width: 50%;
   justify-content: space-between;
 }
 
-#clean-filter-button {
+.filter-button-clean {
   background-color: white;
   border: none;
+}
+.filter-button-clean span {
+  font-size: 16px;
 }
 .filter-button {
   background-color: #f2226e;
@@ -50,41 +53,40 @@
   padding: 0px 6px;
 }
 
-.row-filter-group {
+.filter-group-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 10px 0 20px 0;
+}
+.filter-group-row.no-title {
   padding: 30px 0;
   box-shadow: 0px 1px #00000029;
 }
-.row-filter {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 10px 0 20px 0;
-}
-.col-filter-group div:first-of-type {
-  padding-bottom: 10px;
-}
-.col-filter .col-filter-group:last-of-type {
-  box-shadow: none;
-}
 
-.col-filter-field {
-  width: 45%;
-}
-.col-filter-group {
+.filter-group-col {
   display: flex;
   flex-direction: column;
   box-shadow: 0px 1px #00000029;
   padding-top: 20px;
 }
 
-.col-filter-group:last-of-type {
+.filter-group-col div:first-of-type {
+  padding-bottom: 10px;
+}
+.filter .filter-group-col:last-of-type {
+  box-shadow: none;
+}
+
+.filter-field-col {
+  width: 45%;
+}
+
+.filter-group-col:last-of-type {
   width: 100%;
 }
-.col-filter-group:last-of-type .col-filter-field {
+.filter-group-col:last-of-type .filter-field-col {
   width: 100%;
 }
 
