@@ -37,132 +37,28 @@
         novalidate
         (ngSubmit)="filter()"
         [formGroup]="filterForm"
-        class="row row-cols-lg-auto g-3 align-items-center mb-4"
+        class="ng-untouched ng-pristine ng-valid"
       >
         <div class="filter-header">
           <h5>Filtros</h5>
-          <div class="filter-button-group">
-            <button type="button" (click)="resetFormulario()" class="filter-button-clean">
-              <fa-icon icon="filter"></fa-icon><span>Quitar filtros</span>
+          <div>
+            <button type="button" (click)="resetFormulario()" class="btn btn-text-light">
+              <span>Quitar filtros</span>
             </button>
-            <button type="submit" class="filter-button"><fa-icon icon="filter"></fa-icon><span>Filtrar</span></button>
+            <button type="submit" class="btn btn-primary"><span>Filtrar</span></button>
           </div>
         </div>
 
-        <div class="filter-group-row no-title">
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-              <label for="filterName">Nombre</label>
-            </span>
-          </div>
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="inputtext-left" pInputText />
-              <label for="inputtext-left">Nombre</label>
-            </span>
-          </div>
-        </div>
-
-        <div class="filter-group-col">
+        <div class="filter-group">
           <div>
-            <h6>Grupo de filtros</h6>
+            <label for="filterName" class="form-control-label">Nombre</label>
+            <input type="text" class="form-control" id="filterName" formControlName="filterName" />
           </div>
-
-          <div class="filter-group-row">
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-                <label for="filterName">Nombre</label>
-              </span>
-            </div>
-
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="inputtext-left" pInputText />
-                <label for="inputtext-left">Nombre</label>
-              </span>
-            </div>
-          </div>
-
-          <div class="filter-group-row">
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-                <label for="filterName">Nombre</label>
-              </span>
-            </div>
-
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="inputtext-left" pInputText />
-                <label for="inputtext-left">Nombre</label>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter-group-col">
           <div>
-            <h6>Grupo de filtros</h6>
-          </div>
-
-          <div class="filter-group-row">
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-                <label for="filterName">Nombre</label>
-              </span>
-            </div>
-          </div>
-
-          <div class="filter-group-row">
-            <div class="filter-field-col">
-              <span class="p-input-icon-right p-float-label">
-                <i class="pi pi-filter"></i>
-                <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-                <label for="filterName">Nombre</label>
-              </span>
-            </div>
+            <label for="filterName" class="form-control-label">Nombre</label>
+            <input type="text" class="form-control" id="filterName" formControlName="filterName" />
           </div>
         </div>
-        <!-- <div class="filter-group-row">
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-              <label for="filterName">Nombre</label>
-            </span>
-          </div>
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="inputtext-left" pInputText />
-              <label for="inputtext-left">Nombre</label>
-            </span>
-          </div>
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="filterName" formControlName="filterName" pInputText />
-              <label for="filterName">Nombre</label>
-            </span>
-          </div>
-          <div class="filter-field-col">
-            <span class="p-input-icon-right p-float-label">
-              <i class="pi pi-filter"></i>
-              <input type="text" class="form-control" id="inputtext-left" pInputText />
-              <label for="inputtext-left">Nombre</label>
-            </span>
-          </div>
-        </div> -->
       </form>
     </div>
 

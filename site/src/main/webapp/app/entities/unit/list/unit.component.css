@@ -4,11 +4,18 @@
   width: 100%;
 }
 .filter {
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   width: 30%;
+  border: 2px solid #00000029;
+  color: #144659;
+  font-size: 16px;
+  background-color: #f3f6f7;
+}
+.filter form > div {
   padding: 0 40px;
-  border: 1px solid #00000029;
 }
 .table-list-col {
   display: flex;
@@ -16,80 +23,43 @@
   flex-grow: 1;
   width: 70%;
 }
-.filter-header {
+
+.filter form .filter-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 10px 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
   align-items: baseline;
   justify-content: space-between;
   box-shadow: 0px 1px #00000029;
 }
-.filter-button-group {
+.filter form .filter-header > * {
+  width: 48%;
+}
+.filter-header > div {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  width: 50%;
   justify-content: space-between;
 }
-
-.filter-button-clean {
-  background-color: white;
-  border: none;
-}
-.filter-button-clean span {
-  font-size: 16px;
-}
-.filter-button {
-  background-color: #f2226e;
-  color: white;
-  border: none;
-  padding: 4px 7px;
-  border-radius: 8px;
-  /* margin: 10px; */
-}
-.filter-button span {
-  padding: 0px 6px;
+.filter-header h5 {
+  font-size: 26px;
 }
 
-.filter-group-row {
+.filter form div.filter-group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 10px 0 20px 0;
-}
-.filter-group-row.no-title {
-  padding: 30px 0;
-  box-shadow: 0px 1px #00000029;
-}
-
-.filter-group-col {
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 1px #00000029;
-  padding-top: 20px;
-}
-
-.filter-group-col div:first-of-type {
+  padding-top: 15px;
   padding-bottom: 10px;
 }
-.filter .filter-group-col:last-of-type {
-  box-shadow: none;
+.filter-group div {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
 }
-
-.filter-field-col {
-  width: 45%;
-}
-
-.filter-group-col:last-of-type {
-  width: 100%;
-}
-.filter-group-col:last-of-type .filter-field-col {
-  width: 100%;
-}
-
-span.p-input-icon-right.p-float-label {
-  width: 100%;
+.filter-group .form-control-label {
+  font-size: 14px;
+  margin-bottom: 4px;
 }
