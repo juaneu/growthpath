@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'jhi-unit',
   templateUrl: './unit.component.html',
+  styleUrls: ['./unit.component.css'],
 })
 export class UnitComponent implements OnInit {
   units: IUnit[];
