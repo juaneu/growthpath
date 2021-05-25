@@ -1,6 +1,9 @@
 * {
   color: #144659;
+  font-size: 16px;
 }
+
+/* FILTROS */
 
 .row-component {
   display: flex;
@@ -17,39 +20,33 @@
   border: 2px solid #00000029;
   color: #144659;
   font-size: 16px;
-  background-color: #f3f6f7;
-}
-.filter form > div {
-  padding: 0 40px;
 }
 
-.table-list-col {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  width: 70%;
-  background-color: #1446590d;
-  padding: 15px;
+.filter form > div {
+  padding: 0 40px;
 }
 
 .filter form .filter-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 23px;
+  padding-bottom: 15px;
   align-items: baseline;
   justify-content: space-between;
   box-shadow: 0px 1px #00000029;
 }
+
 .filter form .filter-header > * {
   width: 48%;
 }
+
 .filter-header > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .filter-header h5 {
   font-size: 26px;
 }
@@ -61,7 +58,9 @@
   justify-content: space-between;
   padding-top: 15px;
   padding-bottom: 10px;
+  box-shadow: 0px 1px #00000029;
 }
+
 .filter-group div {
   display: flex;
   flex-direction: column;
@@ -70,6 +69,19 @@
 .filter-group .form-control-label {
   font-size: 14px;
   margin-bottom: 4px;
+}
+
+/* ---------------------- */
+
+/* TABLA */
+
+.table-list-col {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 70%;
+  background-color: #f3f6f7;
+  padding: 15px;
 }
 
 .table-header {
@@ -97,24 +109,6 @@
   align-items: flex-end;
 }
 
-button.btn-primary {
-  background-color: #f2226e;
-  border: none;
-  border-radius: 8px;
-}
-
-button.btn-primary span {
-  color: white;
-}
-
-button.btn-outline-dark {
-  border-radius: 8px;
-}
-
-button.btn-outline-dark:hover i {
-  color: white;
-}
-
 .table-header .btn {
   margin: 0px 5px 0px 5px;
 }
@@ -127,10 +121,44 @@ button.btn-outline-dark:hover i {
   border-top: none;
 }
 
+.table-chips {
+  margin-left: 10px;
+}
+
+/* ------------------------- */
+
+/* BOTONES */
+
+button.btn-primary {
+  background-color: #f2226e;
+  border: none;
+  border-radius: 8px;
+}
+
+button.btn-primary span {
+  color: white;
+}
+
+button.btn-text-light {
+  padding-left: 0;
+}
+
+button.btn-outline-dark {
+  border-radius: 8px;
+}
+
+button.btn-outline-dark:hover i {
+  color: white;
+}
+
 .p-button.p-button-text {
   font-size: small;
 }
 
 .p-button.p-button-rounded {
-  height: 10px;
+  height: 25px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
+
+/* -------------------------- */
