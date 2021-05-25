@@ -18,6 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { InputTextModule } from 'primeng/inputtext';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ColorPickerModule,
     TableModule,
     DropdownModule,
+    InputTextModule,
+    ChipModule,
     AvatarGroupModule,
     AvatarModule,
     BreadcrumbModule,
@@ -56,6 +60,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    InputTextModule,
     AutoCompleteModule,
     ColorPickerModule,
     TableModule,
@@ -63,6 +68,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     AvatarModule,
     AvatarGroupModule,
     BreadcrumbModule,
+    ChipModule,
   ],
 })
 export class SharedModule {}
