@@ -3,16 +3,9 @@ nav {
   box-shadow: 0px 2px 2px #00000029;
 }
 nav:first-of-type {
-  z-index: 1;
+  z-index: 2;
 }
 
-.navegacion {
-  padding: 10px;
-  position: sticky; /* Sticky/fixed navbar */
-  width: 100%;
-  top: 0; /* At the top */
-  display: inline-block;
-}
 nav div a {
   color: #144659;
   font-size: 18px;
@@ -35,4 +28,21 @@ nav .title {
   letter-spacing: 0px;
   color: #144659;
   opacity: 1;
+  margin-left: 20px;
+}
+.navegation {
+  margin-top: 1px;
+  padding: 10px;
+  position: sticky; /* Sticky/fixed navbar */
+  width: 100%;
+  top: 0; /* At the top */
+  display: inline-block;
+  z-index: 1;
+}
+.navegation .title {
+  margin-left: 20px;
+}
+.navegation #logoG {
+  margin-left: 20px;
+  height: 40px;
 }

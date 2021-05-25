@@ -17,9 +17,19 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
-  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule, AvatarGroupModule, AvatarModule],
+  imports: [
+    SharedLibsModule,
+    AutoCompleteModule,
+    ColorPickerModule,
+    TableModule,
+    DropdownModule,
+    AvatarGroupModule,
+    AvatarModule,
+    BreadcrumbModule,
+  ],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -52,6 +62,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     DropdownModule,
     AvatarModule,
     AvatarGroupModule,
+    BreadcrumbModule,
   ],
 })
 export class SharedModule {}

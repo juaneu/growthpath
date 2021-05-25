@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -8,6 +8,7 @@ import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'jhi-navbar',
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
   openAPIEnabled?: boolean;
   version = '';
   title?: string;
+  menuItems?: MenuItem[];
 
   constructor(
     private loginService: LoginService,
@@ -28,7 +30,8 @@ export class NavbarComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION;
@@ -41,10 +44,8 @@ export class NavbarComponent implements OnInit {
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
 
-    this.title = this.router.url;
-
     /*eslint-disable no-console*/
-    console.log(this.router.url);
+    console.log(this.route.snapshot.url.join('/'));
   }
 
   changeLanguage(languageKey: string): void {
