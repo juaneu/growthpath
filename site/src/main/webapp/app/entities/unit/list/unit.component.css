@@ -71,6 +71,10 @@
   margin-bottom: 4px;
 }
 
+.filter-group input.form-control {
+  border-radius: 8px;
+}
+
 /* ---------------------- */
 
 /* TABLA */
