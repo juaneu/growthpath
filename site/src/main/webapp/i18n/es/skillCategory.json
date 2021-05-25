@@ -2,27 +2,27 @@
   "growthpathApp": {
     "skillCategory": {
       "home": {
-        "title": "Skill Categories",
+        "title": "Categoría de Habilidades",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Skill Category",
-        "createOrEditLabel": "Crear o editar Skill Category",
-        "notFound": "Ningún Skill Categories encontrado"
+        "createLabel": "Crear nueva Categoría Habilidades",
+        "createOrEditLabel": "Crear o editar Categoría Habilidades",
+        "notFound": "Ninguna Categoría de Habilidades encontrada"
       },
-      "created": "Un nuevo Skill Category ha sido creado con el identificador {{ param }}",
-      "updated": "Un Skill Category ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Skill Category ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Categoría de Habilidades ha sido creada con el identificador {{ param }}",
+      "updated": "Una Categoría de Habilidades ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Categoría de Habilidades ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Skill Category {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la Categoría de Habilidades {{ id }}?"
       },
       "detail": {
-        "title": "Skill Category"
+        "title": "Categoría de Hablididades"
       },
       "id": "ID",
-      "name": "Name",
-      "skills": "Skills",
-      "unit": "Unit",
-      "filter": "FILTRAR",
-      "clean": "LIMPIAR"
+      "name": "Nombre",
+      "skills": "Habilidades",
+      "unit": "Departamento",
+      "filter": "Filtrar",
+      "clean": "Limpiar"
     }
   }
 }
