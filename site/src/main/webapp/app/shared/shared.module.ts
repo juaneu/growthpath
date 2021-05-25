@@ -16,9 +16,10 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
-  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule, InputTextModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, TableModule, DropdownModule, InputTextModule, ChipModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -50,6 +51,7 @@ import { InputTextModule } from 'primeng/inputtext';
     ColorPickerModule,
     TableModule,
     DropdownModule,
+    ChipModule,
   ],
 })
 export class SharedModule {}
