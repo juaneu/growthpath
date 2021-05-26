@@ -24,7 +24,8 @@
       "birthDate": "Cumpleaños",
       "image": "Imagen",
       "user": "Usuario",
-      "area": "Área"
+      "area": "Área",
+      "habilidades": "Habilidades"
     }
   }
 }
