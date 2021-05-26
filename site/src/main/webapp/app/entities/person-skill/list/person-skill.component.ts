@@ -9,6 +9,8 @@ import { PersonSkillService } from '../service/person-skill.service';
 import { PersonSkillDeleteDialogComponent } from '../delete/person-skill-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { IPerson } from 'app/entities/person/person.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'jhi-person-skill',
@@ -22,9 +24,11 @@ export class PersonSkillComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  person?: IPerson;
 
   constructor(
     protected personSkillService: PersonSkillService,
+    private activatedRoute: ActivatedRoute,
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
     protected parseLinks: ParseLinks
@@ -41,9 +45,14 @@ export class PersonSkillComponent implements OnInit {
 
   loadAll(): void {
     this.isLoading = true;
+    const filters: Map<string, any> = new Map();
 
+    if (this.activatedRoute.snapshot.params.id) {
+      filters.set('personId.equals', this.person!.id);
+    }
     this.personSkillService
       .query({
+        filter: filters,
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -71,7 +80,10 @@ export class PersonSkillComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAll();
+    this.activatedRoute.data.subscribe(({ person }) => {
+      this.person = person;
+      this.loadAll();
+    });
   }
 
   trackId(index: number, item: IPersonSkill): number {
