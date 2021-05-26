@@ -80,6 +80,14 @@
             <div class="btn-group">
               <button
                 type="submit"
+                [routerLink]="['/person', person.id, 'person-skill']"
+                class="btn btn-warning btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <span>Hablilidades</span>
+              </button>
+              <button
+                type="submit"
                 [routerLink]="['/person', person.id, 'document']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"

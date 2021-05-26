@@ -7,6 +7,7 @@ import { PersonDetailComponent } from '../detail/person-detail.component';
 import { PersonUpdateComponent } from '../update/person-update.component';
 import { PersonRoutingResolveService } from './person-routing-resolve.service';
 import { DocumentComponent } from 'app/entities/document/list/document.component';
+import { PersonSkillComponent } from 'app/entities/person-skill/list/person-skill.component';
 
 const personRoute: Routes = [
   {
@@ -41,6 +42,14 @@ const personRoute: Routes = [
   {
     path: ':id/document',
     component: DocumentComponent,
+    resolve: {
+      person: PersonRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/person-skill',
+    component: PersonSkillComponent,
     resolve: {
       person: PersonRoutingResolveService,
     },
