@@ -283,7 +283,7 @@
     </ul>
   </div>
 </nav>
-<nav class="navegation">
+<nav *ngIf="navbarSmall" class="navegation">
   <div class="row">
     <svg id="logoG" xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 112 52.875">
       <defs>
@@ -308,7 +308,7 @@
         transform="translate(-768.403 385.87)"
       />
     </svg>
-    <h2 class="title">Título de la página</h2>
+    <h2 class="title">Titulo página activa + Miga de pan</h2>
     <!-- <div><p-breadcrumb [home]="home" [model]="menuItems"></p-breadcrumb></div> -->
   </div>
 </nav>

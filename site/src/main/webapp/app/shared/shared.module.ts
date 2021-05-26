@@ -20,6 +20,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { InputTextModule } from 'primeng/inputtext';
 import { ChipModule } from 'primeng/chip';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   imports: [
@@ -69,6 +70,7 @@ import { ChipModule } from 'primeng/chip';
     AvatarGroupModule,
     BreadcrumbModule,
     ChipModule,
+    ScrollTopModule,
   ],
 })
 export class SharedModule {}
