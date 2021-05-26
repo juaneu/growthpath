@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -43,9 +43,6 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
-
-    /*eslint-disable no-console*/
-    console.log(this.route.snapshot.url.join('/'));
   }
 
   changeLanguage(languageKey: string): void {

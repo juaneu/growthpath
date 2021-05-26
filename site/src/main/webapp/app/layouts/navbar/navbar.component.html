@@ -291,13 +291,14 @@
           .a {
             fill: #144659;
           }
+
           .b {
             fill: #f2226e;
           }
         </style>
       </defs>
       <path
-        class="navbar-brand logo"
+        class="a"
         d="M764.365-356.226h10.108v13.3c-1.865,1.867-5.209,2.955-8.786,2.955-9.953,0-15.63-8.009-15.63-20.84,0-12.674,6.222-20.528,15.785-20.528a13.273,13.273,0,0,1,10.342,4.588l3.732-4.121a18.761,18.761,0,0,0-14.074-6.22c-13.219,0-22.626,9.953-22.626,26.438,0,16.639,9.252,26.438,22.083,26.438a21.442,21.442,0,0,0,15.242-5.91v-21.461H764.365Z"
         transform="translate(-743.215 387.097)"
       />
@@ -308,7 +309,6 @@
         transform="translate(-768.403 385.87)"
       />
     </svg>
-    <h2 class="title">Título de la página</h2>
-    <!-- <div><p-breadcrumb [home]="home" [model]="menuItems"></p-breadcrumb></div> -->
+    <h2 class="title" jhiTranslate="global.menu.entities.{{ title }}">Título de la página</h2>
   </div>
 </nav>
