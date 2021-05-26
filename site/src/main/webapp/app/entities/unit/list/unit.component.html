@@ -50,10 +50,10 @@
             <p-chip class="table-chips" label="Nombre" [removable]="true"></p-chip>
           </div>
           <div class="table-right-buttons">
-            <button class="btn btn-outline-dark"><i class="pi pi-file-pdf"></i></button>
-            <button class="btn btn-outline-dark"><i class="pi pi-file-excel"></i></button>
+            <button class="btn btn-outline-dark" (click)="exportPdf()"><i class="pi pi-file-pdf"></i></button>
+            <button class="btn btn-outline-dark" (click)="exportExcel()"><i class="pi pi-file-excel"></i></button>
             <button class="btn btn-primary" [routerLink]="['/unit/new']" id="jh-create-entity" data-cy="entityCreateButton">
-              <span>+ Nuevo</span>
+              + <span jhiTranslate="growthpathApp.unit.detail.title">Unit</span>
             </button>
           </div>
         </div>

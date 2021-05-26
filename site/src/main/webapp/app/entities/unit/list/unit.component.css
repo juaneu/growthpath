@@ -157,6 +157,7 @@ button.btn-primary {
   background-color: #f2226e;
   border: none;
   border-radius: 8px;
+  color: white;
 }
 
 button.btn-primary span {
