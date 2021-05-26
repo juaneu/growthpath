@@ -66,14 +66,6 @@
   flex-direction: column;
   width: 48%;
 }
-.filter-group .form-control-label {
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.filter-group input.form-control {
-  border-radius: 8px;
-}
 
 /* ---------------------- */
 
@@ -130,6 +122,34 @@
 }
 
 /* ------------------------- */
+
+/* FORMS */
+
+label.form-control-label {
+  letter-spacing: 0px;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #c4c4c4;
+}
+
+input.form-control::placeholder {
+  color: #c4c4c4;
+}
+input.form-control:hover {
+  border: 1px solid #144659;
+}
+input.form-control:focus {
+  box-shadow: none;
+}
+input.form-control.ng-invalid:not(form) {
+  border: 1px solid #ff453a;
+}
+
+/* --------------------------*/
 
 /* BOTONES */
 
