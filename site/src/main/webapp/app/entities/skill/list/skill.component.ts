@@ -60,7 +60,9 @@ export class SkillComponent implements OnInit {
   }
 
   onRowEditInit(skill: ISkill): void {
-    this.skillService.find(skill.id!);
+    if (this.activatedRoute.snapshot.params.id) {
+      skill.skillCategory = this.skillCategory;
+    }
   }
 
   onRowEditSave(skill: ISkill): void {
