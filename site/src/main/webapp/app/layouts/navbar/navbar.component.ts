@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -21,8 +21,9 @@ export class NavbarComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
-  title?: string;
   menuItems?: MenuItem[];
+
+  navbarSmall = false;
 
   constructor(
     private loginService: LoginService,
@@ -43,9 +44,19 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
+  }
 
-    /*eslint-disable no-console*/
-    console.log(this.route.snapshot.url.join('/'));
+  // 'Navegation' (nav con miga de pan)
+  //      ->    Iniciar hidden y mostrar + sticky on scroll down
+  @HostListener('window:scroll', ['$event']) onScrollEvent(): void {
+    const navbarHeight = document.getElementsByClassName('navbar')[0].clientHeight;
+    // conts navbarTransition = document.getElementsByClassName('navegation')[0] ;
+
+    if (window.pageYOffset >= navbarHeight) {
+      this.navbarSmall = true;
+    } else {
+      this.navbarSmall = false;
+    }
   }
 
   changeLanguage(languageKey: string): void {

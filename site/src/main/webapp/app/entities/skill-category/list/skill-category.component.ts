@@ -33,6 +33,10 @@ export class SkillCategoryComponent implements OnInit {
   });
   filters: SkillCategoryFilter = new SkillCategoryFilter();
 
+  // Prueba
+  // @Input()
+  // titulo = 'Categoría de Habilidaddddddddddddddddddd';
+
   constructor(
     protected fb: FormBuilder,
     protected skillCategoryService: SkillCategoryService,
