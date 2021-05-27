@@ -9,6 +9,9 @@ import { IUnit } from '../unit.model';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { UnitService } from '../service/unit.service';
 import { UnitDeleteDialogComponent } from '../delete/unit-delete-dialog.component';
+import { UnitFilter } from './unit.filter';
+import { FormBuilder } from '@angular/forms';
+import { IOrganization } from 'app/entities/organization/organization.model';
 
 @Component({
   selector: 'jhi-unit',
@@ -23,20 +26,43 @@ export class UnitComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  filters: UnitFilter = new UnitFilter();
+  filterForm = this.fb.group({
+    filterName: [],
+  });
+  organization?: IOrganization;
 
   constructor(
+    protected fb: FormBuilder,
     protected unitService: UnitService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
   ) {}
 
+  filter(): void {
+    this.createFilterFromForm();
+    this.loadPage();
+  }
+
+  resetFormulario(): void {
+    this.filterForm = this.fb.group({
+      filterName: [],
+    });
+    this.filters.name = '';
+    this.loadPage();
+  }
+
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
+    if (this.activatedRoute.snapshot.params.id) {
+      this.addEntityFilter();
+    }
 
     this.unitService
       .query({
+        filter: this.filters.toMap(),
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -54,7 +80,10 @@ export class UnitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ organization }) => {
+      this.organization = organization;
+      this.handleNavigation();
+    });
   }
 
   trackId(index: number, item: IUnit): number {
@@ -70,6 +99,14 @@ export class UnitComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  createFilterFromForm(): void {
+    this.filters.name = this.filterForm.get(['filterName'])!.value;
+  }
+
+  addEntityFilter(): void {
+    this.filters.organizationId = this.organization!.id;
   }
 
   protected sort(): string[] {
