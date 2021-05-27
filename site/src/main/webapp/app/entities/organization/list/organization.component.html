@@ -36,58 +36,47 @@
           <th scope="col" jhiSortBy="name">
             <span jhiTranslate="growthpathApp.organization.name">Name</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="logo">
-            <span jhiTranslate="growthpathApp.organization.logo">Logo</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="responsable.login">
-            <span jhiTranslate="growthpathApp.organization.responsable">Responsable</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col"></th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let organization of organizations; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/organization', organization.id, 'view']">{{ organization.id }}</a>
+            <a [routerLink]="['/organization', organization.id, 'edit']">{{ organization.id }}</a>
           </td>
           <td>{{ organization.name }}</td>
-          <td>
-            <a
-              *ngIf="organization.logo"
-              (click)="openFile(organization.logo, organization.logoContentType)"
-              jhiTranslate="entity.action.open"
-              >open</a
-            >
-            <span *ngIf="organization.logo">{{ organization.logoContentType }}, {{ byteSize(organization.logo) }}</span>
-          </td>
-          <td>
-            {{ organization.responsable?.login }}
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button
-                type="submit"
-                [routerLink]="['/organization', organization.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
+                pButton
+                pRipple
+                class="p-button p-button-rounded p-button-secondary"
+                data-cy="entityEditButton"
+                [routerLink]="['/organization', organization.id, 'unit']"
               >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <i class="pi pi-sitemap"></i>
               </button>
 
               <button
+                pButton
+                pRipple
                 type="submit"
                 [routerLink]="['/organization', organization.id, 'edit']"
-                class="btn btn-primary btn-sm"
+                class="p-button p-button-rounded"
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(organization)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button
+                pButton
+                pRipple
+                type="submit"
+                (click)="delete(organization)"
+                class="p-button p-button-rounded p-button-danger"
+                data-cy="entityDeleteButton"
+              >
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

@@ -3,6 +3,7 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { IOrganization } from '../organization.model';
 
@@ -30,7 +31,8 @@ export class OrganizationComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: DataUtils,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private primengConfig: PrimeNGConfig
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -57,6 +59,7 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.primengConfig.ripple = true;
   }
 
   trackId(index: number, item: IOrganization): number {

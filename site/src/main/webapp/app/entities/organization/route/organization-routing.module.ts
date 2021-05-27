@@ -12,7 +12,7 @@ const organizationRoute: Routes = [
     path: '',
     component: OrganizationComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'name,asc',
     },
     canActivate: [UserRouteAccessService],
   },
