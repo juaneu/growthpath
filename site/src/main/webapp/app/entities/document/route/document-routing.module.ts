@@ -11,6 +11,9 @@ const documentRoute: Routes = [
   {
     path: '',
     component: DocumentComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

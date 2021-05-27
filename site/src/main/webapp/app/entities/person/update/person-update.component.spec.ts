@@ -66,10 +66,10 @@ describe('Component Tests', () => {
 
       it('Should call Unit query and add missing value', () => {
         const person: IPerson = { id: 456 };
-        const area: IUnit = { id: 50240 };
+        const area: IUnit = { id: 73221 };
         person.area = area;
 
-        const unitCollection: IUnit[] = [{ id: 68157 }];
+        const unitCollection: IUnit[] = [{ id: 78139 }];
         spyOn(unitService, 'query').and.returnValue(of(new HttpResponse({ body: unitCollection })));
         const additionalUnits = [area];
         const expectedCollection: IUnit[] = [...additionalUnits, ...unitCollection];
@@ -87,7 +87,7 @@ describe('Component Tests', () => {
         const person: IPerson = { id: 456 };
         const user: IUser = { id: 48385 };
         person.user = user;
-        const area: IUnit = { id: 54742 };
+        const area: IUnit = { id: 74958 };
         person.area = area;
 
         activatedRoute.data = of({ person });

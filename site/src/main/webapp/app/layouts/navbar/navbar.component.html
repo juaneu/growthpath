@@ -1,66 +1,8 @@
-<nav data-cy="navbar" class="navbar navbar-expand-md">
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
   <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="110.874" height="48" viewBox="0 0 110.874 48">
-      <defs>
-        <style>
-          .a {
-            fill: #144659;
-          }
-
-          .b {
-            fill: #f2226e;
-          }
-        </style>
-      </defs>
-      <path
-        class="a"
-        d="M-540.706-366.467a8.816,8.816,0,0,0,6.267-2.43v-8.824h-6.651v2.206h4.156v5.467a5.234,5.234,0,0,1-3.613,1.215c-4.093,0-6.427-3.293-6.427-8.569,0-5.211,2.558-8.441,6.491-8.441a5.458,5.458,0,0,1,4.252,1.886l1.534-1.694a7.714,7.714,0,0,0-5.787-2.558c-5.436,0-9.3,4.093-9.3,10.871C-549.786-370.5-545.981-366.467-540.706-366.467Z"
-        transform="translate(549.786 388.209)"
-      />
-      <path
-        class="a"
-        d="M-481.667-374.878h3.712l5.048,8.856h3.038l-5.324-9.156a5.7,5.7,0,0,0,4.716-5.9c0-4.38-3.1-5.915-7.354-5.915h-6.555v20.975h2.718Zm0-9.944h3.453c3.261,0,5.052.991,5.052,3.74,0,2.686-1.791,4.029-5.052,4.029h-3.453Z"
-        transform="translate(505.038 387.379)"
-      />
-      <path
-        class="a"
-        d="M-420.749-366.467c4.732,0,8.057-4.093,8.057-10.967,0-6.778-3.325-10.774-8.057-10.774s-8.058,4-8.058,10.774C-428.807-370.56-425.482-366.467-420.749-366.467Zm0-19.376c3.165,0,5.275,3.134,5.275,8.409,0,5.372-2.11,8.6-5.275,8.6s-5.276-3.229-5.276-8.6C-426.025-382.71-423.915-385.843-420.749-385.843Z"
-        transform="translate(467.011 388.209)"
-      />
-      <path
-        class="a"
-        d="M-357.715-373.892c-.192,1.726-.255,2.749-.384,4.827h-.128c-.384-2.078-.575-3.1-1.023-4.827l-1.982-7.8h-2.558l-2.046,7.8c-.416,1.726-.639,2.749-1.023,4.827h-.1c-.1-2.078-.224-3.1-.416-4.859l-1.535-13.173h-3.005l3.2,21.007h3.261l2.046-8.441c.32-1.279.512-2.494.735-3.773h.1c.192,1.279.448,2.494.768,3.773l2.046,8.441h3.325l3.07-21.007h-2.878Z"
-        transform="translate(428.082 387.448)"
-      />
-      <path class="a" d="M-301.09-366.021h2.686v-18.7h6.938V-387h-16.562v2.271h6.938Z" transform="translate(384.373 387.379)" />
-      <path
-        class="a"
-        d="M-232.024-387v8.761h-8.7V-387h-2.718v20.975h2.718v-9.848h8.7v9.848h2.718V-387Z"
-        transform="translate(340.179 387.379)"
-      />
-      <path
-        class="a"
-        d="M-538.5-302.629h-6.331v20.975h2.686v-8.313h3.645c4.6,0,7.769-2.046,7.769-6.49C-530.726-301.062-533.859-302.629-538.5-302.629Zm-.32,10.488h-3.326v-8.313h3.326c3.613,0,5.4.992,5.4,4C-533.412-293.484-535.17-292.141-538.815-292.141Z"
-        transform="translate(546.392 329.654)"
-      />
-      <path
-        class="a"
-        d="M-484.2-302.629l-7.066,20.975h2.75l2-6.363h7.611l1.965,6.363h2.877l-7.066-20.975Zm4.622,12.438h-6.256l.994-3.165c.736-2.334,1.407-4.636,2.079-7.066h.128c.639,2.43,1.343,4.732,2.078,7.066Z"
-        transform="translate(509.749 329.654)"
-      />
-      <path class="a" d="M-429.516-300.358h6.938v18.7h2.686v-18.7h6.938v-2.271h-16.562Z" transform="translate(467.496 329.654)" />
-      <path
-        class="a"
-        d="M-353.511-293.868h-8.7v-8.761h-2.718v20.975h2.718V-291.5h8.7v9.848h2.718v-20.975h-2.718Z"
-        transform="translate(423.302 329.654)"
-      />
-      <rect class="b" width="13.748" height="1.982" transform="translate(77.751 36.458)" />
-      <path
-        class="b"
-        d="M-259.486-296.02l9.592,6.459v.127l-9.592,6.459v2.558l11.926-8.058v-2.046l-11.926-8.057Z"
-        transform="translate(351.16 326.882)"
-      />
-    </svg>
+    <span class="logo-img"></span>
+    <span jhiTranslate="global.title" class="navbar-title">Growthpath</span>
+    <span class="navbar-version">{{ version }}</span>
   </a>
   <a
     class="navbar-toggler d-lg-none"
@@ -74,80 +16,131 @@
   >
     <fa-icon icon="bars"></fa-icon>
   </a>
-  <div
-    class="navbar-collapse collapse row justify-content-evenly"
-    id="navbarResponsive"
-    [ngbCollapse]="isNavbarCollapsed"
-    [ngSwitch]="isAuthenticated()"
-  >
-    <ul class="navbar-nav col">
+  <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>
+            <fa-icon icon="home"></fa-icon>
             <span jhiTranslate="global.menu.home">Home</span>
           </span>
         </a>
       </li>
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="organization"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
-          <span jhiTranslate="global.menu.entities.organization">Organization</span>
+      <li
+        *ngSwitchCase="true"
+        ngbDropdown
+        class="nav-item dropdown pointer"
+        display="dynamic"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+          <span>
+            <fa-icon icon="th-list"></fa-icon>
+            <span jhiTranslate="global.menu.entities.main">Entities</span>
+          </span>
         </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="organization"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.organization">Organization</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="person"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.person">Person</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="document-type"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.documentType">Document Type</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="document"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.document">Document</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="unit"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.unit">Unit</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="skill-category"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.skillCategory">Skill Category</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="skill"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.skill">Skill</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="person-skill"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+              <span jhiTranslate="global.menu.entities.personSkill">Person Skill</span>
+            </a>
+          </li>
+          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+        </ul>
       </li>
-
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="person"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
-          <span jhiTranslate="global.menu.entities.person">Person</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="unit"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
-          <span jhiTranslate="global.menu.entities.unit">Unit</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="skill-category"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
-          <span jhiTranslate="global.menu.entities.skillCategory">Skill Category</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="skill"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="collapseNavbar()"
-        >
-          <span jhiTranslate="global.menu.entities.skill">Skill</span>
-        </a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto col d-flex justify-content-end">
       <li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown
@@ -158,6 +151,7 @@
       >
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
           <span>
+            <fa-icon icon="users-cog"></fa-icon>
             <span jhiTranslate="global.menu.admin.main">Administration</span>
           </span>
         </a>
@@ -199,12 +193,6 @@
             </a>
           </li>
           <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
-          <li *ngIf="!inProduction">
-            <a class="dropdown-item" href="./h2-console/" target="_tab" (click)="collapseNavbar()">
-              <fa-icon icon="database" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.admin.database">Database</span>
-            </a>
-          </li>
         </ul>
       </li>
       <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
@@ -235,7 +223,8 @@
       >
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!getImageUrl()">
-            <jhi-avatar></jhi-avatar>
+            <fa-icon icon="user"></fa-icon>
+            <span jhiTranslate="global.menu.account.main">Account</span>
           </span>
           <span *ngIf="getImageUrl()">
             <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar" />
@@ -281,34 +270,5 @@
         </ul>
       </li>
     </ul>
-  </div>
-</nav>
-<nav *ngIf="navbarSmall" class="navegation">
-  <div class="row">
-    <svg id="logoG" xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 112 52.875">
-      <defs>
-        <style>
-          .a {
-            fill: #144659;
-          }
-
-          .b {
-            fill: #f2226e;
-          }
-        </style>
-      </defs>
-      <path
-        class="a"
-        d="M764.365-356.226h10.108v13.3c-1.865,1.867-5.209,2.955-8.786,2.955-9.953,0-15.63-8.009-15.63-20.84,0-12.674,6.222-20.528,15.785-20.528a13.273,13.273,0,0,1,10.342,4.588l3.732-4.121a18.761,18.761,0,0,0-14.074-6.22c-13.219,0-22.626,9.953-22.626,26.438,0,16.639,9.252,26.438,22.083,26.438a21.442,21.442,0,0,0,15.242-5.91v-21.461H764.365Z"
-        transform="translate(-743.215 387.097)"
-      />
-      <rect class="b" width="33.436" height="4.82" transform="translate(49.139 23.872)" />
-      <path
-        class="b"
-        d="M851.4-381.826v6.22L874.725-359.9v.31L851.4-343.881v6.221l29-19.6v-4.977Z"
-        transform="translate(-768.403 385.87)"
-      />
-    </svg>
-    <h2 class="title" jhiTranslate="{{ title }}"></h2>
   </div>
 </nav>

@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Person.
     -->
-    <changeSet id="20210513112702-2" author="jhipster">
+    <changeSet id="20210527105922-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="id"
                                  baseTableName="person"

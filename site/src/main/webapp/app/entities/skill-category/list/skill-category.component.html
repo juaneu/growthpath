@@ -1,10 +1,9 @@
-<p-scrollTop [threshold]="200"></p-scrollTop>
-
 <div>
   <h2 id="page-heading" data-cy="SkillCategoryHeading">
     <span jhiTranslate="growthpathApp.skillCategory.home.title">Skill Categories</span>
+
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="growthpathApp.skillCategory.home.refreshListLabel">Refresh List</span>
       </button>
@@ -20,30 +19,7 @@
       </button>
     </div>
   </h2>
-  <div class="col-md-4">
-    <form name="filterForm" role="form" novalidate (ngSubmit)="filter()" [formGroup]="filterForm">
-      <div class="row">
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.skillCategory.name" for="filterName">Name</label>
-          <input class="form-control" type="text" id="filterName" formControlName="filterName" />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.skillCategory.unit" for="field_unit">Unit</label>
-          <select class="form-control" id="field_unit" data-cy="filterUnit" name="filterUnit" formControlName="filterUnit">
-            <option
-              [ngValue]="unitOption.id === filterForm.get('filterUnit')!.value?.id ? filterForm.get('filterUnit')!.value : unitOption"
-              *ngFor="let unitOption of unitsSharedCollection; trackBy: trackUnitById"
-            >
-              {{ unitOption.name }}
-            </option>
-          </select>
-        </div>
-      </div>
 
-      <button type="submit" class="btn btn-dark" jhiTranslate="growthpathApp.skillCategory.filter">FILTER</button>
-      <button type="button" (click)="cleanFilter()" jhiTranslate="growthpathApp.skillCategory.clean" class="btn btn-dark">CLEAN</button>
-    </form>
-  </div>
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
@@ -55,23 +31,18 @@
   <div class="table-responsive" id="entities" *ngIf="skillCategories && skillCategories.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-          <th scope="col" jhiSortBy="id">
-            <span jhiTranslate="global.field.id">ID</span>
-            <fa-icon icon="sort"></fa-icon>
-          </th>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="name">
-            <span jhiTranslate="growthpathApp.skillCategory.name">Name</span>
-            <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="growthpathApp.skillCategory.name">Name</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="unit.name">
-            <span jhiTranslate="growthpathApp.skillCategory.unit">Unit</span>
-            <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="growthpathApp.skillCategory.unit">Unit</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody>
         <tr *ngFor="let skillCategory of skillCategories; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/skill-category', skillCategory.id, 'view']">{{ skillCategory.id }}</a>
@@ -84,14 +55,14 @@
           </td>
           <td class="text-right">
             <div class="btn-group">
-              <!-- Skills de una categoría -->
               <button
                 type="submit"
-                [routerLink]="['/skill-category', skillCategory.id, 'skill']"
+                [routerLink]="['/skill-category', skillCategory.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
-                <span>Skills</span>
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -101,15 +72,35 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(skillCategory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="skillCategories && skillCategories.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

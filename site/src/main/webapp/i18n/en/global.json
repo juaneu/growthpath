@@ -9,12 +9,12 @@
         "main": "Entities",
         "organization": "Organization",
         "person": "Person",
+        "documentType": "Document Type",
+        "document": "Document",
         "unit": "Unit",
         "skillCategory": "Skill Category",
         "skill": "Skill",
         "personSkill": "Person Skill",
-        "documentType": "Document Type",
-        "document": "Document",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

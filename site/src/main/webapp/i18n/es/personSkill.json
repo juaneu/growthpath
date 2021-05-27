@@ -2,26 +2,26 @@
   "growthpathApp": {
     "personSkill": {
       "home": {
-        "title": "Habilidades de Persona ",
+        "title": "Person Skills",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nueva Habilidad de Persona",
-        "createOrEditLabel": "Crear o editar Habilidad de Persona",
-        "notFound": "Ninguna Habilidad de Persona encontrada"
+        "createLabel": "Crear nuevo Person Skill",
+        "createOrEditLabel": "Crear o editar Person Skill",
+        "notFound": "Ningún Person Skills encontrado"
       },
-      "created": "Una nueva Habilidad de Persona ha sido creado con el identificador {{ param }}",
-      "updated": "Una Habilidad de Persona ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Una Habilidad de Persona ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Person Skill ha sido creado con el identificador {{ param }}",
+      "updated": "Un Person Skill ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Person Skill ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar la Habilidad de Persona {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Person Skill {{ id }}?"
       },
       "detail": {
-        "title": "Habilidad de Persona"
+        "title": "Person Skill"
       },
       "id": "ID",
-      "comments": "Observaciones",
-      "level": "Nivel",
-      "person": "Persona",
-      "skill": "Habilidad"
+      "comments": "Comments",
+      "level": "Level",
+      "person": "Person",
+      "skill": "Skill"
     }
   }
 }

@@ -11,12 +11,12 @@
   "relationships": [],
   "entityTableName": "document_type",
   "dto": "mapstruct",
-  "pagination": "infinite-scroll",
+  "pagination": "pagination",
   "service": "serviceImpl",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "applications": "*",
-  "changelogDate": "20210519101516"
+  "changelogDate": "20210527105923"
 }

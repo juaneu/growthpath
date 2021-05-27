@@ -2,27 +2,27 @@
   "growthpathApp": {
     "unit": {
       "home": {
-        "title": "Departamentos",
+        "title": "Units",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Departamento",
-        "createOrEditLabel": "Crear o editar Departamento",
-        "notFound": "Ningún Departamento encontrado"
+        "createLabel": "Crear nuevo Unit",
+        "createOrEditLabel": "Crear o editar Unit",
+        "notFound": "Ningún Units encontrado"
       },
-      "created": "Un nuevo Departamento ha sido creado con el identificador {{ param }}",
-      "updated": "Un Departmento ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Departamento ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Unit ha sido creado con el identificador {{ param }}",
+      "updated": "Un Unit ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Unit ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar el Departamento{{ id }}?"
+        "question": "¿Seguro que quiere eliminar Unit {{ id }}?"
       },
       "detail": {
-        "title": "Departamento"
+        "title": "Unit"
       },
       "id": "ID",
-      "name": "Nombre",
-      "acronym": "Acronimo",
+      "name": "Name",
+      "acronym": "Acronym",
       "color": "Color",
       "responsable": "Responsable",
-      "organization": "Organizacion"
+      "organization": "Organization"
     }
   }
 }

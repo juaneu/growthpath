@@ -2,23 +2,23 @@
   "growthpathApp": {
     "organization": {
       "home": {
-        "title": "Organizaciones",
+        "title": "Organizations",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nueva Organización",
-        "createOrEditLabel": "Crear o editar Organización",
-        "notFound": "Ninguna Organización encontrada"
+        "createLabel": "Crear nuevo Organization",
+        "createOrEditLabel": "Crear o editar Organization",
+        "notFound": "Ningún Organizations encontrado"
       },
-      "created": "Una nueva Organización ha sido creada con el identificador {{ param }}",
-      "updated": "Una Organización ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Una Organización ha sido eliminada con el identificador {{ param }}",
+      "created": "Un nuevo Organization ha sido creado con el identificador {{ param }}",
+      "updated": "Un Organization ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Organization ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar la Organización {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Organization {{ id }}?"
       },
       "detail": {
-        "title": "Organización"
+        "title": "Organization"
       },
       "id": "ID",
-      "name": "Nombre",
+      "name": "Name",
       "logo": "Logo",
       "responsable": "Responsable"
     }

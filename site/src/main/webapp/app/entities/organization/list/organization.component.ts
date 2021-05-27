@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PrimeNGConfig } from 'primeng/api';
 
 import { IOrganization } from '../organization.model';
 
@@ -9,91 +10,53 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { OrganizationService } from '../service/organization.service';
 import { OrganizationDeleteDialogComponent } from '../delete/organization-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
-import { ParseLinks } from 'app/core/util/parse-links.service';
-import { OrganizationFilter } from './organization.filter';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-organization',
   templateUrl: './organization.component.html',
 })
 export class OrganizationComponent implements OnInit {
-  organizations: IOrganization[];
+  organizations?: IOrganization[];
   isLoading = false;
-  itemsPerPage: number;
-  links: { [key: string]: number };
-  page: number;
-  predicate: string;
-  ascending: boolean;
-  filters: OrganizationFilter = new OrganizationFilter();
-  filterForm = this.fb.group({
-    filterName: [],
-  });
+  totalItems = 0;
+  itemsPerPage = ITEMS_PER_PAGE;
+  page?: number;
+  predicate!: string;
+  ascending!: boolean;
+  ngbPaginationPage = 1;
 
   constructor(
-    protected fb: FormBuilder,
     protected organizationService: OrganizationService,
+    protected activatedRoute: ActivatedRoute,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal,
-    protected parseLinks: ParseLinks,
-    private primengConfig: PrimeNGConfig
-  ) {
-    this.organizations = [];
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.page = 0;
-    this.links = {
-      last: 0,
-    };
-    this.predicate = 'name';
-    this.ascending = true;
-  }
+    protected router: Router,
+    protected modalService: NgbModal
+  ) {}
 
-  filter(): void {
-    this.createFilterForm();
-    this.reset();
-  }
-
-  cleanFilter(): void {
-    this.filters.name = '';
-    this.filterForm.reset();
-    this.reset();
-  }
-
-  loadAll(): void {
+  loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
+    const pageToLoad: number = page ?? this.page ?? 1;
 
     this.organizationService
       .query({
-        filter: this.filters.toMap(),
-        page: this.page,
+        page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .subscribe(
         (res: HttpResponse<IOrganization[]>) => {
           this.isLoading = false;
-          this.paginateOrganizations(res.body, res.headers);
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
         },
         () => {
           this.isLoading = false;
+          this.onError();
         }
       );
   }
 
-  reset(): void {
-    this.page = 0;
-    this.organizations = [];
-    this.loadAll();
-  }
-
-  loadPage(page: number): void {
-    this.page = page;
-    this.loadAll();
-  }
-
   ngOnInit(): void {
-    this.loadAll();
-    this.primengConfig.ripple = true;
+    this.handleNavigation();
   }
 
   trackId(index: number, item: IOrganization): number {
@@ -114,13 +77,9 @@ export class OrganizationComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.reset();
+        this.loadPage();
       }
     });
-  }
-
-  createFilterForm(): void {
-    this.filters.name = this.filterForm.get(['filterName'])!.value;
   }
 
   protected sort(): string[] {
@@ -131,12 +90,38 @@ export class OrganizationComponent implements OnInit {
     return result;
   }
 
-  protected paginateOrganizations(data: IOrganization[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
-    if (data) {
-      for (const d of data) {
-        this.organizations.push(d);
+  protected handleNavigation(): void {
+    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
+      const page = params.get('page');
+      const pageNumber = page !== null ? +page : 1;
+      const sort = (params.get('sort') ?? data['defaultSort']).split(',');
+      const predicate = sort[0];
+      const ascending = sort[1] === 'asc';
+      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
+        this.predicate = predicate;
+        this.ascending = ascending;
+        this.loadPage(pageNumber, true);
       }
+    });
+  }
+
+  protected onSuccess(data: IOrganization[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+    this.totalItems = Number(headers.get('X-Total-Count'));
+    this.page = page;
+    if (navigate) {
+      this.router.navigate(['/organization'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc'),
+        },
+      });
     }
+    this.organizations = data ?? [];
+    this.ngbPaginationPage = this.page;
+  }
+
+  protected onError(): void {
+    this.ngbPaginationPage = this.page ?? 1;
   }
 }

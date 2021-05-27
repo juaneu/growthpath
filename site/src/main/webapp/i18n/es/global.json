@@ -7,14 +7,14 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "organization": "Organización",
-        "person": "Persona",
-        "unit": "Departamento",
-        "skillCategory": "Categoría de Habilidad",
-        "skill": "Habilidad",
-        "personSkill": "Habilidad de Persona",
-        "documentType": "Tipo de Documento",
-        "document": "Documento",
+        "organization": "Organization",
+        "person": "Person",
+        "documentType": "Document Type",
+        "document": "Document",
+        "unit": "Unit",
+        "skillCategory": "Skill Category",
+        "skill": "Skill",
+        "personSkill": "Person Skill",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

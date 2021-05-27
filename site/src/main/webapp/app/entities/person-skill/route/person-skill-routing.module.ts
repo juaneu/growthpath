@@ -11,6 +11,9 @@ const personSkillRoute: Routes = [
   {
     path: '',
     component: PersonSkillComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

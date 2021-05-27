@@ -7,26 +7,35 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity Document.
+        Added the entity Person.
     -->
-    <changeSet id="20210519101517-1" author="jhipster">
-        <createTable tableName="document">
+    <changeSet id="20210527105922-1" author="jhipster">
+        <createTable tableName="person">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="file" type="longblob">
+            <column name="name" type="varchar(250)">
                 <constraints nullable="false" />
             </column>
-            <column name="file_content_type" type="varchar(255)">
+            <column name="job_description" type="varchar(250)">
                 <constraints nullable="false" />
             </column>
-            <column name="comments" type="${clobType}">
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="acronym" type="varchar(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="birth_date" type="date">
                 <constraints nullable="true" />
             </column>
-            <column name="type_id" type="bigint">
+            <column name="image" type="longblob">
                 <constraints nullable="true" />
             </column>
-            <column name="person_id" type="bigint">
+            <column name="image_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="area_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -43,15 +52,19 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20210519101517-1-data" author="jhipster" context="faker">
+    <changeSet id="20210527105922-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/document.csv"
+                  file="config/liquibase/fake-data/person.csv"
                   separator=";"
-                  tableName="document">
+                  tableName="person">
             <column name="id" type="numeric"/>
-            <column name="file" type="blob"/>
-            <column name="file_content_type" type="string"/>
-            <column name="comments" type="clob"/>
+            <column name="name" type="string"/>
+            <column name="job_description" type="string"/>
+            <column name="email" type="string"/>
+            <column name="acronym" type="string"/>
+            <column name="birth_date" type="date"/>
+            <column name="image" type="blob"/>
+            <column name="image_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

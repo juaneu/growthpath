@@ -1,31 +1,18 @@
 <div class="row justify-content-center">
-  <div class="col-md-3">
-    <div class="card" style="width: 18rem">
-      <img src="data:image/png;base64,{{ editForm.get('logo')!.value }}" class="card-img-top" alt="logo" />
-      <div class="card-body">
-        <form>
-          <label class="btn btn-primary" for="file_logo">Seleccionar</label>
-          <input
-            type="file"
-            style="display: none"
-            id="file_logo"
-            data-cy="logo"
-            (change)="setFileData($event, 'logo', false)"
-            jhiTranslate="entity.action.addblob"
-          />
-          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
-          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
-          <button (click)="editForm.patchValue({ logo: null }); editForm.patchValue({ logoContentType: null })" class="btn btn-danger">
-            Eliminar
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-7">
+  <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-organization-heading"
+        data-cy="OrganizationCreateUpdateHeading"
+        jhiTranslate="growthpathApp.organization.home.createOrEditLabel"
+      >
+        Create or edit a Organization
+      </h2>
+
       <div>
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null || editForm.get('id')!.value != null">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
           <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
@@ -49,6 +36,37 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="growthpathApp.organization.logo" for="field_logo">Logo</label>
+          <div>
+            <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
+              <a
+                class="pull-left"
+                (click)="openFile(editForm.get('logo')!.value, editForm.get('logoContentType')!.value)"
+                jhiTranslate="entity.action.open"
+                >open</a
+              ><br />
+              <span class="pull-left">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ logo: null }); editForm.patchValue({ logoContentType: null })"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_logo"
+              data-cy="logo"
+              (change)="setFileData($event, 'logo', false)"
+              jhiTranslate="entity.action.addblob"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="growthpathApp.organization.responsable" for="field_responsable"
             >Responsable</label
           >
@@ -64,23 +82,20 @@
         </div>
       </div>
 
-      <div class="row justify-content-center">
-        <div class="col-md-10">
-          <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-          </button>
-        </div>
-        <div class="col-md-2">
-          <button
-            type="submit"
-            id="save-entity"
-            data-cy="entityCreateSaveButton"
-            [disabled]="editForm.invalid || isSaving"
-            class="btn btn-primary"
-          >
-            <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-          </button>
-        </div>
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
       </div>
     </form>
   </div>

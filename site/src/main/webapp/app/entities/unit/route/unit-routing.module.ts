@@ -11,6 +11,9 @@ const unitRoute: Routes = [
   {
     path: '',
     component: UnitComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

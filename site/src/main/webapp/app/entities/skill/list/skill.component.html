@@ -1,13 +1,21 @@
-<p-scrollTop [threshold]="200"></p-scrollTop>
-
 <div>
   <h2 id="page-heading" data-cy="SkillHeading">
     <span jhiTranslate="growthpathApp.skill.home.title">Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="growthpathApp.skill.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-skill"
+        [routerLink]="['/skill/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="growthpathApp.skill.home.createLabel"> Create a new Skill </span>
       </button>
     </div>
   </h2>
@@ -20,125 +28,67 @@
     <span jhiTranslate="growthpathApp.skill.home.notFound">No skills found</span>
   </div>
 
-  <!--Edit Row PrimeNG-->
-  <div class="card">
-    <p-table [value]="skills" dataKey="id" editMode="row">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Skill Category</th>
-          <th style="width: 8rem"></th>
+  <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.skill.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="skillCategory.name">
+            <span jhiTranslate="growthpathApp.skill.skillCategory">Skill Category</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
         </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-skill let-editing="editing" let-ri="rowIndex">
-        <tr [pEditableRow]="skill">
+      </thead>
+      <tbody>
+        <tr *ngFor="let skill of skills; trackBy: trackId" data-cy="entityTable">
           <td>
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <span>{{ skill.id }}</span>
-                <!-- <input [readonly]="true" pInputText type="text" [(ngModel)]="skill.id" /> -->
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ skill.id }}
-              </ng-template>
-            </p-cellEditor>
+            <a [routerLink]="['/skill', skill.id, 'view']">{{ skill.id }}</a>
           </td>
+          <td>{{ skill.name }}</td>
           <td>
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="skill.name" required />
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ skill.name }}
-              </ng-template>
-            </p-cellEditor>
+            <div *ngIf="skill.skillCategory">
+              <a [routerLink]="['/skill-category', skill.skillCategory?.id, 'view']">{{ skill.skillCategory?.name }}</a>
+            </div>
           </td>
-          <td>
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <!-- <p-dropdown
-                  [required]="true"
-                  placeholder="Please, select one"
-                  [filter]="true"
-                  filterBy="name"
-                  [(ngModel)]="skill.skillCategory"
-                  id="option"
-                  [showTransitionOptions]="'300ms'"
-                  [hideTransitionOptions]="'300ms'"
-                  [options]="skillCategorySharedCollection"
-                  optionLabel="name"
-                  [style]="{ width: '100%' }"
-                >
-                </p-dropdown> -->
-                <span>{{ skill.skillCategory?.name }}</span>
-              </ng-template>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/skill', skill.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
 
-              <ng-template pTemplate="output">
-                {{ skill.skillCategory?.name }}
-              </ng-template>
-            </p-cellEditor>
-          </td>
-          <td style="text-align: center">
-            <div class="row">
-              <button
-                *ngIf="!editing && skill.id == undefined"
-                pButton
-                pRipple
-                type="button"
-                pInitEditableRow
-                (click)="onRowEditInit(skill)"
-                class="p-button p-button-rounded p-button-text"
-              >
-                <i class="pi pi-plus"></i>
+              <button type="submit" [routerLink]="['/skill', skill.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
-              <button
-                *ngIf="!editing && skill.id !== undefined"
-                pButton
-                pRipple
-                type="button"
-                pInitEditableRow
-                (click)="onRowEditInit(skill)"
-                class="p-button p-button-rounded p-button-text"
-              >
-                <i class="pi pi-pencil"></i>
-              </button>
-              <button
-                *ngIf="!editing && skill.id !== undefined"
-                pButton
-                pRipple
-                type="button"
-                (click)="onRowDelete(skill)"
-                class="p-button p-button-rounded p-button-text p-button-danger"
-              >
-                <i class="pi pi-trash"></i>
-              </button>
-              <button
-                *ngIf="editing && skill.skillCategory !== undefined && skill.name !== undefined"
-                pButton
-                pRipple
-                type="button"
-                pSaveEditableRow
-                (click)="onRowEditSave(skill)"
-                class="p-button p-button-rounded p-button-text p-button-success p-mr-2"
-              >
-                <i class="pi pi-check"></i>
-              </button>
-              <button
-                *ngIf="editing"
-                pButton
-                pRipple
-                type="button"
-                pCancelEditableRow
-                (click)="onRowEditCancel(skill)"
-                class="p-button p-button-rounded p-button-text p-button-danger"
-              >
-                <i class="pi pi-times"></i>
+
+              <button type="submit" (click)="delete(skill)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
         </tr>
-      </ng-template>
-    </p-table>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="skills && skills.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>
