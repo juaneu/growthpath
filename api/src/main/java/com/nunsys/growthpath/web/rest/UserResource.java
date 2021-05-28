@@ -167,7 +167,7 @@ public class UserResource {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
 
-    @GetMapping("/users-responsable")
+    @GetMapping("users-responsable")
     public ResponseEntity<List<UserDTO>> getAllResponsableUsers() {
         List<UserDTO> responsables = userService.getAllResponsableUsers();
         return new ResponseEntity<>(responsables, null, HttpStatus.OK);

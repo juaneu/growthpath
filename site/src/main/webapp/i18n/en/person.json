@@ -24,8 +24,7 @@
       "birthDate": "Birth Date",
       "image": "Image",
       "user": "User",
-      "area": "Area",
-      "habilidades": "Skills"
+      "area": "Area"
     }
   }
 }

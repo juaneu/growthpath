@@ -1,11 +1,9 @@
-<p-scrollTop [threshold]="200"></p-scrollTop>
-
 <div>
   <h2 id="page-heading" data-cy="OrganizationHeading">
     <span jhiTranslate="growthpathApp.organization.home.title">Organizations</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="growthpathApp.organization.home.refreshListLabel">Refresh List</span>
       </button>
@@ -44,17 +42,15 @@
   <div class="table-responsive" id="entities" *ngIf="organizations && organizations.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="name">
             <span jhiTranslate="growthpathApp.organization.name">Name</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col">
-            <span>Acciones</span>
-          </th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
-      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <tbody>
         <tr *ngFor="let organization of organizations; trackBy: trackId" data-cy="entityTable">
           <td>
             <a [routerLink]="['/organization', organization.id, 'edit']">{{ organization.id }}</a>
@@ -63,18 +59,18 @@
           <td class="text-right">
             <div class="btn-group">
               <button
-                pRipple
                 pButton
-                type="submit"
-                [routerLink]="['/organization', organization.id, 'unit']"
+                pRipple
                 class="p-button p-button-rounded p-button-secondary"
                 data-cy="entityEditButton"
+                [routerLink]="['/organization', organization.id, 'unit']"
               >
                 <i class="pi pi-sitemap"></i>
               </button>
+
               <button
-                pRipple
                 pButton
+                pRipple
                 type="submit"
                 [routerLink]="['/organization', organization.id, 'edit']"
                 class="p-button p-button-rounded"
@@ -88,7 +84,7 @@
                 pRipple
                 type="submit"
                 (click)="delete(organization)"
-                class="p-button p-button-danger p-button-rounded"
+                class="p-button p-button-rounded p-button-danger"
                 data-cy="entityDeleteButton"
               >
                 <fa-icon icon="times"></fa-icon>
@@ -98,5 +94,23 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="organizations && organizations.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

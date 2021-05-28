@@ -1,13 +1,21 @@
-<p-scrollTop [threshold]="200"></p-scrollTop>
-
 <div>
   <h2 id="page-heading" data-cy="SkillHeading">
     <span jhiTranslate="growthpathApp.skill.home.title">Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="growthpathApp.skill.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-skill"
+        [routerLink]="['/skill/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="growthpathApp.skill.home.createLabel"> Create a new Skill </span>
       </button>
     </div>
   </h2>
@@ -20,8 +28,7 @@
     <span jhiTranslate="growthpathApp.skill.home.notFound">No skills found</span>
   </div>
 
-  <!--Edit Row PrimeNG-->
-  <div class="card">
+  <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
     <p-table [value]="skills" dataKey="id" editMode="row">
       <ng-template pTemplate="header">
         <tr>
@@ -37,7 +44,6 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <span>{{ skill.id }}</span>
-                <!-- <input [readonly]="true" pInputText type="text" [(ngModel)]="skill.id" /> -->
               </ng-template>
               <ng-template pTemplate="output">
                 {{ skill.id }}
@@ -57,20 +63,6 @@
           <td>
             <p-cellEditor>
               <ng-template pTemplate="input">
-                <!-- <p-dropdown
-                  [required]="true"
-                  placeholder="Please, select one"
-                  [filter]="true"
-                  filterBy="name"
-                  [(ngModel)]="skill.skillCategory"
-                  id="option"
-                  [showTransitionOptions]="'300ms'"
-                  [hideTransitionOptions]="'300ms'"
-                  [options]="skillCategorySharedCollection"
-                  optionLabel="name"
-                  [style]="{ width: '100%' }"
-                >
-                </p-dropdown> -->
                 <span>{{ skill.skillCategory?.name }}</span>
               </ng-template>
 
@@ -140,5 +132,23 @@
         </tr>
       </ng-template>
     </p-table>
+  </div>
+
+  <div *ngIf="skills && skills.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

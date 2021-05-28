@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call responsable query and add missing value', () => {
         const unit: IUnit = { id: 456 };
-        const responsable: IPerson = { id: 2487 };
+        const responsable: IPerson = { id: 38932 };
         unit.responsable = responsable;
 
-        const responsableCollection: IPerson[] = [{ id: 97240 }];
+        const responsableCollection: IPerson[] = [{ id: 48070 }];
         spyOn(personService, 'query').and.returnValue(of(new HttpResponse({ body: responsableCollection })));
         const expectedCollection: IPerson[] = [responsable, ...responsableCollection];
         spyOn(personService, 'addPersonToCollectionIfMissing').and.returnValue(expectedCollection);
@@ -86,7 +86,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const unit: IUnit = { id: 456 };
-        const responsable: IPerson = { id: 53039 };
+        const responsable: IPerson = { id: 42031 };
         unit.responsable = responsable;
         const organization: IOrganization = { id: 32464 };
         unit.organization = organization;

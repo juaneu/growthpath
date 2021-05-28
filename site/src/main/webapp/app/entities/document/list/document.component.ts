@@ -1,91 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDocument } from '../document.model';
+import { IPerson } from '../../person/person.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { DocumentService } from '../service/document.service';
 import { DocumentDeleteDialogComponent } from '../delete/document-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
-import { ParseLinks } from 'app/core/util/parse-links.service';
-import { ActivatedRoute } from '@angular/router';
-import { IPerson } from 'app/entities/person/person.model';
+import { DocumentFilter } from './document.filter';
 
 @Component({
   selector: 'jhi-document',
   templateUrl: './document.component.html',
 })
 export class DocumentComponent implements OnInit {
-  documents: IDocument[];
+  documents?: IDocument[];
   isLoading = false;
-  itemsPerPage: number;
-  links: { [key: string]: number };
-  page: number;
-  predicate: string;
-  ascending: boolean;
-
+  totalItems = 0;
+  itemsPerPage = ITEMS_PER_PAGE;
+  page?: number;
+  predicate!: string;
+  ascending!: boolean;
+  ngbPaginationPage = 1;
   person?: IPerson;
+  filters: DocumentFilter = new DocumentFilter();
 
   constructor(
     protected documentService: DocumentService,
+    protected activatedRoute: ActivatedRoute,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal,
-    protected parseLinks: ParseLinks,
-    protected activatedRoute: ActivatedRoute
-  ) {
-    this.documents = [];
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.page = 0;
-    this.links = {
-      last: 0,
-    };
-    this.predicate = 'person.name';
-    this.ascending = true;
-  }
+    protected router: Router,
+    protected modalService: NgbModal
+  ) {}
 
-  loadAll(): void {
+  loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
-
-    const filters: Map<string, any> = new Map();
+    const pageToLoad: number = page ?? this.page ?? 1;
 
     if (this.activatedRoute.snapshot.params.id) {
-      filters.set('personId.equals', this.person!.id);
+      this.addEntityFilter();
     }
 
     this.documentService
       .query({
-        filter: filters,
-        page: this.page,
+        filter: this.filters.toMap(),
+        page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .subscribe(
         (res: HttpResponse<IDocument[]>) => {
           this.isLoading = false;
-          this.paginateDocuments(res.body, res.headers);
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
         },
         () => {
           this.isLoading = false;
+          this.onError();
         }
       );
-  }
-
-  reset(): void {
-    this.page = 0;
-    this.documents = [];
-    this.loadAll();
-  }
-
-  loadPage(page: number): void {
-    this.page = page;
-    this.loadAll();
   }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ person }) => {
       this.person = person;
-      this.loadAll();
+      this.handleNavigation();
     });
   }
 
@@ -107,9 +89,13 @@ export class DocumentComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.reset();
+        this.loadPage();
       }
     });
+  }
+
+  addEntityFilter(): void {
+    this.filters.personId = this.person!.id;
   }
 
   protected sort(): string[] {
@@ -120,12 +106,38 @@ export class DocumentComponent implements OnInit {
     return result;
   }
 
-  protected paginateDocuments(data: IDocument[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
-    if (data) {
-      for (const d of data) {
-        this.documents.push(d);
+  protected handleNavigation(): void {
+    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
+      const page = params.get('page');
+      const pageNumber = page !== null ? +page : 1;
+      const sort = (params.get('sort') ?? data['defaultSort']).split(',');
+      const predicate = sort[0];
+      const ascending = sort[1] === 'asc';
+      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
+        this.predicate = predicate;
+        this.ascending = ascending;
+        this.loadPage(pageNumber, true);
       }
+    });
+  }
+
+  protected onSuccess(data: IDocument[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+    this.totalItems = Number(headers.get('X-Total-Count'));
+    this.page = page;
+    if (navigate) {
+      this.router.navigate(['/document'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc'),
+        },
+      });
     }
+    this.documents = data ?? [];
+    this.ngbPaginationPage = this.page;
+  }
+
+  protected onError(): void {
+    this.ngbPaginationPage = this.page ?? 1;
   }
 }

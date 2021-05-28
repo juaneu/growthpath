@@ -11,6 +11,9 @@ const skillRoute: Routes = [
   {
     path: '',
     component: SkillComponent,
+    data: {
+      defaultSort: 'name,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {

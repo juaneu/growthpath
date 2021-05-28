@@ -68,10 +68,10 @@ describe('Component Tests', () => {
 
       it('Should call Person query and add missing value', () => {
         const document: IDocument = { id: 456 };
-        const person: IPerson = { id: 15999 };
+        const person: IPerson = { id: 2487 };
         document.person = person;
 
-        const personCollection: IPerson[] = [{ id: 47420 }];
+        const personCollection: IPerson[] = [{ id: 97240 }];
         spyOn(personService, 'query').and.returnValue(of(new HttpResponse({ body: personCollection })));
         const additionalPeople = [person];
         const expectedCollection: IPerson[] = [...additionalPeople, ...personCollection];
@@ -89,7 +89,7 @@ describe('Component Tests', () => {
         const document: IDocument = { id: 456 };
         const type: IDocumentType = { id: 17921 };
         document.type = type;
-        const person: IPerson = { id: 86007 };
+        const person: IPerson = { id: 53039 };
         document.person = person;
 
         activatedRoute.data = of({ document });

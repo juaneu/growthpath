@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IUnit } from '../unit.model';
@@ -7,11 +9,9 @@ import { IUnit } from '../unit.model';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { UnitService } from '../service/unit.service';
 import { UnitDeleteDialogComponent } from '../delete/unit-delete-dialog.component';
-import { ParseLinks } from 'app/core/util/parse-links.service';
 import { UnitFilter } from './unit.filter';
 import { FormBuilder } from '@angular/forms';
 import { IOrganization } from 'app/entities/organization/organization.model';
-import { ActivatedRoute } from '@angular/router';
 
 import * as FileSaver from 'file-saver';
 
@@ -21,13 +21,14 @@ import * as FileSaver from 'file-saver';
   styleUrls: ['./unit.component.css'],
 })
 export class UnitComponent implements OnInit {
-  units: IUnit[];
+  units?: IUnit[];
   isLoading = false;
-  itemsPerPage: number;
-  links: { [key: string]: number };
-  page: number;
-  predicate: string;
-  ascending: boolean;
+  totalItems = 0;
+  itemsPerPage = ITEMS_PER_PAGE;
+  page?: number;
+  predicate!: string;
+  ascending!: boolean;
+  ngbPaginationPage = 1;
   filters: UnitFilter = new UnitFilter();
   filterForm = this.fb.group({
     filterName: [],
@@ -40,23 +41,16 @@ export class UnitComponent implements OnInit {
   constructor(
     protected fb: FormBuilder,
     protected unitService: UnitService,
-    protected modalService: NgbModal,
-    protected parseLinks: ParseLinks,
-    protected activatedRoute: ActivatedRoute
-  ) {
-    this.units = [];
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.page = 0;
-    this.links = {
-      last: 0,
-    };
-    this.predicate = 'name';
-    this.ascending = true;
-  }
+    protected activatedRoute: ActivatedRoute,
+    protected router: Router,
+    protected modalService: NgbModal
+  ) {}
+  /* eslint-disable no-console */
 
   filter(): void {
     this.createFilterFromForm();
-    this.reset();
+    // this.handleNavigation();
+    this.loadPage(1, true);
   }
 
   resetFormulario(): void {
@@ -64,49 +58,41 @@ export class UnitComponent implements OnInit {
       filterName: [],
     });
     this.filters.name = '';
-    this.reset();
+    this.loadPage(1, true);
   }
 
-  loadAll(): void {
+  loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
+    const pageToLoad: number = page ?? this.page ?? 1;
 
     if (this.activatedRoute.snapshot.params.id) {
       this.addEntityFilter();
     }
+    console.log(this.filters.toMap());
 
     this.unitService
       .query({
         filter: this.filters.toMap(),
-        page: this.page,
+        page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .subscribe(
         (res: HttpResponse<IUnit[]>) => {
           this.isLoading = false;
-          this.paginateUnits(res.body, res.headers);
+          this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
         },
         () => {
           this.isLoading = false;
+          this.onError();
         }
       );
-  }
-
-  reset(): void {
-    this.page = 0;
-    this.units = [];
-    this.loadAll();
-  }
-
-  loadPage(page: number): void {
-    this.page = page;
-    this.loadAll();
   }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ organization }) => {
       this.organization = organization;
-      this.loadAll();
+      this.handleNavigation();
     });
 
     this.cols = [
@@ -122,7 +108,7 @@ export class UnitComponent implements OnInit {
 
   exportPdf(): void {
     import('jspdf').then(jsPDF => {
-      import('jspdf-autotable').then(x => {
+      import('jspdf-autotable').then(() => {
         const doc = new jsPDF.default();
         (doc as any).autoTable(this.exportColumns, this.units);
         doc.save('units.pdf');
@@ -132,7 +118,7 @@ export class UnitComponent implements OnInit {
 
   exportExcel(): void {
     import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.units);
+      const worksheet = xlsx.utils.json_to_sheet(this.units!);
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, {
         bookType: 'xlsx',
@@ -161,7 +147,7 @@ export class UnitComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.reset();
+        this.loadPage();
       }
     });
   }
@@ -169,7 +155,7 @@ export class UnitComponent implements OnInit {
   createFilterFromForm(): void {
     this.filters.name = this.filterForm.get(['filterName'])!.value;
   }
-
+  /* eslint-disable no-console */
   addEntityFilter(): void {
     this.filters.organizationId = this.organization!.id;
   }
@@ -182,12 +168,38 @@ export class UnitComponent implements OnInit {
     return result;
   }
 
-  protected paginateUnits(data: IUnit[] | null, headers: HttpHeaders): void {
-    this.links = this.parseLinks.parse(headers.get('link') ?? '');
-    if (data) {
-      for (const d of data) {
-        this.units.push(d);
+  protected handleNavigation(): void {
+    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
+      const page = params.get('page');
+      const pageNumber = page !== null ? +page : 1;
+      const sort = (params.get('sort') ?? data['defaultSort']).split(',');
+      const predicate = sort[0];
+      const ascending = sort[1] === 'asc';
+      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
+        this.predicate = predicate;
+        this.ascending = ascending;
+        this.loadPage(pageNumber, true);
       }
+    });
+  }
+
+  protected onSuccess(data: IUnit[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+    this.totalItems = Number(headers.get('X-Total-Count'));
+    this.page = page;
+    if (navigate) {
+      this.router.navigate(['/unit'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc'),
+        },
+      });
     }
+    this.units = data ?? [];
+    this.ngbPaginationPage = this.page;
+  }
+
+  protected onError(): void {
+    this.ngbPaginationPage = this.page ?? 1;
   }
 }

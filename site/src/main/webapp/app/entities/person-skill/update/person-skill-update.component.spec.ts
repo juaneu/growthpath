@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Person query and add missing value', () => {
         const personSkill: IPersonSkill = { id: 456 };
-        const person: IPerson = { id: 38932 };
+        const person: IPerson = { id: 15999 };
         personSkill.person = person;
 
-        const personCollection: IPerson[] = [{ id: 48070 }];
+        const personCollection: IPerson[] = [{ id: 47420 }];
         spyOn(personService, 'query').and.returnValue(of(new HttpResponse({ body: personCollection })));
         const additionalPeople = [person];
         const expectedCollection: IPerson[] = [...additionalPeople, ...personCollection];
@@ -84,7 +84,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const personSkill: IPersonSkill = { id: 456 };
-        const person: IPerson = { id: 42031 };
+        const person: IPerson = { id: 86007 };
         personSkill.person = person;
         const skill: ISkill = { id: 31424 };
         personSkill.skill = skill;

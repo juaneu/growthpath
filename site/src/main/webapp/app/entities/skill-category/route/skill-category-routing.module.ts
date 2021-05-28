@@ -12,6 +12,9 @@ const skillCategoryRoute: Routes = [
   {
     path: '',
     component: SkillCategoryComponent,
+    data: {
+      defaultSort: 'name,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -41,6 +44,9 @@ const skillCategoryRoute: Routes = [
   {
     path: ':id/skill',
     component: SkillComponent,
+    data: {
+      defaultSort: 'name,asc',
+    },
     resolve: {
       skillCategory: SkillCategoryRoutingResolveService,
     },

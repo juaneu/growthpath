@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Skill.
     -->
-    <changeSet id="20210513112705-2" author="jhipster">
+    <changeSet id="20210527105927-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="skill_category_id"
                                  baseTableName="skill"

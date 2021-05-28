@@ -21,8 +21,8 @@ export class UnitUpdateComponent implements OnInit {
 
   responsablesCollection: IPerson[] = [];
   organizationsSharedCollection: IOrganization[] = [];
-  searchResponsable?: IPerson;
 
+  searchResponsable?: IPerson;
   color = '';
 
   editForm = this.fb.group({
@@ -45,17 +45,17 @@ export class UnitUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ unit }) => {
       this.updateForm(unit);
-      this.color = this.editForm.get(['color'])!.value;
+
       this.loadRelationshipsOptions();
     });
   }
 
-  updateColor(): void {
-    this.color = this.editForm.get(['color'])!.value;
-  }
-
   previousState(): void {
     window.history.back();
+  }
+
+  updateColor(): void {
+    this.color = this.editForm.get(['color'])!.value;
   }
 
   save(): void {
@@ -76,7 +76,6 @@ export class UnitUpdateComponent implements OnInit {
   trackOrganizationById(index: number, item: IOrganization): number {
     return item.id!;
   }
-
   loadRelationshipsOptions(): void {
     const filters: Map<string, any> = new Map();
     filters.set('name.contains', this.searchResponsable);
@@ -136,6 +135,24 @@ export class UnitUpdateComponent implements OnInit {
       unit.organization
     );
   }
+
+  // protected loadRelationshipsOptions(): void {
+  //   this.personService
+  //     .query({ 'unitId.specified': 'false' })
+  //     .pipe(map((res: HttpResponse<IPerson[]>) => res.body ?? []))
+  //     .pipe(map((people: IPerson[]) => this.personService.addPersonToCollectionIfMissing(people, this.editForm.get('responsable')!.value)))
+  //     .subscribe((people: IPerson[]) => (this.responsablesCollection = people));
+
+  //   this.organizationService
+  //     .query()
+  //     .pipe(map((res: HttpResponse<IOrganization[]>) => res.body ?? []))
+  //     .pipe(
+  //       map((organizations: IOrganization[]) =>
+  //         this.organizationService.addOrganizationToCollectionIfMissing(organizations, this.editForm.get('organization')!.value)
+  //       )
+  //     )
+  //     .subscribe((organizations: IOrganization[]) => (this.organizationsSharedCollection = organizations));
+  // }
 
   protected createFromForm(): IUnit {
     return {

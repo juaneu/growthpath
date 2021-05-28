@@ -15,12 +15,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { InputTextModule } from 'primeng/inputtext';
-import { ChipModule } from 'primeng/chip';
-import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   imports: [
@@ -61,16 +60,15 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
-    InputTextModule,
     AutoCompleteModule,
     ColorPickerModule,
+    InputTextModule,
     TableModule,
     DropdownModule,
     AvatarModule,
     AvatarGroupModule,
     BreadcrumbModule,
     ChipModule,
-    ScrollTopModule,
   ],
 })
 export class SharedModule {}

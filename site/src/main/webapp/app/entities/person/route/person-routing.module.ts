@@ -13,6 +13,9 @@ const personRoute: Routes = [
   {
     path: '',
     component: PersonComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -40,16 +43,22 @@ const personRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: ':id/document',
-    component: DocumentComponent,
+    path: ':id/person-skills',
+    component: PersonSkillComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     resolve: {
       person: PersonRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
   {
-    path: ':id/person-skill',
-    component: PersonSkillComponent,
+    path: ':id/documents',
+    component: DocumentComponent,
+    data: {
+      defaultSort: 'id,asc',
+    },
     resolve: {
       person: PersonRoutingResolveService,
     },

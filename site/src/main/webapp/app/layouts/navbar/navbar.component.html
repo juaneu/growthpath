@@ -234,9 +234,6 @@
         [routerLinkActiveOptions]="{ exact: true }"
       >
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
-          <span *ngIf="!getImageUrl()">
-            <jhi-avatar></jhi-avatar>
-          </span>
           <span *ngIf="getImageUrl()">
             <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar" />
           </span>

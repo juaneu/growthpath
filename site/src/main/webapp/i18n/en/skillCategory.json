@@ -21,8 +21,8 @@
       "name": "Name",
       "skills": "Skills",
       "unit": "Unit",
-      "filter": "FILTER",
-      "clean": "CLEAN"
+      "filter": "Filter",
+      "clean": "Clean"
     }
   }
 }

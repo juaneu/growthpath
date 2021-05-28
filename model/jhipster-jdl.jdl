@@ -1,4 +1,5 @@
 
+
 entity Organization {
 	name String required maxlength(250)
     logo Blob
@@ -87,5 +88,5 @@ relationship ManyToOne {
 
 dto * with mapstruct
 service all with serviceImpl
-paginate all with infinite-scroll
+paginate all with pagination
 filter all
