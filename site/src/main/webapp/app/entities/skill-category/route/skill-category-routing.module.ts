@@ -6,6 +6,7 @@ import { SkillCategoryComponent } from '../list/skill-category.component';
 import { SkillCategoryDetailComponent } from '../detail/skill-category-detail.component';
 import { SkillCategoryUpdateComponent } from '../update/skill-category-update.component';
 import { SkillCategoryRoutingResolveService } from './skill-category-routing-resolve.service';
+import { SkillComponent } from '../../skill/list/skill.component';
 
 const skillCategoryRoute: Routes = [
   {
@@ -35,6 +36,17 @@ const skillCategoryRoute: Routes = [
   {
     path: ':id/edit',
     component: SkillCategoryUpdateComponent,
+    resolve: {
+      skillCategory: SkillCategoryRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/skill',
+    component: SkillComponent,
+    data: {
+      defaultSort: 'name,asc',
+    },
     resolve: {
       skillCategory: SkillCategoryRoutingResolveService,
     },

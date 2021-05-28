@@ -75,13 +75,12 @@
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="growthpathApp.unit.responsable" for="field_responsable">Responsable</label>
           <p-autoComplete
-              [(ngModel)]="searchResponsable"
-              [ngModelOptions]="{ standalone: true }"
-              [suggestions]="responsablesCollection"
-              (completeMethod)="loadRelationshipsOptions()"
-              field="name"
-              ></p-autoComplete
-            >
+            [(ngModel)]="searchResponsable"
+            [ngModelOptions]="{ standalone: true }"
+            [suggestions]="responsablesCollection"
+            (completeMethod)="loadRelationshipsOptions()"
+            field="name"
+          ></p-autoComplete>
         </div>
 
         <div class="form-group">

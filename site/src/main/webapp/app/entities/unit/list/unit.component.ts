@@ -16,6 +16,7 @@ import { IOrganization } from 'app/entities/organization/organization.model';
 @Component({
   selector: 'jhi-unit',
   templateUrl: './unit.component.html',
+  styleUrls: ['./unit.component.css'],
 })
 export class UnitComponent implements OnInit {
   units?: IUnit[];
@@ -44,7 +45,7 @@ export class UnitComponent implements OnInit {
   filter(): void {
     this.createFilterFromForm();
     // this.handleNavigation();
-    this.loadPage(1,true);
+    this.loadPage(1, true);
   }
 
   resetFormulario(): void {
@@ -52,7 +53,7 @@ export class UnitComponent implements OnInit {
       filterName: [],
     });
     this.filters.name = '';
-    this.loadPage(1,true);
+    this.loadPage(1, true);
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -108,7 +109,7 @@ export class UnitComponent implements OnInit {
   createFilterFromForm(): void {
     this.filters.name = this.filterForm.get(['filterName'])!.value;
   }
-/* eslint-disable no-console */
+  /* eslint-disable no-console */
   addEntityFilter(): void {
     this.filters.organizationId = this.organization!.id;
   }
