@@ -289,6 +289,10 @@ public class UserService {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
 
+    public List<UserDTO> getAllResponsableUsers() {
+        return userRepository.findResponsableUsers().stream().map(UserDTO::new).collect(Collectors.toList());
+    }
+
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>
