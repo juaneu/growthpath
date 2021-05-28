@@ -44,6 +44,9 @@ const organizationRoute: Routes = [
   {
     path: ':id/unit',
     component: UnitComponent,
+    data: {
+      defaultSort: 'name,asc',
+    },
     resolve: {
       organization: OrganizationRoutingResolveService,
     },

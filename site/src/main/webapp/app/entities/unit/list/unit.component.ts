@@ -39,10 +39,12 @@ export class UnitComponent implements OnInit {
     protected router: Router,
     protected modalService: NgbModal
   ) {}
+  /* eslint-disable no-console */
 
   filter(): void {
     this.createFilterFromForm();
-    this.loadPage();
+    // this.handleNavigation();
+    this.loadPage(1,true);
   }
 
   resetFormulario(): void {
@@ -50,15 +52,17 @@ export class UnitComponent implements OnInit {
       filterName: [],
     });
     this.filters.name = '';
-    this.loadPage();
+    this.loadPage(1,true);
   }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
+
     if (this.activatedRoute.snapshot.params.id) {
       this.addEntityFilter();
     }
+    console.log(this.filters.toMap());
 
     this.unitService
       .query({
@@ -104,7 +108,7 @@ export class UnitComponent implements OnInit {
   createFilterFromForm(): void {
     this.filters.name = this.filterForm.get(['filterName'])!.value;
   }
-
+/* eslint-disable no-console */
   addEntityFilter(): void {
     this.filters.organizationId = this.organization!.id;
   }
