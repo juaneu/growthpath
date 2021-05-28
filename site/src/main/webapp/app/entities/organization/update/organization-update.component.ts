@@ -115,7 +115,7 @@ export class OrganizationUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.userService
-      .query()
+      .queryResponsable()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('responsable')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));

@@ -12,7 +12,7 @@ const documentRoute: Routes = [
     path: '',
     component: DocumentComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'person.name,asc',
     },
     canActivate: [UserRouteAccessService],
   },
