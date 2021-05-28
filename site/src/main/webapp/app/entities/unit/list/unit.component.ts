@@ -108,7 +108,7 @@ export class UnitComponent implements OnInit {
 
   exportPdf(): void {
     import('jspdf').then(jsPDF => {
-      import('jspdf-autotable').then(x => {
+      import('jspdf-autotable').then(() => {
         const doc = new jsPDF.default();
         (doc as any).autoTable(this.exportColumns, this.units);
         doc.save('units.pdf');

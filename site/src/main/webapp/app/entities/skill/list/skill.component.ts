@@ -86,7 +86,7 @@ export class SkillComponent implements OnInit {
     if (skill.id !== undefined) {
       this.subscribeToSaveResponse(this.skillService.update(skill));
     } else {
-      this.skillService.create(skill).subscribe(() => this.loadPage(1, true));
+      this.skillService.create(skill).subscribe(() => this.loadPage(1,true));
     }
     this.skillNew = {};
   }
@@ -137,16 +137,6 @@ export class SkillComponent implements OnInit {
     return item.id!;
   }
 
-  // delete(skill: ISkill): void {
-  //   const modalRef = this.modalService.open(SkillDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-  //   modalRef.componentInstance.skill = skill;
-  //   // unsubscribe not needed because closed completes on modal close
-  //   modalRef.closed.subscribe(reason => {
-  //     if (reason === 'deleted') {
-  //       this.loadPage(1,);
-  //     }
-  //   });
-  // }
 
   protected sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
@@ -183,9 +173,17 @@ export class SkillComponent implements OnInit {
         },
       });
     }
-    this.skills = data ?? [];
+    if (data) {
+      this.skills = [];
+      this.skills.push(this.skillNew);
+      for (const d of data) {
+        this.skills.push(d);
+      }
     this.ngbPaginationPage = this.page;
-    this.skills.push(this.skillNew);
+
+    }
+    // this.skills = data ?? [];
+    // this.skills.push(this.skillNew);
   }
 
   protected onError(): void {
