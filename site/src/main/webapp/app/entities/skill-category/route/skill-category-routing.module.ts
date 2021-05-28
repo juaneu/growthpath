@@ -12,7 +12,7 @@ const skillCategoryRoute: Routes = [
     path: '',
     component: SkillCategoryComponent,
     data: {
-      defaultSort: 'id,asc',
+      defaultSort: 'name,asc',
     },
     canActivate: [UserRouteAccessService],
   },
