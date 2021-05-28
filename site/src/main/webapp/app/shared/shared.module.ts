@@ -62,6 +62,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ItemCountComponent,
     AutoCompleteModule,
     ColorPickerModule,
+    InputTextModule,
     TableModule,
     DropdownModule,
     AvatarModule,

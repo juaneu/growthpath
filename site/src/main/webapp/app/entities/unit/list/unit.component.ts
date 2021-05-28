@@ -13,6 +13,8 @@ import { UnitFilter } from './unit.filter';
 import { FormBuilder } from '@angular/forms';
 import { IOrganization } from 'app/entities/organization/organization.model';
 
+import * as FileSaver from 'file-saver';
+
 @Component({
   selector: 'jhi-unit',
   templateUrl: './unit.component.html',
@@ -32,6 +34,9 @@ export class UnitComponent implements OnInit {
     filterName: [],
   });
   organization?: IOrganization;
+
+  cols?: any[];
+  exportColumns?: any[];
 
   constructor(
     protected fb: FormBuilder,
@@ -89,6 +94,47 @@ export class UnitComponent implements OnInit {
       this.organization = organization;
       this.handleNavigation();
     });
+
+    this.cols = [
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' },
+    ];
+
+    this.exportColumns = this.cols.map(col => ({
+      title: col.header,
+      dataKey: col.field,
+    }));
+  }
+
+  exportPdf(): void {
+    import('jspdf').then(jsPDF => {
+      import('jspdf-autotable').then(x => {
+        const doc = new jsPDF.default();
+        (doc as any).autoTable(this.exportColumns, this.units);
+        doc.save('units.pdf');
+      });
+    });
+  }
+
+  exportExcel(): void {
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.units!);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array',
+      });
+      this.saveAsExcelFile(excelBuffer, 'units');
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE,
+    });
+    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
   trackId(index: number, item: IUnit): number {
