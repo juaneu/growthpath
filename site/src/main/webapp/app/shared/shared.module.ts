@@ -14,9 +14,10 @@ import { ItemCountComponent } from './pagination/item-count.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputTextModule } from 'primeng/inputtext';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
-  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, InputTextModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, InputTextModule, ChipModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -46,6 +47,7 @@ import { InputTextModule } from 'primeng/inputtext';
     AutoCompleteModule,
     ColorPickerModule,
     InputTextModule,
+    ChipModule,
   ],
 })
 export class SharedModule {}

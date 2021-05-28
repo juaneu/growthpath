@@ -1,28 +1,8 @@
 <div>
-  <h2 id="page-heading" data-cy="UnitHeading">
-    <span jhiTranslate="growthpathApp.unit.home.title">Units</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="growthpathApp.unit.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-unit"
-        [routerLink]="['/unit/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="growthpathApp.unit.home.createLabel"> Create a new Unit </span>
-      </button>
-    </div>
-  </h2>
-
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
+
   <div class="row-component">
     <div class="filter">
       <form
@@ -60,35 +40,69 @@
       <span jhiTranslate="growthpathApp.unit.home.notFound">No units found</span>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
-      <table class="table table-striped" aria-describedby="page-heading">
-        <thead>
-          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-            <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-            <th scope="col" jhiSortBy="name"><span jhiTranslate="growthpathApp.unit.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
-            <td>
-              <a [routerLink]="['/unit', unit.id, 'edit']">{{ unit.id }}</a>
-            </td>
-            <td>{{ unit.name }}</td>
-            <td class="text-right">
-              <div class="btn-group">
-                <button type="submit" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                  <fa-icon icon="pencil-alt"></fa-icon>
-                </button>
-
-                <button type="submit" (click)="delete(unit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                  <fa-icon icon="times"></fa-icon>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="table-list-col">
+      <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
+        <div class="table-header">
+          <div class="table-left-buttons">
+            <button class="btn btn-outline-dark"><i class="pi pi-chevron-left"></i><i class="pi pi-filter"></i></button>
+            <p-chip class="table-chips" label="Nombre" [removable]="true"></p-chip>
+          </div>
+          <div class="table-right-buttons">
+            <button class="btn btn-outline-dark" (click)="exportPdf()"><i class="pi pi-file-pdf"></i></button>
+            <button class="btn btn-outline-dark" (click)="exportExcel()"><i class="pi pi-file-excel"></i></button>
+            <button class="btn btn-primary" [routerLink]="['/unit/new']" id="jh-create-entity" data-cy="entityCreateButton">
+              + <span jhiTranslate="growthpathApp.unit.detail.title">Unit</span>
+            </button>
+          </div>
+        </div>
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="name">
+                <span jhiTranslate="growthpathApp.unit.name">Name</span> <i *ngIf="ascending" class="pi pi-angle-up"></i
+                ><i *ngIf="ascending == false" class="pi pi-angle-down"></i>
+              </th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/unit', unit.id, 'edit']">{{ unit.id }}</a>
+              </td>
+              <td>{{ unit.name }}</td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    pButton
+                    pRipple
+                    type="submit"
+                    class="p-button p-button-rounded p-button-text"
+                    data-cy="entityEditButton"
+                    [routerLink]="['/unit', unit.id, 'edit']"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                  </button>
+                  <button
+                    pButton
+                    pRipple
+                    type="submit"
+                    (click)="delete(unit)"
+                    class="p-button p-button-rounded p-button-text"
+                    data-cy="entityDeleteButton"
+                  >
+                    <fa-icon icon="trash-alt"></fa-icon>
+                  </button>
+                  <button pButton pRipple type="submit" class="p-button p-button-rounded p-button-text">
+                    <i class="pi pi-ellipsis-v"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
