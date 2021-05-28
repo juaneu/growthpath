@@ -2,11 +2,11 @@
   "growthpathApp": {
     "SkillLevel": {
       "null": "",
-      "HIGHER": "HIGHER",
-      "HIGH": "HIGH",
-      "MEDIUM": "MEDIUM",
-      "LOW": "LOW",
-      "LOWER": "LOWER"
+      "HIGHER": "MUY ALTO",
+      "HIGH": "ALTO",
+      "MEDIUM": "MEDIO",
+      "LOW": "BAJO",
+      "LOWER": "MUY BAJO"
     }
   }
 }

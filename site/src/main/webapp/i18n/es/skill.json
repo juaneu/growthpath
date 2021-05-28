@@ -2,24 +2,24 @@
   "growthpathApp": {
     "skill": {
       "home": {
-        "title": "Skills",
+        "title": "Habilidades",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Skill",
-        "createOrEditLabel": "Crear o editar Skill",
+        "createLabel": "Crear nueva Habilidad",
+        "createOrEditLabel": "Crear o editar Habilidad",
         "notFound": "Ningún Skills encontrado"
       },
-      "created": "Un nuevo Skill ha sido creado con el identificador {{ param }}",
-      "updated": "Un Skill ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Skill ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Habilidad ha sido creada con el identificador {{ param }}",
+      "updated": "Una Habilidad ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Habilidad ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Skill {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Habilidad {{ id }}?"
       },
       "detail": {
-        "title": "Skill"
+        "title": "Habilidad"
       },
       "id": "ID",
-      "name": "Name",
-      "skillCategory": "Skill Category"
+      "name": "Nombre",
+      "skillCategory": "Categoría de Habilidad"
     }
   }
 }

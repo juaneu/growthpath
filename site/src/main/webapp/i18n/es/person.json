@@ -2,29 +2,30 @@
   "growthpathApp": {
     "person": {
       "home": {
-        "title": "People",
+        "title": "Personas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Person",
-        "createOrEditLabel": "Crear o editar Person",
-        "notFound": "Ningún People encontrado"
+        "createLabel": "Crear nueva Persona",
+        "createOrEditLabel": "Crear o editar Persona",
+        "notFound": "Ninguna Persona encontrada"
       },
-      "created": "Un nuevo Person ha sido creado con el identificador {{ param }}",
-      "updated": "Un Person ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Person ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Persona ha sido creado con el identificador {{ param }}",
+      "updated": "Una Persona ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Una Persona ha sido eliminada con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Person {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la Persona {{ id }}?"
       },
       "detail": {
-        "title": "Person"
+        "title": "Persona"
       },
-      "name": "Name",
-      "jobDescription": "Job Description",
+      "name": "Nombre",
+      "jobDescription": "Descripción de trabajo",
       "email": "Email",
-      "acronym": "Acronym",
-      "birthDate": "Birth Date",
-      "image": "Image",
-      "user": "User",
-      "area": "Area"
+      "acronym": "Acrónimo",
+      "birthDate": "Cumpleaños",
+      "image": "Imagen",
+      "user": "Usuario",
+      "area": "Área",
+      "habilidades": "Habilidades"
     }
   }
 }
