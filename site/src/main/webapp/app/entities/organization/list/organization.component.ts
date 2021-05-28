@@ -11,6 +11,8 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { OrganizationService } from '../service/organization.service';
 import { OrganizationDeleteDialogComponent } from '../delete/organization-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { OrganizationFilter } from './organization.filter';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-organization',
@@ -25,6 +27,10 @@ export class OrganizationComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  filters: OrganizationFilter = new OrganizationFilter();
+  filterForm = this.fb.group({
+    filterName: [],
+  });
 
   constructor(
     protected organizationService: OrganizationService,
@@ -32,7 +38,8 @@ export class OrganizationComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected router: Router,
     protected modalService: NgbModal,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private fb: FormBuilder
   ) {}
 
   loadPage(page?: number, dontNavigate?: boolean): void {
@@ -41,6 +48,7 @@ export class OrganizationComponent implements OnInit {
 
     this.organizationService
       .query({
+        filter: this.filters.toMap(),
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -60,6 +68,21 @@ export class OrganizationComponent implements OnInit {
   ngOnInit(): void {
     this.handleNavigation();
     this.primengConfig.ripple = true;
+  }
+
+  createFilterForm(): void {
+    this.filters.name = this.filterForm.get(['filterName'])!.value;
+  }
+
+  filter(): void {
+    this.createFilterForm();
+    this.loadPage();
+  }
+
+  cleanFilter(): void {
+    this.filters.name = '';
+    this.filterForm.reset();
+    this.loadPage();
   }
 
   trackId(index: number, item: IOrganization): number {
