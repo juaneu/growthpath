@@ -13,9 +13,10 @@ import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule, InputTextModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -44,6 +45,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     ItemCountComponent,
     AutoCompleteModule,
     ColorPickerModule,
+    InputTextModule,
   ],
 })
 export class SharedModule {}

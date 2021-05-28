@@ -1,0 +1,190 @@
+* {
+    color: #144659;
+    font-size: 16px;
+  }
+  
+  /* FILTROS */
+  
+  .row-component {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .filter {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border: 2px solid #00000029;
+    color: #144659;
+    font-size: 16px;
+  }
+  
+  .filter form > div {
+    padding: 0 40px;
+  }
+  
+  .filter form .filter-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 23px;
+    padding-bottom: 15px;
+    align-items: baseline;
+    justify-content: space-between;
+    box-shadow: 0px 1px #00000029;
+  }
+  
+  .filter form .filter-header > * {
+    width: 48%;
+  }
+  
+  .filter-header > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .filter-header h5 {
+    font-size: 26px;
+  }
+  
+  .filter form div.filter-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    box-shadow: 0px 1px #00000029;
+  }
+  
+  .filter-group div {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+  }
+  
+  /* ---------------------- */
+  
+  /* TABLA */
+  
+  div.table-responsive {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 70%;
+    background-color: #f3f6f7;
+    padding: 15px;
+  }
+  
+  .table-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px 0;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  
+  .table-left-buttons,
+  .table-right-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .table-left-buttons {
+    align-items: flex-start;
+  }
+  
+  .table-right-buttons {
+    align-items: flex-end;
+  }
+  
+  .table-header .btn {
+    margin: 0px 5px 0px 5px;
+  }
+  
+  .table td {
+    background-color: white;
+  }
+  
+  .table th {
+    border-top: none;
+  }
+  
+  .table-chips {
+    margin-left: 10px;
+  }
+  
+  /* ------------------------- */
+  
+  /* FORMS */
+  
+  label.form-control-label {
+    letter-spacing: 0px;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  input.form-control {
+    border-radius: 8px;
+    border: 1px solid #c4c4c4;
+  }
+  
+  input.form-control::placeholder {
+    color: #c4c4c4;
+  }
+  input.form-control:hover {
+    border: 1px solid #144659;
+  }
+  input.form-control:focus {
+    box-shadow: none;
+  }
+  input.form-control.ng-invalid:not(form) {
+    border: 1px solid #ff453a;
+  }
+  
+  /* --------------------------*/
+  
+  /* BOTONES */
+  
+  button.btn-primary {
+    background-color: #f2226e;
+    border: none;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  button.btn-primary span {
+    color: white;
+  }
+  
+  button.btn-text-light {
+    padding-left: 0;
+  }
+  
+  button.btn-outline-dark {
+    border-radius: 8px;
+  }
+  
+  button.btn-outline-dark:hover i {
+    color: white;
+  }
+  
+  .p-button.p-button-text {
+    font-size: small;
+  }
+  
+  .p-button.p-button-rounded {
+    height: 25px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  /* -------------------------- */
+  
