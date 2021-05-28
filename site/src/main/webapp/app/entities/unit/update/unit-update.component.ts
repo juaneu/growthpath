@@ -23,6 +23,7 @@ export class UnitUpdateComponent implements OnInit {
   organizationsSharedCollection: IOrganization[] = [];
 
   searchResponsable?: IPerson;
+  color = '';
 
   editForm = this.fb.group({
     id: [],
@@ -51,6 +52,10 @@ export class UnitUpdateComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  updateColor(): void {
+    this.color = this.editForm.get(['color'])!.value;
   }
 
   save(): void {
