@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -31,6 +33,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     SharedModule,
     HomeModule,

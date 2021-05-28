@@ -5,10 +5,13 @@ import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ISkill } from '../skill.model';
+import { ISkillCategory } from '../../skill-category/skill-category.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { SkillService } from '../service/skill.service';
 import { SkillDeleteDialogComponent } from '../delete/skill-delete-dialog.component';
+import { SkillCategoryService } from '../../skill-category/service/skill-category.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-skill',
@@ -24,8 +27,12 @@ export class SkillComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  skillCategory?: ISkillCategory;
+
   constructor(
+    protected fb: FormBuilder,
     protected skillService: SkillService,
+    protected skillCategoryService: SkillCategoryService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
@@ -35,8 +42,15 @@ export class SkillComponent implements OnInit {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
+    const filters: Map<string, any> = new Map();
+
+    if (this.activatedRoute.snapshot.params.id) {
+      filters.set('skillCategoryId.equals', this.skillCategory!.id);
+    }
+
     this.skillService
       .query({
+        filter: filters,
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -54,7 +68,10 @@ export class SkillComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ skillCategory }) => {
+      this.skillCategory = skillCategory;
+      this.handleNavigation();
+    });
   }
 
   trackId(index: number, item: ISkill): number {
