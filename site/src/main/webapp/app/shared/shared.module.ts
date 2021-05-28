@@ -11,9 +11,11 @@ import { FormatMediumDatePipe } from './date/format-medium-date.pipe';
 import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @NgModule({
-  imports: [SharedLibsModule],
+  imports: [SharedLibsModule, AutoCompleteModule, ColorPickerModule],
   declarations: [
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -40,6 +42,8 @@ import { ItemCountComponent } from './pagination/item-count.component';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    AutoCompleteModule,
+    ColorPickerModule,
   ],
 })
 export class SharedModule {}

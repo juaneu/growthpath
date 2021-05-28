@@ -63,7 +63,8 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="growthpathApp.unit.color" for="field_color">Color</label>
-          <input type="text" class="form-control" name="color" id="field_color" data-cy="color" formControlName="color" />
+          <p-colorPicker formControlName="color" [(ngModel)]="color" (onChange)="updateColor()"></p-colorPicker>
+          <input type="text" class="form-control" formControlName="color" [(ngModel)]="color" />
           <div *ngIf="editForm.get('color')!.invalid && (editForm.get('color')!.dirty || editForm.get('color')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('color')?.errors?.required" jhiTranslate="entity.validation.required">
               This field is required.
@@ -73,15 +74,13 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="growthpathApp.unit.responsable" for="field_responsable">Responsable</label>
-          <select class="form-control" id="field_responsable" data-cy="responsable" name="responsable" formControlName="responsable">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="personOption.id === editForm.get('responsable')!.value?.id ? editForm.get('responsable')!.value : personOption"
-              *ngFor="let personOption of responsablesCollection; trackBy: trackPersonById"
-            >
-              {{ personOption.name }}
-            </option>
-          </select>
+          <p-autoComplete
+            [(ngModel)]="searchResponsable"
+            [ngModelOptions]="{ standalone: true }"
+            [suggestions]="responsablesCollection"
+            (completeMethod)="loadRelationshipsOptions()"
+            field="name"
+          ></p-autoComplete>
         </div>
 
         <div class="form-group">
