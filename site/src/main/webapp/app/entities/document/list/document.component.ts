@@ -5,11 +5,13 @@ import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDocument } from '../document.model';
+import { IPerson } from '../../person/person.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { DocumentService } from '../service/document.service';
 import { DocumentDeleteDialogComponent } from '../delete/document-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { DocumentFilter } from './document.filter';
 
 @Component({
   selector: 'jhi-document',
@@ -24,6 +26,8 @@ export class DocumentComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  person?: IPerson;
+  filters: DocumentFilter = new DocumentFilter();
 
   constructor(
     protected documentService: DocumentService,
@@ -37,8 +41,13 @@ export class DocumentComponent implements OnInit {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
 
+    if (this.activatedRoute.snapshot.params.id) {
+      this.addEntityFilter();
+    }
+
     this.documentService
       .query({
+        filter: this.filters.toMap(),
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -56,7 +65,10 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ person }) => {
+      this.person = person;
+      this.handleNavigation();
+    });
   }
 
   trackId(index: number, item: IDocument): number {
@@ -80,6 +92,10 @@ export class DocumentComponent implements OnInit {
         this.loadPage();
       }
     });
+  }
+
+  addEntityFilter(): void {
+    this.filters.personId = this.person!.id;
   }
 
   protected sort(): string[] {
