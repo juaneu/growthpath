@@ -50,7 +50,6 @@ export class SkillComponent implements OnInit {
     this.skills = [];
   }
 
-  // --------------------------------------------------------------------EDIT TABLE METODOS
   onRowEditInit(skill: ISkill): void {
     if (this.activatedRoute.snapshot.params.id) {
       skill.skillCategory = this.skillCategory;
@@ -90,7 +89,6 @@ export class SkillComponent implements OnInit {
     }
     this.skillNew = {};
   }
-  // --------------------------------------------------------------------------------- FIN ORIGINAL
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -182,8 +180,6 @@ export class SkillComponent implements OnInit {
     this.ngbPaginationPage = this.page;
 
     }
-    // this.skills = data ?? [];
-    // this.skills.push(this.skillNew);
   }
 
   protected onError(): void {
@@ -216,3 +212,4 @@ export class SkillComponent implements OnInit {
     this.isSaving = false;
   }
 }
+// Todo: Setear resultados por página
