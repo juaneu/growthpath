@@ -23,7 +23,30 @@
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
+  <div class="filter">
+    <form name="filterForm" role="form" novalidate (ngSubmit)="filter()" [formGroup]="filterForm" class="ng-untouched ng-pristine ng-valid">
+      <div class="filter-header">
+        <h5>Filtros</h5>
+        <div>
+          <button type="button" (click)="resetFormulario()" class="btn btn-text-light">
+            <span>Quitar filtros</span>
+          </button>
+          <button type="submit" class="btn btn-primary"><span>Filtrar</span></button>
+        </div>
+      </div>
 
+      <div class="filter-group">
+        <div>
+          <label for="filterName" class="form-control-label">Nombre</label>
+          <input type="text" class="form-control" id="filterName" formControlName="filterName" placeholder="hola" />
+        </div>
+        <div>
+          <label for="filterName" class="form-control-label">Nombre</label>
+          <input type="text" class="form-control" id="filterName" formControlName="filterName" />
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="alert alert-warning" id="no-result" *ngIf="units?.length === 0">
     <span jhiTranslate="growthpathApp.unit.home.notFound">No units found</span>
   </div>
@@ -40,24 +63,17 @@
       <tbody>
         <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/unit', unit.id, 'view']">{{ unit.id }}</a>
+            <a [routerLink]="['/unit', unit.id, 'edit']">{{ unit.id }}</a>
           </td>
           <td>{{ unit.name }}</td>
           <td class="text-right">
             <div class="btn-group">
-              <button type="submit" [routerLink]="['/unit', unit.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
               <button type="submit" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(unit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
