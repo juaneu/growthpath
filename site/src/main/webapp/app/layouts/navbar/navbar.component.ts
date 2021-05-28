@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRouteSnapshot, NavigationEnd, NavigationError, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
@@ -8,11 +8,13 @@ import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { MenuItem } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
@@ -20,6 +22,10 @@ export class NavbarComponent implements OnInit {
   languages = LANGUAGES;
   openAPIEnabled?: boolean;
   version = '';
+  menuItems?: MenuItem[];
+  title?: string;
+
+  navbarSmall = false;
 
   constructor(
     private loginService: LoginService,
@@ -27,6 +33,7 @@ export class NavbarComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
+    private titleService: Title,
     private router: Router
   ) {
     if (VERSION) {
@@ -39,6 +46,25 @@ export class NavbarComponent implements OnInit {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateTitle();
+      }
+      if (event instanceof NavigationError && event.error.status === 404) {
+        this.router.navigate(['/404']);
+      }
+    });
+  }
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent(): void {
+    const navbarHeight = document.getElementsByClassName('navbar')[0].clientHeight;
+
+    if (window.pageYOffset >= navbarHeight) {
+      this.navbarSmall = true;
+    } else {
+      this.navbarSmall = false;
+    }
   }
 
   changeLanguage(languageKey: string): void {
@@ -70,5 +96,22 @@ export class NavbarComponent implements OnInit {
 
   getImageUrl(): string {
     return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
+  }
+
+  private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
+    let title: string = routeSnapshot.data['pageTitle'] ?? '';
+    if (routeSnapshot.firstChild) {
+      title = this.getPageTitle(routeSnapshot.firstChild) || title;
+      this.title = title;
+    }
+    return title;
+  }
+
+  private updateTitle(): void {
+    let pageTitle = this.getPageTitle(this.router.routerState.snapshot.root);
+    if (!pageTitle) {
+      pageTitle = 'global.title';
+    }
+    this.translateService.get(pageTitle).subscribe(title => this.titleService.setTitle(title));
   }
 }

@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <h2 id="page-heading" data-cy="SkillHeading">
     <span jhiTranslate="growthpathApp.skill.home.title">Skills</span>
 
@@ -90,5 +90,134 @@
         (pageChange)="loadPage($event)"
       ></ngb-pagination>
     </div>
+  </div>
+</div> -->
+
+<!-- EDIT TABLE ORIGINAL-->
+<div>
+  <h2 id="page-heading" data-cy="SkillHeading">
+    <span jhiTranslate="growthpathApp.skill.home.title">Skills</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="growthpathApp.skill.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="skills?.length === 0">
+    <span jhiTranslate="growthpathApp.skill.home.notFound">No skills found</span>
+  </div>
+
+  <!--Edit Row PrimeNG-->
+  <div class="card">
+    <p-table [value]="skills" dataKey="id" editMode="row">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Skill Category</th>
+          <th style="width: 8rem"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-skill let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="skill">
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <span>{{ skill.id }}</span>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ skill.id }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="skill.name" required />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ skill.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <span>{{ skill.skillCategory?.name }}</span>
+              </ng-template>
+
+              <ng-template pTemplate="output">
+                {{ skill.skillCategory?.name }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td style="text-align: center">
+            <div class="row">
+              <button
+                *ngIf="!editing && skill.id == undefined"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                (click)="onRowEditInit(skill)"
+                class="p-button p-button-rounded p-button-text"
+              >
+                <i class="pi pi-plus"></i>
+              </button>
+              <button
+                *ngIf="!editing && skill.id !== undefined"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                (click)="onRowEditInit(skill)"
+                class="p-button p-button-rounded p-button-text"
+              >
+                <i class="pi pi-pencil"></i>
+              </button>
+              <button
+                *ngIf="!editing && skill.id !== undefined"
+                pButton
+                pRipple
+                type="button"
+                (click)="onRowDelete(skill)"
+                class="p-button p-button-rounded p-button-text p-button-danger"
+              >
+                <i class="pi pi-trash"></i>
+              </button>
+              <button
+                *ngIf="editing && skill.skillCategory !== undefined && skill.name !== undefined"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                (click)="onRowEditSave(skill)"
+                class="p-button p-button-rounded p-button-text p-button-success p-mr-2"
+              >
+                <i class="pi pi-check"></i>
+              </button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                (click)="onRowEditCancel(skill)"
+                class="p-button p-button-rounded p-button-text p-button-danger"
+              >
+                <i class="pi pi-times"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
