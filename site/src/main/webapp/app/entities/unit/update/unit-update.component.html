@@ -73,7 +73,15 @@
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="growthpathApp.unit.responsable" for="field_responsable">Responsable</label>
-          <select class="form-control" id="field_responsable" data-cy="responsable" name="responsable" formControlName="responsable">
+          <p-autoComplete
+              [(ngModel)]="searchResponsable"
+              [ngModelOptions]="{ standalone: true }"
+              [suggestions]="responsablesCollection"
+              (completeMethod)="loadRelationshipsOptions()"
+              field="name"
+              >test</p-autoComplete
+            >
+          <!-- <select class="form-control" id="field_responsable" data-cy="responsable" name="responsable" formControlName="responsable">
             <option [ngValue]="null"></option>
             <option
               [ngValue]="personOption.id === editForm.get('responsable')!.value?.id ? editForm.get('responsable')!.value : personOption"
@@ -81,7 +89,7 @@
             >
               {{ personOption.name }}
             </option>
-          </select>
+          </select> -->
         </div>
 
         <div class="form-group">

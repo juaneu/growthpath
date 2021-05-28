@@ -22,6 +22,8 @@ export class UnitUpdateComponent implements OnInit {
   responsablesCollection: IPerson[] = [];
   organizationsSharedCollection: IOrganization[] = [];
 
+  searchResponsable?: IPerson;
+
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(100)]],
@@ -54,6 +56,7 @@ export class UnitUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const unit = this.createFromForm();
+    unit.responsable = this.searchResponsable;
     if (unit.id !== undefined) {
       this.subscribeToSaveResponse(this.unitService.update(unit));
     } else {
@@ -67,6 +70,29 @@ export class UnitUpdateComponent implements OnInit {
 
   trackOrganizationById(index: number, item: IOrganization): number {
     return item.id!;
+  }
+  loadRelationshipsOptions(): void {
+    const filters: Map<string, any> = new Map();
+    filters.set('name.contains', this.searchResponsable);
+    this.personService
+      .query({
+        'unitId.specified': 'false',
+        sort: ['name,asc'],
+        filter: filters,
+      })
+      .pipe(map((res: HttpResponse<IPerson[]>) => res.body ?? []))
+      .pipe(map((people: IPerson[]) => this.personService.addPersonToCollectionIfMissing(people, this.editForm.get('responsable')!.value)))
+      .subscribe((people: IPerson[]) => (this.responsablesCollection = people));
+
+    this.organizationService
+      .query()
+      .pipe(map((res: HttpResponse<IOrganization[]>) => res.body ?? []))
+      .pipe(
+        map((organizations: IOrganization[]) =>
+          this.organizationService.addOrganizationToCollectionIfMissing(organizations, this.editForm.get('organization')!.value)
+        )
+      )
+      .subscribe((organizations: IOrganization[]) => (this.organizationsSharedCollection = organizations));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IUnit>>): void {
@@ -105,23 +131,23 @@ export class UnitUpdateComponent implements OnInit {
     );
   }
 
-  protected loadRelationshipsOptions(): void {
-    this.personService
-      .query({ 'unitId.specified': 'false' })
-      .pipe(map((res: HttpResponse<IPerson[]>) => res.body ?? []))
-      .pipe(map((people: IPerson[]) => this.personService.addPersonToCollectionIfMissing(people, this.editForm.get('responsable')!.value)))
-      .subscribe((people: IPerson[]) => (this.responsablesCollection = people));
+  // protected loadRelationshipsOptions(): void {
+  //   this.personService
+  //     .query({ 'unitId.specified': 'false' })
+  //     .pipe(map((res: HttpResponse<IPerson[]>) => res.body ?? []))
+  //     .pipe(map((people: IPerson[]) => this.personService.addPersonToCollectionIfMissing(people, this.editForm.get('responsable')!.value)))
+  //     .subscribe((people: IPerson[]) => (this.responsablesCollection = people));
 
-    this.organizationService
-      .query()
-      .pipe(map((res: HttpResponse<IOrganization[]>) => res.body ?? []))
-      .pipe(
-        map((organizations: IOrganization[]) =>
-          this.organizationService.addOrganizationToCollectionIfMissing(organizations, this.editForm.get('organization')!.value)
-        )
-      )
-      .subscribe((organizations: IOrganization[]) => (this.organizationsSharedCollection = organizations));
-  }
+  //   this.organizationService
+  //     .query()
+  //     .pipe(map((res: HttpResponse<IOrganization[]>) => res.body ?? []))
+  //     .pipe(
+  //       map((organizations: IOrganization[]) =>
+  //         this.organizationService.addOrganizationToCollectionIfMissing(organizations, this.editForm.get('organization')!.value)
+  //       )
+  //     )
+  //     .subscribe((organizations: IOrganization[]) => (this.organizationsSharedCollection = organizations));
+  // }
 
   protected createFromForm(): IUnit {
     return {
