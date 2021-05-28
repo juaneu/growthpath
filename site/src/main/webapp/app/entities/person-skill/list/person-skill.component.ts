@@ -10,6 +10,7 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { PersonSkillService } from '../service/person-skill.service';
 import { PersonSkillDeleteDialogComponent } from '../delete/person-skill-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
+import { IPerson } from 'app/entities/person/person.model';
 
 @Component({
   selector: 'jhi-person-skill',
@@ -24,7 +25,7 @@ export class PersonSkillComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
-
+  person?: IPerson;
   constructor(
     protected personSkillService: PersonSkillService,
     protected activatedRoute: ActivatedRoute,
@@ -36,9 +37,13 @@ export class PersonSkillComponent implements OnInit {
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
     const pageToLoad: number = page ?? this.page ?? 1;
-
+    const filters: Map<string, any> = new Map();
+    if (this.activatedRoute.snapshot.params.id) {
+      filters.set('personId.equals', this.person!.id);
+    }
     this.personSkillService
       .query({
+        filter: filters,
         page: pageToLoad - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
@@ -56,7 +61,10 @@ export class PersonSkillComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.activatedRoute.data.subscribe(({ person }) => {
+      this.person = person;
+      this.handleNavigation();
+    });
   }
 
   trackId(index: number, item: IPersonSkill): number {
