@@ -19,7 +19,28 @@
       </button>
     </div>
   </h2>
+  <form name="filterForm" role="form" novalidate (ngSubmit)="filter()" [formGroup]="filterForm">
+    <div class="row">
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.skillCategory.name" for="filterName">Name</label>
+        <input class="form-control" type="text" id="filterName" formControlName="filterName" />
+      </div>
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.skillCategory.unit" for="field_unit">Unit</label>
+        <select class="form-control" id="field_unit" data-cy="filterUnit" name="filterUnit" formControlName="filterUnit">
+          <option
+            [ngValue]="unitOption.id === filterForm.get('filterUnit')!.value?.id ? filterForm.get('filterUnit')!.value : unitOption"
+            *ngFor="let unitOption of unitsSharedCollection; trackBy: trackUnitById"
+          >
+            {{ unitOption.name }}
+          </option>
+        </select>
+      </div>
+    </div>
 
+    <button type="submit" class="btn btn-dark" jhiTranslate="growthpathApp.skillCategory.filter">FILTER</button>
+    <button type="button" (click)="cleanFilter()" jhiTranslate="growthpathApp.skillCategory.clean" class="btn btn-dark">CLEAN</button>
+  </form>
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
@@ -45,7 +66,7 @@
       <tbody>
         <tr *ngFor="let skillCategory of skillCategories; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/skill-category', skillCategory.id, 'view']">{{ skillCategory.id }}</a>
+            <a [routerLink]="['/skill-category', skillCategory.id, 'skill']">{{ skillCategory.id }}</a>
           </td>
           <td>{{ skillCategory.name }}</td>
           <td>
@@ -57,12 +78,11 @@
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/skill-category', skillCategory.id, 'view']"
+                [routerLink]="['/skill-category', skillCategory.id, 'skill']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                <span>Skills</span>
               </button>
 
               <button
@@ -72,12 +92,10 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(skillCategory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>
