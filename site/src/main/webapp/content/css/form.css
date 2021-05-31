@@ -1,0 +1,96 @@
+/*INPUTS & DROPDOWNS*/
+input.form-control,
+select.form-control {
+  background-color: #ffffff;
+  color: #144659;
+  border-color: #c4c4c4;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
+  box-shadow: none;
+  width: auto;
+}
+
+input.form-control::placeholder,
+select.form-control::placeholder {
+  color: #c4c4c4;
+}
+
+input.form-control:hover,
+select.form-control:hover {
+  border: 1px solid #144659;
+}
+
+input.form-control:focus,
+select.form-control:focus {
+  border-color: #14465980;
+  color: #144659;
+  background-color: none;
+  box-shadow: 0px 0px 6px #14465980;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #c4c4c4;
+  -webkit-text-fill-color: #144659;
+  background-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input.form-control:invalid,
+select.form-control:invalid {
+  color: #144659;
+  border: 1px solid #d9042b;
+}
+
+input.ng-invalid:not(form),
+select.form-control:invalid:not(form) {
+  border: 1px solid #c4c4c4;
+}
+
+input.form-control.ng-dirty.ng-invalid:not(form),
+select.form-control.ng-dirty.ng-invalid:not(form) {
+  border: 1px solid #d9042b;
+}
+input.form-control.ng-touched.ng-invalid:not(form),
+select.form-control.ng-touched.ng-invalid:not(form) {
+  border: 1px solid #d9042b;
+}
+
+small.form-text.text-danger {
+  font-size: 12px;
+  font-weight: bold;
+  color: #d9042b;
+}
+
+small.form-text.text-danger::before {
+  content: '\f06a';
+  font-family: FontAwesome;
+  font-weight: 900;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+input.form-control:required,
+select.form-control:required {
+  border-color: #c4c4c4;
+}
+
+/*LABELS*/
+label.form-control-label {
+  color: #144659;
+  opacity: 1;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: left;
+}
+
+div.form-control:required label.form-control-label::after {
+  content: '*';
+  color: #d9042b;
+}
