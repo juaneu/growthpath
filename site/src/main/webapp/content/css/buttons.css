@@ -1,3 +1,8 @@
+* {
+  color: #144659;
+  font-size: 14px;
+  letter-spacing: 0.03rem;
+}
 /************************** GLOBAL **********************************/
 
 button.btn {
@@ -11,19 +16,19 @@ button.btn span {
   opacity: 1;
   color: white;
   font-weight: 600;
-  letter-spacing: 0.05rem;
 }
+
 
 /************************** BUTTON **********************************/
 
 button.btn-primary {
   background: #f2226e 0% 0% no-repeat padding-box;
   border: none;
-  border-radius: 8px;
   color: white;
   opacity: 1;
   box-shadow: none !important;
 }
+
 
 button.btn-primary:default {
   background-color: #f2226e;
@@ -81,7 +86,12 @@ button.btn-outline-dark {
   border: 1px solid var(--text-primary);
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #144659;
-  padding: 0.3rem 0.4rem;
+  padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+}
+button.btn-outline-dark i.pi{
+  position: relative;
+  font-size: 15px;
+  top: 1.6px;
 }
 
 button.btn-outline-dark:hover {
@@ -100,4 +110,8 @@ button.btn-outline-dark:disabled {
   border: 1px solid var(--text-primary);
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #144659;
+}
+
+button.btn span{
+  white-space: nowrap;
 }

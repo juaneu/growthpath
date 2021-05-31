@@ -4,7 +4,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="row-component">
-    <div class="filter">
+    <div [ngClass]="isCollapseFilter ? 'filter collapse' : 'filter'">
       <form
         name="filterForm"
         role="form"
@@ -43,7 +43,7 @@
     <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
       <div class="table-header">
         <div class="table-left-buttons">
-          <button class="btn btn-outline-dark"><i class="pi pi-chevron-left"></i><i class="pi pi-filter"></i></button>
+          <button class="btn btn-outline-dark" (click)="collapseFilter()"><i class="pi pi-chevron-left"></i><i class="pi pi-filter"></i></button>
           <p-chip class="table-chips" label="Nombre" [removable]="true"></p-chip>
         </div>
         <div class="table-right-buttons">

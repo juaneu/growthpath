@@ -18,7 +18,7 @@ import * as FileSaver from 'file-saver';
 @Component({
   selector: 'jhi-unit',
   templateUrl: './unit.component.html',
-  styleUrls: ['./unit.component.css'],
+  styleUrls : ['./unit.component.css']
 })
 export class UnitComponent implements OnInit {
   units?: IUnit[];
@@ -34,6 +34,7 @@ export class UnitComponent implements OnInit {
     filterName: [],
   });
   organization?: IOrganization;
+  isCollapseFilter = false;
 
   cols?: any[];
   exportColumns?: any[];
@@ -45,6 +46,10 @@ export class UnitComponent implements OnInit {
     protected router: Router,
     protected modalService: NgbModal
   ) {}
+
+  collapseFilter(): void {
+    this.isCollapseFilter = !(this.isCollapseFilter);
+}
   /* eslint-disable no-console */
 
   filter(): void {

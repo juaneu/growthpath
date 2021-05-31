@@ -11,10 +11,12 @@ nav:first-of-type {
   z-index: 2;
 }
 
-nav div a {
+/* nav.navbar div.navbar-collapse a.nav-link { */
+  nav.navbar ul li a.nav-link span{
   color: #144659;
   font-size: 18px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 nav ul {
@@ -71,7 +73,7 @@ nav .title {
 }
 
 .navegationnologo .title {
-  margin-left: 20px;
+  margin-left: 16px;
 }
 
 .navegationnologo #logoG {
@@ -81,3 +83,4 @@ nav .title {
 .navbar-nav {
   align-items: center;
 }
+
