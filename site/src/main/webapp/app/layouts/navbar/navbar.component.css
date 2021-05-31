@@ -59,6 +59,25 @@ nav .title {
   height: 40px;
 }
 
+.navegationnologo {
+  margin-top: 1px;
+  padding: 10px;
+  width: 100%;
+  top: 0;
+  display: inline-block;
+  position: sticky;
+  z-index: 1;
+  transition: top 0.3s;
+}
+
+.navegationnologo .title {
+  margin-left: 20px;
+}
+
+.navegationnologo #logoG {
+  display: none;
+}
+
 .navbar-nav {
   align-items: center;
 }
