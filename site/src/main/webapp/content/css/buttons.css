@@ -1,0 +1,103 @@
+/************************** GLOBAL **********************************/
+
+button.btn {
+  border-radius: 8px;
+  opacity: 1;
+  padding: 0.4rem 0.7rem;
+}
+
+button.btn span {
+  border-radius: 8px;
+  opacity: 1;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+
+/************************** BUTTON **********************************/
+
+button.btn-primary {
+  background: #f2226e 0% 0% no-repeat padding-box;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  opacity: 1;
+  box-shadow: none !important;
+}
+
+button.btn-primary:default {
+  background-color: #f2226e;
+}
+
+button.btn-primary:active {
+  background: #d82465 0% 0% no-repeat padding-box !important;
+  box-shadow: 0px 1px 1px #00000029;
+  border: 1px solid #f2226e !important ;
+}
+
+button.btn-primary:hover {
+  background-color: #d82465;
+  box-shadow: 0px 3px 6px #00000029 !important;
+}
+button.btn-primary:disabled {
+  background-color: #f2226e40;
+  color: #f2226e40;
+}
+button.btn-primary:disabled span {
+  color: #f2226e40;
+}
+
+/************************** TEXT BUTTON **********************************/
+
+button.btn-text-light {
+  border: none;
+  font: normal normal 600 14px/18px Source Sans Pro;
+  box-shadow: none !important;
+}
+
+button.btn-text-light span {
+  color: #f2226e;
+}
+
+button.btn-text-light:hover {
+  background: #f2226e14 0% 0% no-repeat padding-box;
+}
+
+button.btn-text-light:active {
+  background: #f2226e14 0% 0% no-repeat padding-box;
+  border: 1px solid #f2226e80;
+}
+
+button.btn-text-light:disabled span {
+  color: #f2226e;
+  color: var(--accent);
+}
+
+/****************************************************************************/
+
+/************************** BUTTON DOCUMENT**********************************/
+
+button.btn-outline-dark {
+  border: 1px solid var(--text-primary);
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #144659;
+  padding: 0.3rem 0.4rem;
+}
+
+button.btn-outline-dark:hover {
+  border: 1px solid var(--text-primary);
+  background: #1446591a 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #144659;
+}
+button.btn-outline-dark:active {
+  border: 1px solid var(--text-primary);
+  background: #1446591a 0% 0% no-repeat padding-box !important;
+  box-shadow: 0px 1px 1px #00000029 !important;
+  border: 1px solid #144659;
+}
+button.btn-outline-dark:disabled {
+  border: 1px solid var(--text-primary);
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #144659;
+}

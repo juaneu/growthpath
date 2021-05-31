@@ -153,37 +153,4 @@ input.form-control.ng-invalid:not(form) {
 
 /* BOTONES */
 
-button.btn-primary {
-  background-color: #f2226e;
-  border: none;
-  border-radius: 8px;
-  color: white;
-}
-
-button.btn-primary span {
-  color: white;
-}
-
-button.btn-text-light {
-  padding-left: 0;
-}
-
-button.btn-outline-dark {
-  border-radius: 8px;
-}
-
-button.btn-outline-dark:hover i {
-  color: white;
-}
-
-.p-button.p-button-text {
-  font-size: small;
-}
-
-.p-button.p-button-rounded {
-  height: 25px;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
 /* -------------------------- */
