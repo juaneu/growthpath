@@ -11,11 +11,9 @@ nav:first-of-type {
   z-index: 2;
 }
 
-/* nav.navbar div.navbar-collapse a.nav-link { */
-  nav.navbar ul li a.nav-link span{
+nav.navbar ul li a.nav-link span {
   color: #144659;
   font-size: 18px;
-  font-weight: bold;
   white-space: nowrap;
 }
 
@@ -33,14 +31,12 @@ nav li .active {
 
 nav .title {
   text-align: left;
-  font-weight: bold;
   letter-spacing: 0px;
   color: #144659;
   opacity: 1;
   margin-left: 20px;
 }
 
-/* Navbar inferior - iniciar oculto y mostrar+sticky al hacer scroll*/
 .navegation {
   margin-top: 1px;
   padding: 10px;
@@ -83,4 +79,3 @@ nav .title {
 .navbar-nav {
   align-items: center;
 }
-
