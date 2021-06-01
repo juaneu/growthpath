@@ -18,62 +18,76 @@ button.btn span {
   font-weight: 600;
 }
 
-
 /************************** BUTTON **********************************/
 
-button.btn-primary {
+button.btn-primary,
+button.btn.btn-danger {
   background: #f2226e 0% 0% no-repeat padding-box;
   border: none;
   color: white;
   opacity: 1;
   box-shadow: none !important;
 }
-
+button.btn-primary fa-icon,
+button.btn.btn-danger fa-icon {
+  display: none;
+}
 
 button.btn-primary:default {
   background-color: #f2226e;
 }
 
-button.btn-primary:active {
+button.btn-primary:active:not(:disabled),
+button.btn-primary:focus,
+button.btn-primary.focus {
   background: #d82465 0% 0% no-repeat padding-box !important;
   box-shadow: 0px 1px 1px #00000029;
   border: 1px solid #f2226e !important ;
 }
 
-button.btn-primary:hover {
+button.btn-primary:hover:not(:disabled),
+button.btn.btn-danger:hover:not(:disabled) {
   background-color: #d82465;
   box-shadow: 0px 3px 6px #00000029 !important;
 }
 button.btn-primary:disabled {
   background-color: #f2226e40;
-  color: #f2226e40;
 }
 button.btn-primary:disabled span {
-  color: #f2226e40;
+  color: #f2226e;
 }
 
 /************************** TEXT BUTTON **********************************/
 
-button.btn-text-light {
+button.btn-text-light,
+button.btn.btn-secondary {
   border: none;
   font: normal normal 600 14px/18px Source Sans Pro;
   box-shadow: none !important;
+  background: none;
+}
+button.btn.btn-secondary fa-icon {
+  display: none;
 }
 
-button.btn-text-light span {
+button.btn-text-light span,
+button.btn.btn-secondary span {
   color: #f2226e;
 }
 
-button.btn-text-light:hover {
+button.btn-text-light:hover,
+button.btn.btn-secondary:hover {
   background: #f2226e14 0% 0% no-repeat padding-box;
 }
 
-button.btn-text-light:active {
-  background: #f2226e14 0% 0% no-repeat padding-box;
-  border: 1px solid #f2226e80;
+button.btn-text-light:active,
+button.btn.btn-secondary:active {
+  background: #f2226e14 0% 0% no-repeat padding-box !important;
+  border: 1px solid #f2226e80 !important;
 }
 
-button.btn-text-light:disabled span {
+button.btn-text-light:disabled span,
+button.btn.btn-secondary:disabled span {
   color: #f2226e;
   color: var(--accent);
 }
@@ -88,7 +102,7 @@ button.btn-outline-dark {
   border: 1px solid #144659;
   padding: 0.3rem 0.4rem 0.3rem 0.4rem;
 }
-button.btn-outline-dark i.pi{
+button.btn-outline-dark i.pi {
   position: relative;
   font-size: 15px;
   top: 1.6px;
@@ -112,6 +126,6 @@ button.btn-outline-dark:disabled {
   border: 1px solid #144659;
 }
 
-button.btn span{
+button.btn span {
   white-space: nowrap;
 }
