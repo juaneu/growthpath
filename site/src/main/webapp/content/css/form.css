@@ -1,29 +1,31 @@
-/*INPUTS & DROPDOWNS*/
 input.form-control,
-select.form-control {
+select.form-control,
+.form-group input.p-autocomplete-input {
   background-color: #ffffff;
   color: #144659;
   border-color: #c4c4c4;
   border-radius: 8px;
   font-size: 14px;
   text-align: left;
-  font-weight: bold;
   box-shadow: none;
   width: auto;
 }
 
 input.form-control::placeholder,
-select.form-control::placeholder {
+select.form-control::placeholder,
+.form-group input.p-autocomplete-input::placeholder {
   color: #c4c4c4;
 }
 
 input.form-control:hover,
-select.form-control:hover {
+select.form-control:hover,
+.form-group input.p-autocomplete-input:hover {
   border: 1px solid #144659;
 }
 
 input.form-control:focus,
-select.form-control:focus {
+select.form-control:focus,
+.form-group input.p-autocomplete-input:focus {
   border-color: #14465980;
   color: #144659;
   background: none;
@@ -64,7 +66,6 @@ select.form-control.ng-touched.ng-invalid:not(form) {
 
 small.form-text.text-danger {
   font-size: 12px;
-  font-weight: bold;
   color: #d9042b;
 }
 
@@ -81,16 +82,17 @@ select.form-control:required {
   border-color: #c4c4c4;
 }
 
-/*LABELS*/
 label.form-control-label {
   color: #144659;
   opacity: 1;
-  font-weight: bold;
   font-size: 12px;
   text-align: left;
 }
 
-div.form-control:required label.form-control-label::after {
-  content: '*';
+/*Mostrar solo en campos required*/
+
+.form-group label.form-control-label::before {
+  content: ' * ';
+  font-size: 12px;
   color: #d9042b;
 }
