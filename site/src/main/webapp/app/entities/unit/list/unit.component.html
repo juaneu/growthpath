@@ -1,4 +1,34 @@
 <div>
+    <h2 id="page-heading" data-cy="UnitHeading">
+      <span jhiTranslate="growthpathApp.unit.home.title">Unit</span>
+
+      <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="growthpathApp.unit.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-unit"
+        [routerLink]="['/unit/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="growthpathApp.unit.home.createLabel"> Create a new Person </span>
+      </button>
+    </div>
+    </h2>
+    <!-- <div class="table-right-buttons">
+      
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="growthpathApp.unit.home.refreshListLabel">Refresh List</span>
+      </button>
+      <button class="btn btn-primary" [routerLink]="['/unit/new']" id="jh-create-entity" data-cy="entityCreateButton">
+        + <span jhiTranslate="growthpathApp.unit.detail.title">Unit</span>
+      </button>
+    </div> -->
   <jhi-alert-error></jhi-alert-error>
 
   <jhi-alert></jhi-alert>
@@ -43,15 +73,10 @@
     <div class="table-responsive" id="entities" *ngIf="units && units.length > 0">
       <div class="table-header">
         <div class="table-left-buttons">
-          <button class="btn btn-outline-dark" (click)="collapseFilter()"><i class="pi pi-chevron-left"></i><i class="pi pi-filter"></i></button>
-          <p-chip class="table-chips" label="Nombre" [removable]="true"></p-chip>
-        </div>
-        <div class="table-right-buttons">
-          <button class="btn btn-outline-dark" (click)="exportPdf()"><i class="pi pi-file-pdf"></i></button>
-          <button class="btn btn-outline-dark" (click)="exportExcel()"><i class="pi pi-file-excel"></i></button>
-          <button class="btn btn-primary" [routerLink]="['/unit/new']" id="jh-create-entity" data-cy="entityCreateButton">
-            + <span jhiTranslate="growthpathApp.unit.detail.title">Unit</span>
+          <button class="btn btn-outline-dark" (click)="collapseFilter()">
+            <i class="pi pi-chevron-left"></i><i class="pi pi-filter"></i>
           </button>
+          <p-chip class="table-chips" label="Nombre" [removable]="true"></p-chip>
         </div>
       </div>
       <table class="table table-striped" aria-describedby="page-heading">

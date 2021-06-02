@@ -68,10 +68,22 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    width: 70%;
     background-color: #f3f6f7;
     padding: 15px;
   }
+  div.filter + div.table-responsive{
+    width: 70%;
+  }
+  div.table-responsive table{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  div.filter + div.table-responsive table{
+    width: 100%;
+  }
+
+
   div.table-responsive tbody tr:hover td{
       background-color: #14465914;
   }
@@ -118,7 +130,7 @@
     background-color: white;
   }
   
-  .table th {
+  .table thead th {
     border-top: none;
   }
   
@@ -128,4 +140,7 @@
 
   div.row{
       margin:0;
+  }
+  div.navbar{
+    padding:0.5rem 1.5rem 0.5rem 1.5rem;
   }
