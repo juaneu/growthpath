@@ -1,0 +1,11 @@
+#entities table .btn-group button:first-child{
+    display: none;
+}
+#entities table .btn-group button{
+    border: none;
+    background-color: transparent;
+}
+
+#entities table .btn-group button span{
+    display: none !important;
+}

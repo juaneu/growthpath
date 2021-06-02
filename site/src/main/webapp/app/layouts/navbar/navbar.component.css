@@ -37,7 +37,8 @@ nav .title {
   margin-left: 20px;
 }
 
-.navegation {
+
+/* .navegation {
   margin-top: 1px;
   padding: 10px;
   width: 100%;
@@ -74,7 +75,7 @@ nav .title {
 
 .navegationnologo #logoG {
   display: none;
-}
+} */
 
 .navbar-nav {
   align-items: center;

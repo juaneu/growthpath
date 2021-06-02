@@ -16,6 +16,7 @@ import { DocumentFilter } from './document.filter';
 @Component({
   selector: 'jhi-document',
   templateUrl: './document.component.html',
+  styleUrls: ['./document.css']
 })
 export class DocumentComponent implements OnInit {
   documents?: IDocument[];

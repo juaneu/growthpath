@@ -1,0 +1,86 @@
+.page-item a.page-link{
+    background-color: transparent;
+    color: #F2226E;
+    border: none;
+    line-height: 1;
+}
+.page-item.disabled a.page-link{
+    background-color: transparent;
+    
+}
+.page-item.disabled {
+    opacity: 0.2;
+}
+.page-item.disabled:after{
+    color: black;
+}
+
+.page-item.active a.page-link {
+    background-color: #F2226E;
+    border-color: #F2226E;
+    border-radius: 50%;
+    color: white;
+}
+jhi-item-count div{
+    margin-bottom: 10px;
+}
+
+.pagination .page-item:last-child a{
+    display: none;
+}
+.pagination .page-item:last-child:after{
+    content: '\f101';
+    font-family: "FontAwesome";
+    display: block;
+    font-size: 1.3em;
+    margin-right: 8px;
+    line-height: 1.7;
+    color: #F2226E
+}
+.pagination .page-item:first-child a{
+    display: none;
+}
+.pagination .page-item:first-child:after{
+    content: '\f100';
+    font-family: "FontAwesome";
+    display: block;
+    font-size: 1.3em;
+    margin-right: 8px;
+    line-height: 1.7;
+    color: #F2226E
+}
+
+
+.pagination .page-item:nth-child(2) a{
+    display: none;
+}
+.pagination .page-item:nth-child(2):after{
+    content: '\f104';
+    font-family: "FontAwesome";
+    display: block;
+    font-size: 1.3em;
+    margin-right: 8px;
+    line-height: 1.7;
+    color: #F2226E;
+}
+.pagination .page-item:nth-last-child(2) a{
+    display: none;
+}
+.pagination .page-item:nth-last-child(2):after{
+    content: '\f105';
+    font-family: "FontAwesome";
+    display: block;
+    font-size: 1.3em;
+    margin-right: 8px;
+    line-height: 1.7;
+    color: #F2226E
+}
+
+
+#entities + div {
+    background-color: #f3f6f7;
+}
+#entities + div .page-item.active .page-link {
+    background-color: #F2226E;
+    border-color: #F2226E;
+}

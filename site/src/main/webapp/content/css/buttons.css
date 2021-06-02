@@ -18,6 +18,14 @@ button.btn span {
   font-weight: 600;
 }
 
+button.btn fa-icon path{
+  color: white;
+}
+button.btn fa-icon{
+  margin-right: 4px;
+
+}
+
 /************************** BUTTON **********************************/
 
 button.btn-primary,
@@ -28,10 +36,10 @@ button.btn.btn-danger {
   opacity: 1;
   box-shadow: none !important;
 }
-button.btn-primary fa-icon,
+/* button.btn-primary fa-icon,
 button.btn.btn-danger fa-icon {
   display: none;
-}
+} */
 
 button.btn-primary:default {
   background-color: #f2226e;
@@ -60,34 +68,34 @@ button.btn-primary:disabled span {
 /************************** TEXT BUTTON **********************************/
 
 button.btn-text-light,
-button.btn.btn-secondary {
+button.btn.btn-secondary, button.btn.btn-info {
   border: none;
   font: normal normal 600 14px/18px Source Sans Pro;
   box-shadow: none !important;
   background: none;
 }
-button.btn.btn-secondary fa-icon {
+button.btn.btn-secondary fa-icon, button.btn.btn-info fa-icon {
   display: none;
 }
 
 button.btn-text-light span,
-button.btn.btn-secondary span {
+button.btn.btn-secondary span, button.btn.btn-info span {
   color: #f2226e;
 }
 
 button.btn-text-light:hover,
-button.btn.btn-secondary:hover {
+button.btn.btn-secondary:hover, button.btn.btn-info:hover {
   background: #f2226e14 0% 0% no-repeat padding-box;
 }
 
 button.btn-text-light:active,
-button.btn.btn-secondary:active {
+button.btn.btn-secondary:active, button.btn.btn-info:active {
   background: #f2226e14 0% 0% no-repeat padding-box !important;
   border: 1px solid #f2226e80 !important;
 }
 
 button.btn-text-light:disabled span,
-button.btn.btn-secondary:disabled span {
+button.btn.btn-secondary:disabled span, button.btn.btn-info:disabled span {
   color: #f2226e;
   color: var(--accent);
 }
