@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { PersonService } from 'app/entities/person/service/person.service';
 import { Account } from 'app/core/auth/account.model';
-import { IPerson } from 'app/entities/person/person.model';
+
 @Component({
   selector: 'jhi-avatar',
   templateUrl: './avatar.component.html',
