@@ -4,6 +4,7 @@ import com.nunsys.growthpath.domain.*; // for static metamodels
 import com.nunsys.growthpath.domain.Person;
 import com.nunsys.growthpath.repository.PersonRepository;
 import com.nunsys.growthpath.service.criteria.PersonCriteria;
+import com.nunsys.growthpath.service.dto.PersonAvatarDTO;
 import com.nunsys.growthpath.service.dto.PersonDTO;
 import com.nunsys.growthpath.service.mapper.PersonMapper;
 import java.util.List;
@@ -62,7 +63,9 @@ public class PersonQueryService extends QueryService<Person> {
         final Specification<Person> specification = createSpecification(criteria);
         return personRepository.findAll(specification, page).map(personMapper::toDto);
     }
-
+    public PersonAvatarDTO findAvatar(Long id) {
+        return personRepository.findAvatar(id);
+    }
     /**
      * Return the number of matching entities in the database.
      * @param criteria The object which holds all the filters, which the entities should match.

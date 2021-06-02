@@ -4,6 +4,7 @@ import com.nunsys.growthpath.repository.PersonRepository;
 import com.nunsys.growthpath.service.PersonQueryService;
 import com.nunsys.growthpath.service.PersonService;
 import com.nunsys.growthpath.service.criteria.PersonCriteria;
+import com.nunsys.growthpath.service.dto.PersonAvatarDTO;
 import com.nunsys.growthpath.service.dto.PersonDTO;
 import com.nunsys.growthpath.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -171,6 +172,13 @@ public class PersonResource {
     public ResponseEntity<Long> countPeople(PersonCriteria criteria) {
         log.debug("REST request to count People by criteria: {}", criteria);
         return ResponseEntity.ok().body(personQueryService.countByCriteria(criteria));
+    }
+
+    @GetMapping("/avatar/{id}")
+    public ResponseEntity<PersonAvatarDTO> getAvatar(@PathVariable Long id) {
+
+        PersonAvatarDTO personAvatarDTO = personQueryService.findAvatar(id);
+        return ResponseEntity.ok().body(personAvatarDTO);
     }
 
     /**

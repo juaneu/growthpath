@@ -46,6 +46,12 @@ export class PersonService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  findAvatar(id: number): Observable<EntityResponseType> {
+    return this.http
+      .get<IPerson>(`api/avatar/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

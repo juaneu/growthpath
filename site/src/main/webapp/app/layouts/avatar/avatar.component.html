@@ -1,0 +1,5 @@
+<p-avatar *ngIf="image != undefined" shape="circle" size="large">
+  <img src="data:image/png;base64,{{ image }}" />
+</p-avatar>
+
+<p-avatar *ngIf="image == undefined" shape="circle" size="large" label="{{ acronym }}"> </p-avatar>
