@@ -25,7 +25,7 @@ nav li {
   margin-right: 24px;
 }
 
-nav li .active {
+nav.navbar ul li a.active span {
   color: #f2226e;
 }
 
@@ -36,7 +36,6 @@ nav .title {
   opacity: 1;
   margin-left: 20px;
 }
-
 
 /* .navegation {
   margin-top: 1px;
