@@ -23,7 +23,9 @@ button.btn fa-icon path{
 }
 button.btn fa-icon{
   margin-right: 4px;
-
+}
+#entities button.btn fa-icon path{
+  color: #144659;
 }
 
 /************************** BUTTON **********************************/
