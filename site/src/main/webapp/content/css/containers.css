@@ -1,3 +1,7 @@
+jhi-document > div, jhi-document-update > div {
+  height: calc(100vh - 103px - 21px);
+  background-color:  #1446590D;
+}
 .row-component {
     display: flex;
     flex-direction: row;
