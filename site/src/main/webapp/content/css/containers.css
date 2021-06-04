@@ -1,7 +1,14 @@
-jhi-document > div, jhi-document-update > div {
-  height: calc(100vh - 103px - 21px);
+/* jhi-document > div{
+  min-height: calc(100vh - 103px - 21px);
   background-color:  #1446590D;
+} */
+
+jhi-main  router-outlet + :nth-child(5) > div:only-of-type {
+  height: calc(100vh - 103px - 21px);
+  background-color:  #f3f6f7;
+   /* background-color: red; */
 }
+
 .row-component {
     display: flex;
     flex-direction: row;

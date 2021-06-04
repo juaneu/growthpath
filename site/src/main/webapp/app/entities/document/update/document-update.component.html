@@ -1,101 +1,99 @@
 <div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading" jhiTranslate="growthpathApp.document.home.createOrEditLabel">
-        Create or edit a Document
-      </h2>
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <h2 id="jhi-document-heading" data-cy="DocumentCreateUpdateHeading" jhiTranslate="growthpathApp.document.home.createOrEditLabel">
+      Create or edit a Document
+    </h2>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
+    <div>
+      <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+      <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+        <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+      </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.document.file" for="field_file">File</label>
-          <div>
-            <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
-              <a
-                class="pull-left"
-                (click)="openFile(editForm.get('file')!.value, editForm.get('fileContentType')!.value)"
-                jhiTranslate="entity.action.open"
-                >open</a
-              ><br />
-              <span class="pull-left">{{ editForm.get('fileContentType')!.value }}, {{ byteSize(editForm.get('file')!.value) }}</span>
-              <button
-                type="button"
-                (click)="editForm.patchValue({ file: null }); editForm.patchValue({ fileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_file"
-              data-cy="file"
-              (change)="setFileData($event, 'file', false)"
-              jhiTranslate="entity.action.addblob"
-            />
-          </div>
-          <input type="hidden" class="form-control" name="file" id="field_file" data-cy="file" formControlName="file" />
-          <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType" formControlName="fileContentType" />
-          <div *ngIf="editForm.get('file')!.invalid && (editForm.get('file')!.dirty || editForm.get('file')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('file')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.document.comments" for="field_comments">Comments</label>
-          <textarea class="form-control" name="comments" id="field_comments" data-cy="comments" formControlName="comments"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.document.type" for="field_type">Type</label>
-          <select class="form-control" id="field_type" data-cy="type" name="type" formControlName="type">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="documentTypeOption.id === editForm.get('type')!.value?.id ? editForm.get('type')!.value : documentTypeOption"
-              *ngFor="let documentTypeOption of documentTypesSharedCollection; trackBy: trackDocumentTypeById"
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.document.file" for="field_file">File</label>
+        <div>
+          <div *ngIf="editForm.get('file')!.value" class="form-text text-danger clearfix">
+            <a
+              class="pull-left"
+              (click)="openFile(editForm.get('file')!.value, editForm.get('fileContentType')!.value)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            ><br />
+            <span class="pull-left">{{ editForm.get('fileContentType')!.value }}, {{ byteSize(editForm.get('file')!.value) }}</span>
+            <button
+              type="button"
+              (click)="editForm.patchValue({ file: null }); editForm.patchValue({ fileContentType: null })"
+              class="btn btn-secondary btn-xs pull-right"
             >
-              {{ documentTypeOption.id }}
-            </option>
-          </select>
+              <fa-icon icon="times"></fa-icon>
+            </button>
+          </div>
+          <input
+            type="file"
+            id="file_file"
+            data-cy="file"
+            (change)="setFileData($event, 'file', false)"
+            jhiTranslate="entity.action.addblob"
+          />
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="growthpathApp.document.person" for="field_person">Person</label>
-          <select class="form-control" id="field_person" data-cy="person" name="person" formControlName="person">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="personOption.id === editForm.get('person')!.value?.id ? editForm.get('person')!.value : personOption"
-              *ngFor="let personOption of peopleSharedCollection; trackBy: trackPersonById"
-            >
-              {{ personOption.name }}
-            </option>
-          </select>
+        <input type="hidden" class="form-control" name="file" id="field_file" data-cy="file" formControlName="file" />
+        <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType" formControlName="fileContentType" />
+        <div *ngIf="editForm.get('file')!.invalid && (editForm.get('file')!.dirty || editForm.get('file')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('file')?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
       </div>
 
-      <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.document.comments" for="field_comments">Comments</label>
+        <textarea class="form-control" name="comments" id="field_comments" data-cy="comments" formControlName="comments"></textarea>
       </div>
-    </form>
-  </div>
+
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.document.type" for="field_type">Type</label>
+        <select class="form-control" id="field_type" data-cy="type" name="type" formControlName="type">
+          <option [ngValue]="null"></option>
+          <option
+            [ngValue]="documentTypeOption.id === editForm.get('type')!.value?.id ? editForm.get('type')!.value : documentTypeOption"
+            *ngFor="let documentTypeOption of documentTypesSharedCollection; trackBy: trackDocumentTypeById"
+          >
+            {{ documentTypeOption.id }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-control-label" jhiTranslate="growthpathApp.document.person" for="field_person">Person</label>
+        <select class="form-control" id="field_person" data-cy="person" name="person" formControlName="person">
+          <option [ngValue]="null"></option>
+          <option
+            [ngValue]="personOption.id === editForm.get('person')!.value?.id ? editForm.get('person')!.value : personOption"
+            *ngFor="let personOption of peopleSharedCollection; trackBy: trackPersonById"
+          >
+            {{ personOption.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+      </button>
+
+      <button
+        type="submit"
+        id="save-entity"
+        data-cy="entityCreateSaveButton"
+        [disabled]="editForm.invalid || isSaving"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+      </button>
+    </div>
+  </form>
 </div>

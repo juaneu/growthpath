@@ -1,6 +1,6 @@
 input.form-control,
 select.form-control,
-.form-group input.p-autocomplete-input {
+.form-group input.p-autocomplete-input, textarea.form-control {
   background-color: #ffffff;
   color: #144659;
   border-color: #c4c4c4;
@@ -8,24 +8,23 @@ select.form-control,
   font-size: 14px;
   text-align: left;
   box-shadow: none;
-  width: auto;
 }
 
 input.form-control::placeholder,
 select.form-control::placeholder,
-.form-group input.p-autocomplete-input::placeholder {
+.form-group input.p-autocomplete-input::placeholder, textarea.form-control::placeholder {
   color: #c4c4c4;
 }
 
 input.form-control:hover,
 select.form-control:hover,
-.form-group input.p-autocomplete-input:hover {
+.form-group input.p-autocomplete-input:hover, textarea.form-control:hover {
   border: 1px solid #144659;
 }
 
 input.form-control:focus,
 select.form-control:focus,
-.form-group input.p-autocomplete-input:focus {
+.form-group input.p-autocomplete-input:focus, textarea.form-control:focus {
   border-color: #14465980;
   color: #144659;
   background: none;
@@ -37,7 +36,10 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+select:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
   border: 1px solid #c4c4c4;
   -webkit-text-fill-color: #144659;
   background-color: #ffffff;
@@ -45,22 +47,22 @@ select:-webkit-autofill:focus {
 }
 
 input.form-control:invalid,
-select.form-control:invalid {
+select.form-control:invalid , textarea.form-control:invalid{
   color: #144659;
   border: 1px solid #d9042b;
 }
 
 input.ng-invalid:not(form),
-select.form-control:invalid:not(form) {
+select.form-control:invalid:not(form), textarea.form-control:invalid:not(form) {
   border: 1px solid #c4c4c4;
 }
 
 input.form-control.ng-dirty.ng-invalid:not(form),
-select.form-control.ng-dirty.ng-invalid:not(form) {
+select.form-control.ng-dirty.ng-invalid:not(form), textarea.form-control.ng-dirty.ng-invalid:not(form) {
   border: 1px solid #d9042b;
 }
 input.form-control.ng-touched.ng-invalid:not(form),
-select.form-control.ng-touched.ng-invalid:not(form) {
+select.form-control.ng-touched.ng-invalid:not(form), textarea.form-control.ng-touched.ng-invalid:not(form) {
   border: 1px solid #d9042b;
 }
 
@@ -78,7 +80,7 @@ small.form-text.text-danger::before {
 }
 
 input.form-control:required,
-select.form-control:required {
+select.form-control:required, textarea.form-control:required {
   border-color: #c4c4c4;
 }
 
@@ -95,4 +97,46 @@ label.form-control-label {
   content: ' * ';
   font-size: 12px;
   color: #d9042b;
+}
+
+
+form[name=editForm]{
+  width: 100%;
+  /* position: absolute; */
+}
+form[name=editForm] > div:nth-child(3){
+  bottom: 839px;
+  left: 1600px;
+  position: absolute;
+}
+
+form[name=editForm] > div:first-of-type{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 2;
+  /* justify-content: flex-end; */
+  justify-content: space-between;
+  margin-top: 30px;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #14465940;
+}
+form[name=editForm] > div:first-of-type div{
+  /* width: 39%; */
+  width: 43%;
+  margin: 10px 66px 10px 10px
+}
+form[name=editForm] > div:nth-child(3) button fa-icon{
+  display: none;
+}
+
+/* Con esta regla ocultamos el jhi-alert-error
+  Tenemos que conseguir que se muestre pero que no ocupe espacio
+  mientras no haya error
+ */
+form[name=editForm] > div:first-of-type > :first-child {
+  display: none;
 }

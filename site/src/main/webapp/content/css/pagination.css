@@ -31,6 +31,7 @@ jhi-item-count div {
   margin-bottom: 10px;
 }
 
+/* Estas reglas desabilitan el link del botón */
 .pagination .page-item:last-child a {
   display: none;
 }
@@ -39,7 +40,7 @@ jhi-item-count div {
   font-family: 'FontAwesome';
   display: block;
   font-size: 1.3em;
-  margin-right: 8px;
+  margin: 0 15px 0;
   line-height: 1.8;
   color: #c4c4c4;
 }
@@ -51,7 +52,7 @@ jhi-item-count div {
   font-family: 'FontAwesome';
   display: block;
   font-size: 1.3em;
-  margin-right: 8px;
+  margin: 0 15px 0;
   line-height: 1.8;
   color: #c4c4c4;
 }
@@ -64,7 +65,7 @@ jhi-item-count div {
   font-family: 'FontAwesome';
   display: block;
   font-size: 1.3em;
-  margin-right: 8px;
+  margin: 0 15px 0;
   line-height: 1.8;
   color: #c4c4c4;
 }
@@ -76,7 +77,7 @@ jhi-item-count div {
   font-family: 'FontAwesome';
   display: block;
   font-size: 1.3em;
-  margin-right: 8px;
+  margin: 0 15px 0;
   line-height: 1.8;
   color: #c4c4c4;
 }

@@ -70,7 +70,7 @@ button.btn-primary:disabled span {
 /************************** TEXT BUTTON **********************************/
 
 button.btn-text-light,
-button.btn.btn-secondary, button.btn.btn-info {
+button.btn.btn-secondary, button.btn.btn-info, input[type="file"] {
   border: none;
   font: normal normal 600 14px/18px Source Sans Pro;
   box-shadow: none !important;
@@ -86,12 +86,12 @@ button.btn.btn-secondary span, button.btn.btn-info span {
 }
 
 button.btn-text-light:hover,
-button.btn.btn-secondary:hover, button.btn.btn-info:hover {
+button.btn.btn-secondary:hover, button.btn.btn-info:hover , input[type="file"]:hover{
   background: #f2226e14 0% 0% no-repeat padding-box;
 }
 
 button.btn-text-light:active,
-button.btn.btn-secondary:active, button.btn.btn-info:active {
+button.btn.btn-secondary:active, button.btn.btn-info:active, input[type="file"]:active {
   background: #f2226e14 0% 0% no-repeat padding-box !important;
   border: 1px solid #f2226e80 !important;
 }
@@ -139,3 +139,37 @@ button.btn-outline-dark:disabled {
 button.btn span {
   white-space: nowrap;
 }
+
+/* Seleccionar archivo */
+
+/* form-group div:first-of-type {          
+  position: relative;
+  display: inline-block;
+}
+ 
+form-group div:first-of-type::before {
+  background-color: #5678EF;
+  color: white;
+  display: flex;            
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'Seleccionar';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;                
+}
+ 
+form-group div:first-of-type input[type="file"] {
+  opacity: 0;
+  width: 200px;
+  height: 32px;
+  display: inline-block;            
+}
+ 
+input[type="file"]::before {
+  content: 'Seleccionar Archivo 1';
+}
+  */

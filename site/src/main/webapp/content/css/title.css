@@ -1,4 +1,4 @@
-#page-heading{
+h2[id$="-heading"]{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
